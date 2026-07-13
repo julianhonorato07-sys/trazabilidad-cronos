@@ -1,0 +1,2628 @@
+{
+ "colores": {
+  "979": {
+   "nombre": "Gris Silverstone",
+   "hex": "#6A6E72"
+  },
+  "249": {
+   "nombre": "Blanco Banchisa",
+   "hex": "#F0EEE6"
+  },
+  "619": {
+   "nombre": "Plata Bari",
+   "hex": "#C9CBCD"
+  },
+  "806": {
+   "nombre": "Negro",
+   "hex": "#1E2124"
+  },
+  "534": {
+   "nombre": "Blanco Alaska",
+   "hex": "#FBFBFA"
+  },
+  "978": {
+   "nombre": "Rojo",
+   "hex": "#9E2B32"
+  }
+ },
+ "tipos_falla": [
+  {
+   "id": 1,
+   "nombre": "Bollo",
+   "usa_particularidad": true,
+   "requiere_particularidad": false
+  },
+  {
+   "id": 2,
+   "nombre": "Falta de particularidad",
+   "usa_particularidad": true,
+   "requiere_particularidad": true
+  },
+  {
+   "id": 3,
+   "nombre": "Para repintar",
+   "usa_particularidad": false,
+   "requiere_particularidad": false
+  },
+  {
+   "id": 4,
+   "nombre": "Ya repintada",
+   "usa_particularidad": false,
+   "requiere_particularidad": false
+  },
+  {
+   "id": 5,
+   "nombre": "JyP",
+   "usa_particularidad": true,
+   "requiere_particularidad": false
+  },
+  {
+   "id": 6,
+   "nombre": "Marca de operación",
+   "usa_particularidad": true,
+   "requiere_particularidad": false
+  },
+  {
+   "id": 7,
+   "nombre": "Caso especial",
+   "usa_particularidad": false,
+   "requiere_particularidad": false
+  },
+  {
+   "id": 8,
+   "nombre": "Otra anomalía",
+   "usa_particularidad": false,
+   "requiere_particularidad": false
+  }
+ ],
+ "particularidades": [
+  {
+   "id": 1,
+   "codigo": "CAPOT",
+   "nombre": "Capot"
+  },
+  {
+   "id": 2,
+   "codigo": "BAUL",
+   "nombre": "Baúl"
+  },
+  {
+   "id": 3,
+   "codigo": "PASX",
+   "nombre": "Puerta anterior izq."
+  },
+  {
+   "id": 4,
+   "codigo": "PADX",
+   "nombre": "Puerta anterior der."
+  },
+  {
+   "id": 5,
+   "codigo": "PPSX",
+   "nombre": "Puerta posterior izq."
+  },
+  {
+   "id": 6,
+   "codigo": "PPDX",
+   "nombre": "Puerta posterior der."
+  },
+  {
+   "id": 7,
+   "codigo": "GBSX",
+   "nombre": "Guardabarro izq."
+  },
+  {
+   "id": 8,
+   "codigo": "GBDX",
+   "nombre": "Guardabarro der."
+  },
+  {
+   "id": 9,
+   "codigo": "ZOC",
+   "nombre": "Zócalo"
+  }
+ ],
+ "operarios": [
+  {
+   "id": 1,
+   "nombre": "Julián H.",
+   "rol": "supervisor",
+   "activo": true
+  },
+  {
+   "id": 2,
+   "nombre": "Revisión 1",
+   "rol": "revision",
+   "activo": true
+  },
+  {
+   "id": 3,
+   "nombre": "Revisión 2",
+   "rol": "revision",
+   "activo": true
+  },
+  {
+   "id": 4,
+   "nombre": "Box 1",
+   "rol": "box",
+   "activo": true
+  },
+  {
+   "id": 5,
+   "nombre": "Box 2",
+   "rol": "box",
+   "activo": true
+  }
+ ],
+ "unidades": [
+  {
+   "id": 1,
+   "cis": "8300018",
+   "check_digit": "2",
+   "salida_linea": "2026-07-03T16:48:44.453000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 2,
+   "cis": "8300016",
+   "check_digit": "6",
+   "salida_linea": "2026-07-03T16:46:57.550000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 3,
+   "cis": "8300017",
+   "check_digit": "4",
+   "salida_linea": "2026-07-03T16:43:56.103000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 4,
+   "cis": "8300011",
+   "check_digit": "7",
+   "salida_linea": "2026-07-03T16:17:32.567000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 5,
+   "cis": "8300007",
+   "check_digit": "5",
+   "salida_linea": "2026-07-03T16:01:01.083000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 6,
+   "cis": "8300003",
+   "check_digit": "4",
+   "salida_linea": "2026-07-03T15:50:23.140000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "249"
+  },
+  {
+   "id": 7,
+   "cis": "8296550",
+   "check_digit": "0",
+   "salida_linea": "2026-07-03T15:27:49.773000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "249"
+  },
+  {
+   "id": 8,
+   "cis": "8300026",
+   "check_digit": "5",
+   "salida_linea": "2026-07-03T15:23:53.227000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "249"
+  },
+  {
+   "id": 9,
+   "cis": "8300024",
+   "check_digit": "0",
+   "salida_linea": "2026-07-03T15:21:24.513000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "249"
+  },
+  {
+   "id": 10,
+   "cis": "8300002",
+   "check_digit": "6",
+   "salida_linea": "2026-07-03T15:18:42.683000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "249"
+  },
+  {
+   "id": 11,
+   "cis": "8296645",
+   "check_digit": "8",
+   "salida_linea": "2026-07-03T15:16:50.070000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "249"
+  },
+  {
+   "id": 12,
+   "cis": "8296577",
+   "check_digit": "3",
+   "salida_linea": "2026-07-03T15:14:56.860000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "249"
+  },
+  {
+   "id": 13,
+   "cis": "8296579",
+   "check_digit": "9",
+   "salida_linea": "2026-07-03T14:51:15.020000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 14,
+   "cis": "8300033",
+   "check_digit": "1",
+   "salida_linea": "2026-07-03T14:43:25.337000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 15,
+   "cis": "8300032",
+   "check_digit": "3",
+   "salida_linea": "2026-07-03T13:33:58.777000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "619"
+  },
+  {
+   "id": 16,
+   "cis": "8300031",
+   "check_digit": "5",
+   "salida_linea": "2026-07-03T13:32:24.883000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "619"
+  },
+  {
+   "id": 17,
+   "cis": "8296637",
+   "check_digit": "5",
+   "salida_linea": "2026-07-03T13:29:38.430000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "619"
+  },
+  {
+   "id": 18,
+   "cis": "8300043",
+   "check_digit": "0",
+   "salida_linea": "2026-07-03T13:02:30.260000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "249"
+  },
+  {
+   "id": 19,
+   "cis": "8296551",
+   "check_digit": "8",
+   "salida_linea": "2026-07-03T12:53:31.670000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "249"
+  },
+  {
+   "id": 20,
+   "cis": "8296552",
+   "check_digit": "6",
+   "salida_linea": "2026-07-03T12:47:01.680000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "249"
+  },
+  {
+   "id": 21,
+   "cis": "8296578",
+   "check_digit": "1",
+   "salida_linea": "2026-07-03T12:41:44.830000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 22,
+   "cis": "8296588",
+   "check_digit": "0",
+   "salida_linea": "2026-07-03T12:35:53.220000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 23,
+   "cis": "8296625",
+   "check_digit": "0",
+   "salida_linea": "2026-07-03T12:30:29.077000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 24,
+   "cis": "8296628",
+   "check_digit": "4",
+   "salida_linea": "2026-07-03T12:24:05.427000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "806"
+  },
+  {
+   "id": 25,
+   "cis": "8300039",
+   "check_digit": "8",
+   "salida_linea": "2026-07-03T12:22:29.920000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "806"
+  },
+  {
+   "id": 26,
+   "cis": "8296623",
+   "check_digit": "5",
+   "salida_linea": "2026-07-03T11:53:13.663000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "806"
+  },
+  {
+   "id": 27,
+   "cis": "8300040",
+   "check_digit": "6",
+   "salida_linea": "2026-07-03T11:43:37.070000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "806"
+  },
+  {
+   "id": 28,
+   "cis": "8296643",
+   "check_digit": "3",
+   "salida_linea": "2026-07-03T11:37:56.480000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "806"
+  },
+  {
+   "id": 29,
+   "cis": "8296630",
+   "check_digit": "0",
+   "salida_linea": "2026-07-03T10:59:00.343000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 30,
+   "cis": "8300047",
+   "check_digit": "1",
+   "salida_linea": "2026-07-03T10:52:36.170000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 31,
+   "cis": "8296095",
+   "check_digit": "6",
+   "salida_linea": "2026-07-03T10:43:25.487000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 32,
+   "cis": "8296644",
+   "check_digit": "1",
+   "salida_linea": "2026-07-03T10:41:40.950000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 33,
+   "cis": "8296759",
+   "check_digit": "7",
+   "salida_linea": "2026-07-03T10:27:31.880000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 34,
+   "cis": "8296634",
+   "check_digit": "2",
+   "salida_linea": "2026-07-03T10:26:16.183000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 35,
+   "cis": "8296754",
+   "check_digit": "8",
+   "salida_linea": "2026-07-03T10:13:30.357000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 36,
+   "cis": "8296753",
+   "check_digit": "0",
+   "salida_linea": "2026-07-03T09:39:14.410000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "249"
+  },
+  {
+   "id": 37,
+   "cis": "8296618",
+   "check_digit": "5",
+   "salida_linea": "2026-07-03T08:43:31.610000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 38,
+   "cis": "8296620",
+   "check_digit": "1",
+   "salida_linea": "2026-07-03T08:38:14.717000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "619"
+  },
+  {
+   "id": 39,
+   "cis": "8296608",
+   "check_digit": "6",
+   "salida_linea": "2026-07-03T08:37:00.883000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "619"
+  },
+  {
+   "id": 40,
+   "cis": "8296602",
+   "check_digit": "9",
+   "salida_linea": "2026-07-03T07:46:39.633000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "249"
+  },
+  {
+   "id": 41,
+   "cis": "8296607",
+   "check_digit": "8",
+   "salida_linea": "2026-07-03T07:21:10.743000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "249"
+  },
+  {
+   "id": 42,
+   "cis": "8296606",
+   "check_digit": "0",
+   "salida_linea": "2026-07-03T07:16:22.750000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "249"
+  },
+  {
+   "id": 43,
+   "cis": "8296565",
+   "check_digit": "8",
+   "salida_linea": "2026-07-03T05:51:51.593000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 44,
+   "cis": "8296570",
+   "check_digit": "8",
+   "salida_linea": "2026-07-02T21:24:12.883000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 45,
+   "cis": "8296568",
+   "check_digit": "2",
+   "salida_linea": "2026-07-02T20:51:54.257000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "619"
+  },
+  {
+   "id": 46,
+   "cis": "8296562",
+   "check_digit": "5",
+   "salida_linea": "2026-07-02T20:36:55.620000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "249"
+  },
+  {
+   "id": 47,
+   "cis": "8296543",
+   "check_digit": "5",
+   "salida_linea": "2026-07-02T19:41:27.200000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "619"
+  },
+  {
+   "id": 48,
+   "cis": "8296537",
+   "check_digit": "7",
+   "salida_linea": "2026-07-02T19:23:20.543000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "619"
+  },
+  {
+   "id": 49,
+   "cis": "8296512",
+   "check_digit": "0",
+   "salida_linea": "2026-07-02T17:00:37.780000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "534"
+  },
+  {
+   "id": 50,
+   "cis": "8296502",
+   "check_digit": "1",
+   "salida_linea": "2026-07-02T15:55:21.860000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "249"
+  },
+  {
+   "id": 51,
+   "cis": "8296464",
+   "check_digit": "4",
+   "salida_linea": "2026-07-02T13:33:30.703000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "619"
+  },
+  {
+   "id": 52,
+   "cis": "8296479",
+   "check_digit": "2",
+   "salida_linea": "2026-07-02T13:30:35.413000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "619"
+  },
+  {
+   "id": 53,
+   "cis": "8296474",
+   "check_digit": "3",
+   "salida_linea": "2026-07-02T13:26:27.023000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "619"
+  },
+  {
+   "id": 54,
+   "cis": "8296476",
+   "check_digit": "8",
+   "salida_linea": "2026-07-02T13:23:23.557000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "710",
+   "cest": "619"
+  },
+  {
+   "id": 55,
+   "cis": "8296473",
+   "check_digit": "5",
+   "salida_linea": "2026-07-02T12:13:46.320000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "534"
+  },
+  {
+   "id": 56,
+   "cis": "8296459",
+   "check_digit": "4",
+   "salida_linea": "2026-07-02T11:13:16.920000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "534"
+  },
+  {
+   "id": 57,
+   "cis": "8295960",
+   "check_digit": "2",
+   "salida_linea": "2026-07-01T21:31:53.167000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "619"
+  },
+  {
+   "id": 58,
+   "cis": "8295962",
+   "check_digit": "8",
+   "salida_linea": "2026-07-01T20:58:55.247000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "249"
+  },
+  {
+   "id": 59,
+   "cis": "8296116",
+   "check_digit": "0",
+   "salida_linea": "2026-07-01T16:18:36.963000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "249"
+  },
+  {
+   "id": 60,
+   "cis": "8295696",
+   "check_digit": "2",
+   "salida_linea": "2026-07-01T13:29:47.853000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "249"
+  },
+  {
+   "id": 61,
+   "cis": "8296378",
+   "check_digit": "6",
+   "salida_linea": "2026-07-01T13:03:48.730000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "979"
+  },
+  {
+   "id": 62,
+   "cis": "8296341",
+   "check_digit": "4",
+   "salida_linea": "2026-07-01T11:13:19.643000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "249"
+  },
+  {
+   "id": 63,
+   "cis": "8296366",
+   "check_digit": "1",
+   "salida_linea": "2026-07-01T11:00:04.807000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "619"
+  },
+  {
+   "id": 64,
+   "cis": "8296323",
+   "check_digit": "2",
+   "salida_linea": "2026-07-01T10:54:09.530000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "619"
+  },
+  {
+   "id": 65,
+   "cis": "8296363",
+   "check_digit": "8",
+   "salida_linea": "2026-07-01T10:46:49.227000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "710",
+   "cest": "619"
+  },
+  {
+   "id": 66,
+   "cis": "8296338",
+   "check_digit": "0",
+   "salida_linea": "2026-07-01T08:56:08.923000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "619"
+  },
+  {
+   "id": 67,
+   "cis": "8296076",
+   "check_digit": "6",
+   "salida_linea": "2026-06-30T19:28:30.560000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "619"
+  },
+  {
+   "id": 68,
+   "cis": "8296082",
+   "check_digit": "4",
+   "salida_linea": "2026-06-30T19:10:05.477000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "619"
+  },
+  {
+   "id": 69,
+   "cis": "8296081",
+   "check_digit": "6",
+   "salida_linea": "2026-06-30T19:05:19",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "619"
+  },
+  {
+   "id": 70,
+   "cis": "8296080",
+   "check_digit": "8",
+   "salida_linea": "2026-06-30T18:46:24.550000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "619"
+  },
+  {
+   "id": 71,
+   "cis": "8296186",
+   "check_digit": "3",
+   "salida_linea": "2026-06-30T15:52:17.287000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 72,
+   "cis": "8296286",
+   "check_digit": "1",
+   "salida_linea": "2026-06-30T15:27:13.030000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 73,
+   "cis": "8296056",
+   "check_digit": "8",
+   "salida_linea": "2026-06-30T15:25:37.500000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 74,
+   "cis": "8296177",
+   "check_digit": "2",
+   "salida_linea": "2026-06-30T13:05:12.193000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 75,
+   "cis": "8295627",
+   "check_digit": "7",
+   "salida_linea": "2026-06-30T10:47:50.717000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "710",
+   "cest": "619"
+  },
+  {
+   "id": 76,
+   "cis": "8296298",
+   "check_digit": "6",
+   "salida_linea": "2026-06-29T21:22:51.333000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "979"
+  },
+  {
+   "id": 77,
+   "cis": "8296280",
+   "check_digit": "4",
+   "salida_linea": "2026-06-29T20:11:01.300000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 78,
+   "cis": "8294161",
+   "check_digit": "8",
+   "salida_linea": "2026-06-29T17:00:40.213000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 79,
+   "cis": "8295613",
+   "check_digit": "7",
+   "salida_linea": "2026-06-29T14:12:14.397000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "534"
+  },
+  {
+   "id": 80,
+   "cis": "8295602",
+   "check_digit": "0",
+   "salida_linea": "2026-06-29T06:44:38.697000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 81,
+   "cis": "8296699",
+   "check_digit": "5",
+   "salida_linea": "2026-06-29T06:37:12.930000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 82,
+   "cis": "8296701",
+   "check_digit": "9",
+   "salida_linea": "2026-06-26T13:43:22.553000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "979"
+  },
+  {
+   "id": 83,
+   "cis": "8295570",
+   "check_digit": "9",
+   "salida_linea": "2026-06-26T07:14:56.803000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 84,
+   "cis": "8295564",
+   "check_digit": "2",
+   "salida_linea": "2026-06-26T07:11:05.053000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 85,
+   "cis": "8294171",
+   "check_digit": "7",
+   "salida_linea": "2026-06-25T08:15:55.063000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "979"
+  },
+  {
+   "id": 86,
+   "cis": "8294133",
+   "check_digit": "7",
+   "salida_linea": "2026-06-24T17:57:14.403000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 87,
+   "cis": "8294039",
+   "check_digit": "6",
+   "salida_linea": "2026-06-24T14:57:58.820000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 88,
+   "cis": "8294040",
+   "check_digit": "4",
+   "salida_linea": "2026-06-24T11:35:46.280000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "979"
+  },
+  {
+   "id": 89,
+   "cis": "8295478",
+   "check_digit": "5",
+   "salida_linea": "2026-06-18T09:52:06.680000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "249"
+  },
+  {
+   "id": 90,
+   "cis": "8293498",
+   "check_digit": "5",
+   "salida_linea": "2026-06-17T13:49:37.947000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "619"
+  },
+  {
+   "id": 91,
+   "cis": "8293468",
+   "check_digit": "8",
+   "salida_linea": "2026-06-16T19:25:35.170000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "534"
+  },
+  {
+   "id": 92,
+   "cis": "8295514",
+   "check_digit": "7",
+   "salida_linea": "2026-06-16T09:16:29.220000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "806"
+  },
+  {
+   "id": 93,
+   "cis": "8291665",
+   "check_digit": "1",
+   "salida_linea": "2026-06-10T12:20:53.837000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 94,
+   "cis": "8294718",
+   "check_digit": "5",
+   "salida_linea": "2026-06-09T08:09:53.887000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "249"
+  },
+  {
+   "id": 95,
+   "cis": "8294532",
+   "check_digit": "0",
+   "salida_linea": "2026-06-08T06:02:01.667000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "249"
+  },
+  {
+   "id": 96,
+   "cis": "8291240",
+   "check_digit": "3",
+   "salida_linea": "2026-06-01T13:51:47.260000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "806"
+  },
+  {
+   "id": 97,
+   "cis": "8290880",
+   "check_digit": "7",
+   "salida_linea": "2026-05-28T20:08:34.783000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "806"
+  },
+  {
+   "id": 98,
+   "cis": "8290832",
+   "check_digit": "8",
+   "salida_linea": "2026-05-28T17:01:02.893000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "249"
+  },
+  {
+   "id": 99,
+   "cis": "8290971",
+   "check_digit": "4",
+   "salida_linea": "2026-05-27T06:10:07.827000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "979"
+  },
+  {
+   "id": 100,
+   "cis": "8292978",
+   "check_digit": "7",
+   "salida_linea": "2026-05-26T16:32:05.077000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 101,
+   "cis": "8292572",
+   "check_digit": "8",
+   "salida_linea": "2026-05-22T18:24:38.217000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 102,
+   "cis": "8289375",
+   "check_digit": "1",
+   "salida_linea": "2026-05-22T08:00:19.280000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 103,
+   "cis": "8292576",
+   "check_digit": "9",
+   "salida_linea": "2026-05-21T20:29:39.110000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "979"
+  },
+  {
+   "id": 104,
+   "cis": "8289305",
+   "check_digit": "8",
+   "salida_linea": "2026-05-21T07:54:13.580000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "979"
+  },
+  {
+   "id": 105,
+   "cis": "8289222",
+   "check_digit": "5",
+   "salida_linea": "2026-05-20T21:22:42.930000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 106,
+   "cis": "8292287",
+   "check_digit": "3",
+   "salida_linea": "2026-05-18T17:09:57.720000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 107,
+   "cis": "8292666",
+   "check_digit": "8",
+   "salida_linea": "2026-05-15T20:11:42.557000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "249"
+  },
+  {
+   "id": 108,
+   "cis": "8292522",
+   "check_digit": "3",
+   "salida_linea": "2026-05-15T07:23:39.820000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 109,
+   "cis": "8292525",
+   "check_digit": "6",
+   "salida_linea": "2026-05-15T07:06:16.977000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 110,
+   "cis": "8292121",
+   "check_digit": "4",
+   "salida_linea": "2026-05-11T17:45:59.060000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "978"
+  },
+  {
+   "id": 111,
+   "cis": "8292014",
+   "check_digit": "1",
+   "salida_linea": "2026-05-11T06:40:30.923000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "249"
+  },
+  {
+   "id": 112,
+   "cis": "8280277",
+   "check_digit": "8",
+   "salida_linea": "2026-04-29T21:40:22.093000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 113,
+   "cis": "8280011",
+   "check_digit": "1",
+   "salida_linea": "2026-04-28T20:59:14.100000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 114,
+   "cis": "8289874",
+   "check_digit": "3",
+   "salida_linea": "2026-04-22T06:25:36.630000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 115,
+   "cis": "8297397",
+   "check_digit": "5",
+   "salida_linea": "2026-04-20T09:41:36.330000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "979"
+  },
+  {
+   "id": 116,
+   "cis": "8297768",
+   "check_digit": "7",
+   "salida_linea": "2026-04-20T09:37:34.383000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "979"
+  },
+  {
+   "id": 117,
+   "cis": "8297846",
+   "check_digit": "1",
+   "salida_linea": "2026-04-17T18:41:30",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "249"
+  },
+  {
+   "id": 118,
+   "cis": "8297144",
+   "check_digit": "1",
+   "salida_linea": "2026-04-08T07:11:11.863000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 119,
+   "cis": "8283660",
+   "check_digit": "2",
+   "salida_linea": "2026-03-16T21:23:07.143000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "702",
+   "cest": "534"
+  },
+  {
+   "id": 120,
+   "cis": "8284812",
+   "check_digit": "8",
+   "salida_linea": "2026-02-23T07:15:25.143000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "249"
+  },
+  {
+   "id": 121,
+   "cis": "8281722",
+   "check_digit": "2",
+   "salida_linea": "2026-02-12T16:03:06.980000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 122,
+   "cis": "8273040",
+   "check_digit": "9",
+   "salida_linea": "2026-01-07T15:58:56.107000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "712",
+   "cest": "979"
+  },
+  {
+   "id": 123,
+   "cis": "8204606",
+   "check_digit": "1",
+   "salida_linea": "2025-12-09T14:18:13.157000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 124,
+   "cis": "8228784",
+   "check_digit": "8",
+   "salida_linea": "2025-03-07T16:10:21.633000",
+   "st": "I1",
+   "ssc": "101",
+   "smo": "711",
+   "cest": "619"
+  },
+  {
+   "id": 125,
+   "cis": "Export Date:",
+   "check_digit": "8/7/2026 10:28:55",
+   "salida_linea": null,
+   "st": "",
+   "ssc": "",
+   "smo": "",
+   "cest": ""
+  }
+ ],
+ "incidencias": [
+  {
+   "id": 1,
+   "unidad_id": 124,
+   "estado": "caso_especial",
+   "detectada_at": "2025-03-07T16:10:22",
+   "cerrada_at": null,
+   "notas": "Scrap Tirar"
+  },
+  {
+   "id": 2,
+   "unidad_id": 123,
+   "estado": "en_box",
+   "detectada_at": "2025-12-09T14:18:13",
+   "cerrada_at": null,
+   "notas": "Sin observaciones cargadas"
+  },
+  {
+   "id": 3,
+   "unidad_id": 122,
+   "estado": "en_box",
+   "detectada_at": "2026-01-07T15:58:56",
+   "cerrada_at": null,
+   "notas": "Sin observaciones cargadas"
+  },
+  {
+   "id": 4,
+   "unidad_id": 121,
+   "estado": "en_box",
+   "detectada_at": "2026-02-12T16:03:07",
+   "cerrada_at": null,
+   "notas": "JyP"
+  },
+  {
+   "id": 5,
+   "unidad_id": 120,
+   "estado": "en_box",
+   "detectada_at": "2026-02-23T07:15:25",
+   "cerrada_at": null,
+   "notas": "Box 12 anomalias - ya repintada -  Bollo capot + B (-) Puerta Posterior Sx y Mal grafado Baul"
+  },
+  {
+   "id": 6,
+   "unidad_id": 119,
+   "estado": "en_box",
+   "detectada_at": "2026-03-16T21:23:07",
+   "cerrada_at": null,
+   "notas": "JyP"
+  },
+  {
+   "id": 7,
+   "unidad_id": 118,
+   "estado": "en_box",
+   "detectada_at": "2026-04-08T07:11:12",
+   "cerrada_at": null,
+   "notas": "Box Falta baul y Capot - ya repintada"
+  },
+  {
+   "id": 8,
+   "unidad_id": 117,
+   "estado": "en_box",
+   "detectada_at": "2026-04-17T18:41:30",
+   "cerrada_at": null,
+   "notas": "Sin observaciones cargadas"
+  },
+  {
+   "id": 9,
+   "unidad_id": 116,
+   "estado": "en_box",
+   "detectada_at": "2026-04-20T09:37:34",
+   "cerrada_at": null,
+   "notas": "Box 6 anomalias"
+  },
+  {
+   "id": 10,
+   "unidad_id": 115,
+   "estado": "en_box",
+   "detectada_at": "2026-04-20T09:41:36",
+   "cerrada_at": null,
+   "notas": "Box 7 anomalias - Bollo Baul"
+  },
+  {
+   "id": 11,
+   "unidad_id": 114,
+   "estado": "en_box",
+   "detectada_at": "2026-04-22T06:25:37",
+   "cerrada_at": null,
+   "notas": "Box 9 anomalias - Falta puerta anterior sx"
+  },
+  {
+   "id": 12,
+   "unidad_id": 113,
+   "estado": "en_box",
+   "detectada_at": "2026-04-28T20:59:14",
+   "cerrada_at": null,
+   "notas": "Box 5 anomalias"
+  },
+  {
+   "id": 13,
+   "unidad_id": 112,
+   "estado": "en_box",
+   "detectada_at": "2026-04-29T21:40:22",
+   "cerrada_at": null,
+   "notas": "Box 6 anomalias"
+  },
+  {
+   "id": 14,
+   "unidad_id": 111,
+   "estado": "en_box",
+   "detectada_at": "2026-05-11T06:40:30.923000",
+   "cerrada_at": null,
+   "notas": "Box - Falta Capot para repintar"
+  },
+  {
+   "id": 15,
+   "unidad_id": 110,
+   "estado": "en_box",
+   "detectada_at": "2026-05-11T17:45:59",
+   "cerrada_at": null,
+   "notas": "Box 3 anomalias - ya repintada - Marca de operación anterior dx."
+  },
+  {
+   "id": 16,
+   "unidad_id": 109,
+   "estado": "en_box",
+   "detectada_at": "2026-05-15T07:06:17",
+   "cerrada_at": null,
+   "notas": "Box 6 anomalias - ya repintada"
+  },
+  {
+   "id": 17,
+   "unidad_id": 108,
+   "estado": "en_box",
+   "detectada_at": "2026-05-15T07:23:40",
+   "cerrada_at": null,
+   "notas": "Box 9 anomalia - ya repintada"
+  },
+  {
+   "id": 18,
+   "unidad_id": 107,
+   "estado": "en_box",
+   "detectada_at": "2026-05-15T20:11:43",
+   "cerrada_at": null,
+   "notas": "Box 1 anomalia"
+  },
+  {
+   "id": 19,
+   "unidad_id": 106,
+   "estado": "en_box",
+   "detectada_at": "2026-05-18T17:09:58",
+   "cerrada_at": null,
+   "notas": "Box - Fetuchia Baúl KO"
+  },
+  {
+   "id": 20,
+   "unidad_id": 105,
+   "estado": "caso_especial",
+   "detectada_at": "2026-05-20T21:22:43",
+   "cerrada_at": null,
+   "notas": "Box chocado ver reparación chapa"
+  },
+  {
+   "id": 21,
+   "unidad_id": 104,
+   "estado": "en_box",
+   "detectada_at": "2026-05-21T07:54:14",
+   "cerrada_at": null,
+   "notas": "Box Falta Capot - Bollo Baul"
+  },
+  {
+   "id": 22,
+   "unidad_id": 103,
+   "estado": "en_box",
+   "detectada_at": "2026-05-21T20:29:39",
+   "cerrada_at": null,
+   "notas": "Box 2 anomalias - Falta capot y cambiar baul. Bollo puerta post sx y bollo puerta anterior dx."
+  },
+  {
+   "id": 23,
+   "unidad_id": 102,
+   "estado": "en_box",
+   "detectada_at": "2026-05-22T08:00:19",
+   "cerrada_at": null,
+   "notas": "Box - Repintar"
+  },
+  {
+   "id": 24,
+   "unidad_id": 101,
+   "estado": "en_box",
+   "detectada_at": "2026-05-22T18:24:38",
+   "cerrada_at": null,
+   "notas": "Box 5 anomalias - ya repintada"
+  },
+  {
+   "id": 25,
+   "unidad_id": 100,
+   "estado": "en_box",
+   "detectada_at": "2026-05-26T16:32:05",
+   "cerrada_at": null,
+   "notas": "Box 12 anomalias - ya repintada - Cambiar capot y baul"
+  },
+  {
+   "id": 26,
+   "unidad_id": 99,
+   "estado": "en_box",
+   "detectada_at": "2026-05-27T06:10:08",
+   "cerrada_at": null,
+   "notas": "Box 2 anomalias"
+  },
+  {
+   "id": 27,
+   "unidad_id": 98,
+   "estado": "en_box",
+   "detectada_at": "2026-05-28T17:01:03",
+   "cerrada_at": null,
+   "notas": "Sin observaciones cargadas"
+  },
+  {
+   "id": 28,
+   "unidad_id": 97,
+   "estado": "en_box",
+   "detectada_at": "2026-05-28T20:08:35",
+   "cerrada_at": null,
+   "notas": "Box 3 anomalias - Falta de Capot"
+  },
+  {
+   "id": 29,
+   "unidad_id": 96,
+   "estado": "en_box",
+   "detectada_at": "2026-06-01T13:51:47",
+   "cerrada_at": null,
+   "notas": "Box 7 anomalias - ya repintada"
+  },
+  {
+   "id": 30,
+   "unidad_id": 95,
+   "estado": "en_box",
+   "detectada_at": "2026-06-08T06:02:02",
+   "cerrada_at": null,
+   "notas": "Box 5 anomalias - ya repintada"
+  },
+  {
+   "id": 31,
+   "unidad_id": 92,
+   "estado": "en_box",
+   "detectada_at": "2026-06-16T09:16:29",
+   "cerrada_at": null,
+   "notas": "Box 2 anomalia"
+  },
+  {
+   "id": 32,
+   "unidad_id": 91,
+   "estado": "en_box",
+   "detectada_at": "2026-06-16T19:25:35.170000",
+   "cerrada_at": null,
+   "notas": "Box - Para repintar"
+  },
+  {
+   "id": 33,
+   "unidad_id": 89,
+   "estado": "caso_especial",
+   "detectada_at": "2026-06-18T09:52:07",
+   "cerrada_at": null,
+   "notas": "Sin documento"
+  },
+  {
+   "id": 34,
+   "unidad_id": 88,
+   "estado": "en_box",
+   "detectada_at": "2026-06-24T11:35:46",
+   "cerrada_at": null,
+   "notas": "Box 6 anomalias, Bollo guardabarro dx y Marca de operación en el Baul"
+  },
+  {
+   "id": 35,
+   "unidad_id": 87,
+   "estado": "en_box",
+   "detectada_at": "2026-06-24T14:57:59",
+   "cerrada_at": null,
+   "notas": "Box 3 anomalias, bollo zocalo y falta capot"
+  },
+  {
+   "id": 36,
+   "unidad_id": 84,
+   "estado": "en_box",
+   "detectada_at": "2026-06-26T07:11:05",
+   "cerrada_at": null,
+   "notas": "Box 7 anomalias - Marca de operación puerta anterior dx y puerta posterior dx - Ya repintada"
+  },
+  {
+   "id": 37,
+   "unidad_id": 82,
+   "estado": "en_box",
+   "detectada_at": "2026-06-26T13:43:23",
+   "cerrada_at": null,
+   "notas": "Box 2 anomalias - Marca Operación puerta post sx."
+  },
+  {
+   "id": 38,
+   "unidad_id": 79,
+   "estado": "en_box",
+   "detectada_at": "2026-06-29T14:12:14",
+   "cerrada_at": null,
+   "notas": "Box 5 anomalias"
+  },
+  {
+   "id": 39,
+   "unidad_id": 72,
+   "estado": "en_box",
+   "detectada_at": "2026-06-30T15:27:13",
+   "cerrada_at": null,
+   "notas": "JyP Capot"
+  },
+  {
+   "id": 40,
+   "unidad_id": 69,
+   "estado": "en_box",
+   "detectada_at": "2026-06-30T19:05:19",
+   "cerrada_at": null,
+   "notas": "Box 10 anomalias  - Bollo Capot"
+  },
+  {
+   "id": 41,
+   "unidad_id": 67,
+   "estado": "en_box",
+   "detectada_at": "2026-06-30T19:28:31",
+   "cerrada_at": null,
+   "notas": "Box 1 anomalia"
+  },
+  {
+   "id": 42,
+   "unidad_id": 55,
+   "estado": "en_box",
+   "detectada_at": "2026-07-02T12:13:46",
+   "cerrada_at": null,
+   "notas": "Box 5 anomalias"
+  },
+  {
+   "id": 43,
+   "unidad_id": 47,
+   "estado": "en_box",
+   "detectada_at": "2026-07-02T19:41:27",
+   "cerrada_at": null,
+   "notas": "Box 5 anomalias"
+  },
+  {
+   "id": 44,
+   "unidad_id": 44,
+   "estado": "en_box",
+   "detectada_at": "2026-07-02T21:24:13",
+   "cerrada_at": null,
+   "notas": "Box - Bollo puerta anterior dx."
+  },
+  {
+   "id": 45,
+   "unidad_id": 41,
+   "estado": "en_box",
+   "detectada_at": "2026-07-03T07:21:11",
+   "cerrada_at": null,
+   "notas": "Box 2 anomalias"
+  }
+ ],
+ "incidencia_fallas": [
+  {
+   "id": 1,
+   "incidencia_id": 1,
+   "tipo_falla_id": 7,
+   "particularidad_id": null,
+   "descripcion": "Scrap Tirar",
+   "resuelta_at": null
+  },
+  {
+   "id": 2,
+   "incidencia_id": 2,
+   "tipo_falla_id": 8,
+   "particularidad_id": null,
+   "descripcion": "Sin observaciones cargadas",
+   "resuelta_at": null
+  },
+  {
+   "id": 3,
+   "incidencia_id": 3,
+   "tipo_falla_id": 8,
+   "particularidad_id": null,
+   "descripcion": "Sin observaciones cargadas",
+   "resuelta_at": null
+  },
+  {
+   "id": 4,
+   "incidencia_id": 4,
+   "tipo_falla_id": 5,
+   "particularidad_id": null,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 5,
+   "incidencia_id": 5,
+   "tipo_falla_id": 1,
+   "particularidad_id": null,
+   "descripcion": "Box 12 anomalias - ya repintada -  Bollo capot + B (-) Puerta Posterior Sx y Mal grafado Baul",
+   "resuelta_at": null
+  },
+  {
+   "id": 6,
+   "incidencia_id": 5,
+   "tipo_falla_id": 4,
+   "particularidad_id": null,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 7,
+   "incidencia_id": 6,
+   "tipo_falla_id": 5,
+   "particularidad_id": null,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 8,
+   "incidencia_id": 7,
+   "tipo_falla_id": 2,
+   "particularidad_id": 1,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 9,
+   "incidencia_id": 7,
+   "tipo_falla_id": 2,
+   "particularidad_id": 2,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 10,
+   "incidencia_id": 7,
+   "tipo_falla_id": 4,
+   "particularidad_id": null,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 11,
+   "incidencia_id": 8,
+   "tipo_falla_id": 8,
+   "particularidad_id": null,
+   "descripcion": "Sin observaciones cargadas",
+   "resuelta_at": null
+  },
+  {
+   "id": 12,
+   "incidencia_id": 9,
+   "tipo_falla_id": 8,
+   "particularidad_id": null,
+   "descripcion": "Box 6 anomalias",
+   "resuelta_at": null
+  },
+  {
+   "id": 13,
+   "incidencia_id": 10,
+   "tipo_falla_id": 1,
+   "particularidad_id": null,
+   "descripcion": "Box 7 anomalias - Bollo Baul",
+   "resuelta_at": null
+  },
+  {
+   "id": 14,
+   "incidencia_id": 11,
+   "tipo_falla_id": 2,
+   "particularidad_id": 3,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 15,
+   "incidencia_id": 12,
+   "tipo_falla_id": 8,
+   "particularidad_id": null,
+   "descripcion": "Box 5 anomalias",
+   "resuelta_at": null
+  },
+  {
+   "id": 16,
+   "incidencia_id": 13,
+   "tipo_falla_id": 8,
+   "particularidad_id": null,
+   "descripcion": "Box 6 anomalias",
+   "resuelta_at": null
+  },
+  {
+   "id": 17,
+   "incidencia_id": 14,
+   "tipo_falla_id": 2,
+   "particularidad_id": 1,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 18,
+   "incidencia_id": 14,
+   "tipo_falla_id": 3,
+   "particularidad_id": null,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 19,
+   "incidencia_id": 15,
+   "tipo_falla_id": 4,
+   "particularidad_id": null,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 20,
+   "incidencia_id": 15,
+   "tipo_falla_id": 6,
+   "particularidad_id": null,
+   "descripcion": "Box 3 anomalias - ya repintada - Marca de operación anterior dx.",
+   "resuelta_at": null
+  },
+  {
+   "id": 21,
+   "incidencia_id": 16,
+   "tipo_falla_id": 4,
+   "particularidad_id": null,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 22,
+   "incidencia_id": 17,
+   "tipo_falla_id": 4,
+   "particularidad_id": null,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 23,
+   "incidencia_id": 18,
+   "tipo_falla_id": 8,
+   "particularidad_id": null,
+   "descripcion": "Box 1 anomalia",
+   "resuelta_at": null
+  },
+  {
+   "id": 24,
+   "incidencia_id": 19,
+   "tipo_falla_id": 8,
+   "particularidad_id": null,
+   "descripcion": "Box - Fetuchia Baúl KO",
+   "resuelta_at": null
+  },
+  {
+   "id": 25,
+   "incidencia_id": 20,
+   "tipo_falla_id": 7,
+   "particularidad_id": null,
+   "descripcion": "Box chocado ver reparación chapa",
+   "resuelta_at": null
+  },
+  {
+   "id": 26,
+   "incidencia_id": 21,
+   "tipo_falla_id": 1,
+   "particularidad_id": null,
+   "descripcion": "Box Falta Capot - Bollo Baul",
+   "resuelta_at": null
+  },
+  {
+   "id": 27,
+   "incidencia_id": 21,
+   "tipo_falla_id": 2,
+   "particularidad_id": 2,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 28,
+   "incidencia_id": 22,
+   "tipo_falla_id": 1,
+   "particularidad_id": null,
+   "descripcion": "Box 2 anomalias - Falta capot y cambiar baul. Bollo puerta post sx y bollo puerta anterior dx.",
+   "resuelta_at": null
+  },
+  {
+   "id": 29,
+   "incidencia_id": 22,
+   "tipo_falla_id": 2,
+   "particularidad_id": 1,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 30,
+   "incidencia_id": 22,
+   "tipo_falla_id": 2,
+   "particularidad_id": 2,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 31,
+   "incidencia_id": 23,
+   "tipo_falla_id": 3,
+   "particularidad_id": null,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 32,
+   "incidencia_id": 24,
+   "tipo_falla_id": 4,
+   "particularidad_id": null,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 33,
+   "incidencia_id": 25,
+   "tipo_falla_id": 4,
+   "particularidad_id": null,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 34,
+   "incidencia_id": 26,
+   "tipo_falla_id": 8,
+   "particularidad_id": null,
+   "descripcion": "Box 2 anomalias",
+   "resuelta_at": null
+  },
+  {
+   "id": 35,
+   "incidencia_id": 27,
+   "tipo_falla_id": 8,
+   "particularidad_id": null,
+   "descripcion": "Sin observaciones cargadas",
+   "resuelta_at": null
+  },
+  {
+   "id": 36,
+   "incidencia_id": 28,
+   "tipo_falla_id": 2,
+   "particularidad_id": 1,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 37,
+   "incidencia_id": 29,
+   "tipo_falla_id": 4,
+   "particularidad_id": null,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 38,
+   "incidencia_id": 30,
+   "tipo_falla_id": 4,
+   "particularidad_id": null,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 39,
+   "incidencia_id": 31,
+   "tipo_falla_id": 8,
+   "particularidad_id": null,
+   "descripcion": "Box 2 anomalia",
+   "resuelta_at": null
+  },
+  {
+   "id": 40,
+   "incidencia_id": 32,
+   "tipo_falla_id": 3,
+   "particularidad_id": null,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 41,
+   "incidencia_id": 33,
+   "tipo_falla_id": 7,
+   "particularidad_id": null,
+   "descripcion": "Sin documento",
+   "resuelta_at": null
+  },
+  {
+   "id": 42,
+   "incidencia_id": 34,
+   "tipo_falla_id": 1,
+   "particularidad_id": null,
+   "descripcion": "Box 6 anomalias, Bollo guardabarro dx y Marca de operación en el Baul",
+   "resuelta_at": null
+  },
+  {
+   "id": 43,
+   "incidencia_id": 34,
+   "tipo_falla_id": 6,
+   "particularidad_id": null,
+   "descripcion": "Box 6 anomalias, Bollo guardabarro dx y Marca de operación en el Baul",
+   "resuelta_at": null
+  },
+  {
+   "id": 44,
+   "incidencia_id": 35,
+   "tipo_falla_id": 1,
+   "particularidad_id": null,
+   "descripcion": "Box 3 anomalias, bollo zocalo y falta capot",
+   "resuelta_at": null
+  },
+  {
+   "id": 45,
+   "incidencia_id": 35,
+   "tipo_falla_id": 2,
+   "particularidad_id": 1,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 46,
+   "incidencia_id": 36,
+   "tipo_falla_id": 4,
+   "particularidad_id": null,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 47,
+   "incidencia_id": 36,
+   "tipo_falla_id": 6,
+   "particularidad_id": null,
+   "descripcion": "Box 7 anomalias - Marca de operación puerta anterior dx y puerta posterior dx - Ya repintada",
+   "resuelta_at": null
+  },
+  {
+   "id": 48,
+   "incidencia_id": 37,
+   "tipo_falla_id": 6,
+   "particularidad_id": null,
+   "descripcion": "Box 2 anomalias - Marca Operación puerta post sx.",
+   "resuelta_at": null
+  },
+  {
+   "id": 49,
+   "incidencia_id": 38,
+   "tipo_falla_id": 8,
+   "particularidad_id": null,
+   "descripcion": "Box 5 anomalias",
+   "resuelta_at": null
+  },
+  {
+   "id": 50,
+   "incidencia_id": 39,
+   "tipo_falla_id": 5,
+   "particularidad_id": null,
+   "descripcion": "",
+   "resuelta_at": null
+  },
+  {
+   "id": 51,
+   "incidencia_id": 40,
+   "tipo_falla_id": 1,
+   "particularidad_id": null,
+   "descripcion": "Box 10 anomalias  - Bollo Capot",
+   "resuelta_at": null
+  },
+  {
+   "id": 52,
+   "incidencia_id": 41,
+   "tipo_falla_id": 8,
+   "particularidad_id": null,
+   "descripcion": "Box 1 anomalia",
+   "resuelta_at": null
+  },
+  {
+   "id": 53,
+   "incidencia_id": 42,
+   "tipo_falla_id": 8,
+   "particularidad_id": null,
+   "descripcion": "Box 5 anomalias",
+   "resuelta_at": null
+  },
+  {
+   "id": 54,
+   "incidencia_id": 43,
+   "tipo_falla_id": 8,
+   "particularidad_id": null,
+   "descripcion": "Box 5 anomalias",
+   "resuelta_at": null
+  },
+  {
+   "id": 55,
+   "incidencia_id": 44,
+   "tipo_falla_id": 1,
+   "particularidad_id": null,
+   "descripcion": "Box - Bollo puerta anterior dx.",
+   "resuelta_at": null
+  },
+  {
+   "id": 56,
+   "incidencia_id": 45,
+   "tipo_falla_id": 8,
+   "particularidad_id": null,
+   "descripcion": "Box 2 anomalias",
+   "resuelta_at": null
+  }
+ ],
+ "eventos": [
+  {
+   "id": 1,
+   "incidencia_id": 1,
+   "estado_anterior": null,
+   "estado_nuevo": "caso_especial",
+   "operario_id": null,
+   "registrado_at": "2025-03-07T16:10:22",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 2,
+   "incidencia_id": 2,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2025-12-09T14:18:13",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 3,
+   "incidencia_id": 3,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-01-07T15:58:56",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 4,
+   "incidencia_id": 4,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-02-12T16:03:07",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 5,
+   "incidencia_id": 5,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-02-23T07:15:25",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 6,
+   "incidencia_id": 6,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-03-16T21:23:07",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 7,
+   "incidencia_id": 7,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-04-08T07:11:12",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 8,
+   "incidencia_id": 8,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-04-17T18:41:30",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 9,
+   "incidencia_id": 9,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-04-20T09:37:34",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 10,
+   "incidencia_id": 10,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-04-20T09:41:36",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 11,
+   "incidencia_id": 11,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-04-22T06:25:37",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 12,
+   "incidencia_id": 12,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-04-28T20:59:14",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 13,
+   "incidencia_id": 13,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-04-29T21:40:22",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 14,
+   "incidencia_id": 14,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-05-11T06:40:30.923000",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 15,
+   "incidencia_id": 15,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-05-11T17:45:59",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 16,
+   "incidencia_id": 16,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-05-15T07:06:17",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 17,
+   "incidencia_id": 17,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-05-15T07:23:40",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 18,
+   "incidencia_id": 18,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-05-15T20:11:43",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 19,
+   "incidencia_id": 19,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-05-18T17:09:58",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 20,
+   "incidencia_id": 20,
+   "estado_anterior": null,
+   "estado_nuevo": "caso_especial",
+   "operario_id": null,
+   "registrado_at": "2026-05-20T21:22:43",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 21,
+   "incidencia_id": 21,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-05-21T07:54:14",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 22,
+   "incidencia_id": 22,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-05-21T20:29:39",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 23,
+   "incidencia_id": 23,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-05-22T08:00:19",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 24,
+   "incidencia_id": 24,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-05-22T18:24:38",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 25,
+   "incidencia_id": 25,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-05-26T16:32:05",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 26,
+   "incidencia_id": 26,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-05-27T06:10:08",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 27,
+   "incidencia_id": 27,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-05-28T17:01:03",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 28,
+   "incidencia_id": 28,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-05-28T20:08:35",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 29,
+   "incidencia_id": 29,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-06-01T13:51:47",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 30,
+   "incidencia_id": 30,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-06-08T06:02:02",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 31,
+   "incidencia_id": 31,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-06-16T09:16:29",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 32,
+   "incidencia_id": 32,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-06-16T19:25:35.170000",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 33,
+   "incidencia_id": 33,
+   "estado_anterior": null,
+   "estado_nuevo": "caso_especial",
+   "operario_id": null,
+   "registrado_at": "2026-06-18T09:52:07",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 34,
+   "incidencia_id": 34,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-06-24T11:35:46",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 35,
+   "incidencia_id": 35,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-06-24T14:57:59",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 36,
+   "incidencia_id": 36,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-06-26T07:11:05",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 37,
+   "incidencia_id": 37,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-06-26T13:43:23",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 38,
+   "incidencia_id": 38,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-06-29T14:12:14",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 39,
+   "incidencia_id": 39,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-06-30T15:27:13",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 40,
+   "incidencia_id": 40,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-06-30T19:05:19",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 41,
+   "incidencia_id": 41,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-06-30T19:28:31",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 42,
+   "incidencia_id": 42,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-07-02T12:13:46",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 43,
+   "incidencia_id": 43,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-07-02T19:41:27",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 44,
+   "incidencia_id": 44,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-07-02T21:24:13",
+   "observacion": "Migrado desde Excel"
+  },
+  {
+   "id": 45,
+   "incidencia_id": 45,
+   "estado_anterior": null,
+   "estado_nuevo": "en_box",
+   "operario_id": null,
+   "registrado_at": "2026-07-03T07:21:11",
+   "observacion": "Migrado desde Excel"
+  }
+ ]
+}
