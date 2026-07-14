@@ -18,6 +18,8 @@ export function resetDemo() { localStorage.removeItem(KEY); db = null }
 export const ESTADOS = {
   en_box: { label: 'En espera de box', css: 'purple' },
   en_reparacion: { label: 'En reparación', css: 'blue' },
+  en_oleo: { label: 'En espera de OLEO', css: 'amber' },
+  en_proceso_oleo: { label: 'En proceso de OLEO', css: 'blue' },
   espera_particularidad: { label: 'Espera de particularidad', css: 'amber' },
   liberada: { label: 'Liberada', css: 'green' },
   caso_especial: { label: 'Caso especial', css: 'red' },
@@ -115,7 +117,7 @@ export function incidencias(filtro) {
 
 const nid = (arr) => arr.reduce((m, x) => Math.max(m, x.id), 0) + 1
 
-export function crearIncidencia({ cis, cest, fallas, notas, operario_id, tipo_unidad = 'carroceria' }) {
+export function crearIncidencia({ cis, cest, fallas, notas, operario_id, tipo_unidad = 'carroceria', estado_inicial = 'en_box' }) {
   const d = getDB()
   let u = d.unidades.find((x) => x.cis === cis && (x.tipo || 'carroceria') === tipo_unidad)
   if (!u) {
@@ -126,7 +128,7 @@ export function crearIncidencia({ cis, cest, fallas, notas, operario_id, tipo_un
   }
   const abierta = d.incidencias.find((i) => i.unidad_id === u.id && !i.cerrada_at)
   if (abierta) throw new Error(`El CIS ${cis} ya está en piso (${ESTADOS[abierta.estado].label.toLowerCase()}).`)
-  const inc = { id: nid(d.incidencias), unidad_id: u.id, estado: 'en_box', detectada_at: ahora(), cerrada_at: null, notas: notas || '' }
+  const inc = { id: nid(d.incidencias), unidad_id: u.id, estado: estado_inicial, detectada_at: ahora(), cerrada_at: null, notas: notas || '' }
   d.incidencias.push(inc)
   for (const f of fallas) {
     d.incidencia_fallas.push({
@@ -134,9 +136,10 @@ export function crearIncidencia({ cis, cest, fallas, notas, operario_id, tipo_un
       particularidad_id: f.particularidad_id || null, descripcion: f.descripcion || '', resuelta_at: null,
     })
   }
+  const labelDestino = ESTADOS[estado_inicial].label.toLowerCase()
   d.eventos.push({
-    id: nid(d.eventos), incidencia_id: inc.id, estado_anterior: null, estado_nuevo: 'en_box',
-    operario_id, registrado_at: ahora(), observacion: `Detectada en revisión final (${tipo_unidad}), enviada al box`,
+    id: nid(d.eventos), incidencia_id: inc.id, estado_anterior: null, estado_nuevo: estado_inicial,
+    operario_id, registrado_at: ahora(), observacion: `Detectada en revisión final (${tipo_unidad}), enviada a ${labelDestino}`,
   })
   persist()
   return inc

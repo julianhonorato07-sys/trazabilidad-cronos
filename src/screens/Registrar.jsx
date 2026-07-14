@@ -42,6 +42,7 @@ export default function Registrar() {
   }
 
   const enviar = (operario_id) => {
+    const destino = pick // 'en_box' or 'en_oleo'
     setPick(false)
     const fallas = []
     for (const tid of tiposSel) {
@@ -50,8 +51,8 @@ export default function Registrar() {
       else fallas.push({ tipo_falla_id: tid })
     }
     try {
-      crearIncidencia({ cis, cest: unidad ? unidad.cest : cest, fallas, notas: nota, operario_id })
-      setOk(cis)
+      crearIncidencia({ cis, cest: unidad ? unidad.cest : cest, fallas, notas: nota, operario_id, estado_inicial: destino })
+      setOk({ cis, destino })
       setCis(''); setCest(''); setTiposSel([]); setPartsSel({}); setNota('')
     } catch (e) {
       setErr(e.message)
@@ -140,25 +141,31 @@ export default function Registrar() {
         onChange={(e) => setNota(e.target.value)}
       />
 
-      <div className="acciones">
+      <div className="acciones" style={{ display: 'flex', gap: 10 }}>
         <button
           className="btn primary"
-          onClick={() => { const v = validar(); v ? setErr(v) : setPick(true) }}
+          onClick={() => { const v = validar(); v ? setErr(v) : setPick('en_box') }}
         >
-          Enviar al box →
+          Enviar a Box
+        </button>
+        <button
+          className="btn warn"
+          onClick={() => { const v = validar(); v ? setErr(v) : setPick('en_oleo') }}
+        >
+          Enviar a OLEO
         </button>
       </div>
 
       {pick && (
-        <OperarioPicker roles={['revision']} titulo="¿Quién detectó el desvío?" onPick={enviar} onClose={() => setPick(false)} />
+        <OperarioPicker roles={['revision']} titulo={`¿Quién detectó el desvío? (${pick === 'en_box' ? 'Box' : 'OLEO'})`} onPick={enviar} onClose={() => setPick(false)} />
       )}
 
       {ok && (
         <div className="exito" onClick={() => setOk('')}>
           <div className="exito-card" onClick={(e) => e.stopPropagation()}>
             <div className="exito-check">✓</div>
-            <div className="cis" style={{ fontSize: 30 }}>{ok}</div>
-            <p className="muted" style={{ margin: '6px 0 18px' }}>Registrada y enviada al box</p>
+            <div className="cis" style={{ fontSize: 30 }}>{ok.cis}</div>
+            <p className="muted" style={{ margin: '6px 0 18px' }}>Registrada y enviada a {ok.destino === 'en_box' ? 'Box' : 'OLEO'}</p>
             <button className="btn primary" onClick={() => setOk('')}>Registrar otra</button>
           </div>
         </div>
