@@ -91,8 +91,8 @@ export function csvEventos() {
   return csv(filas)
 }
 
-export function unidadPorCis(cis) {
-  return getDB().unidades.find((u) => u.cis === String(cis))
+export function unidadPorCis(cis, tipo_unidad = 'carroceria') {
+  return getDB().unidades.find((u) => u.cis === String(cis) && (u.tipo || 'carroceria') === tipo_unidad)
 }
 
 export function fallasDe(incId) {
@@ -115,11 +115,11 @@ export function incidencias(filtro) {
 
 const nid = (arr) => arr.reduce((m, x) => Math.max(m, x.id), 0) + 1
 
-export function crearIncidencia({ cis, cest, fallas, notas, operario_id }) {
+export function crearIncidencia({ cis, cest, fallas, notas, operario_id, tipo_unidad = 'carroceria' }) {
   const d = getDB()
-  let u = d.unidades.find((x) => x.cis === cis)
+  let u = d.unidades.find((x) => x.cis === cis && (x.tipo || 'carroceria') === tipo_unidad)
   if (!u) {
-    u = { id: nid(d.unidades), cis, check_digit: null, cest: cest || '', salida_linea: null, st: '', ssc: '', smo: '' }
+    u = { id: nid(d.unidades), cis, check_digit: null, cest: cest || '', salida_linea: null, st: '', ssc: '', smo: '', tipo: tipo_unidad }
     d.unidades.push(u)
   } else if (cest && !u.cest) {
     u.cest = cest
@@ -136,7 +136,7 @@ export function crearIncidencia({ cis, cest, fallas, notas, operario_id }) {
   }
   d.eventos.push({
     id: nid(d.eventos), incidencia_id: inc.id, estado_anterior: null, estado_nuevo: 'en_box',
-    operario_id, registrado_at: ahora(), observacion: 'Detectada en revisión final, enviada al box',
+    operario_id, registrado_at: ahora(), observacion: `Detectada en revisión final (${tipo_unidad}), enviada al box`,
   })
   persist()
   return inc
@@ -171,14 +171,23 @@ export function eventosDe(incId) {
 
 export function kpis() {
   const d = getDB()
-  const abiertas = incidencias((i) => !i.cerrada_at)
+  const cabinasActivas = incidencias((i) => !i.cerrada_at && i.unidad && i.unidad.tipo === 'cabina').length
+  const cajasActivas = incidencias((i) => !i.cerrada_at && i.unidad && i.unidad.tipo === 'caja').length
+
+  const abiertas = incidencias((i) => !i.cerrada_at && (!i.unidad || !i.unidad.tipo || i.unidad.tipo === 'carroceria'))
   const mas40 = abiertas.filter((i) => dias(i.detectada_at) > 40)
   const promDias = abiertas.length ? abiertas.reduce((s, i) => s + dias(i.detectada_at), 0) / abiertas.length : 0
-  const liberadas7 = d.incidencias.filter((i) => i.cerrada_at && dias(i.cerrada_at) <= 7).length
+  const liberadas7 = d.incidencias.filter((i) => {
+    const u = d.unidades.find((x) => x.id === i.unidad_id)
+    const t = u ? (u.tipo || 'carroceria') : 'carroceria'
+    return i.cerrada_at && dias(i.cerrada_at) <= 7 && t === 'carroceria'
+  }).length
 
   const t = { espera: [], reparacion: [], total: [] }
   const h = (a, b) => (new Date(b).getTime() - new Date(a).getTime()) / 3600000
   for (const i of d.incidencias.filter((x) => x.estado === 'liberada')) {
+    const u = d.unidades.find((x) => x.id === i.unidad_id)
+    if (u && u.tipo && u.tipo !== 'carroceria') continue
     const evs = d.eventos.filter((e) => e.incidencia_id === i.id)
     const rep = evs.find((e) => e.estado_nuevo === 'en_reparacion')
     const lib = evs.find((e) => e.estado_nuevo === 'liberada')
@@ -190,6 +199,9 @@ export function kpis() {
 
   const conteo = {}
   for (const f of d.incidencia_fallas) {
+    const inc = d.incidencias.find((x) => x.id === f.incidencia_id)
+    const u = inc ? d.unidades.find((x) => x.id === inc.unidad_id) : null
+    if (u && u.tipo && u.tipo !== 'carroceria') continue
     const tipo = d.tipos_falla.find((x) => x.id === f.tipo_falla_id)
     conteo[tipo.nombre] = (conteo[tipo.nombre] || 0) + 1
   }
@@ -210,6 +222,6 @@ export function kpis() {
   return {
     enPiso: abiertas.length, mas40: mas40.length, promDias, liberadas7,
     tiempos: { espera: prom(t.espera), reparacion: prom(t.reparacion), total: prom(t.total) },
-    pareto, alertas,
+    pareto, alertas, cabinasActivas, cajasActivas
   }
 }

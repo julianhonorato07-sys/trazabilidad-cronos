@@ -3,17 +3,21 @@ import { Icon } from './components/ui'
 import RolSelect from './screens/RolSelect'
 import Registrar from './screens/Registrar'
 import Box from './screens/Box'
+import Cabina from './screens/Cabina'
+import Cajas from './screens/Cajas'
 import Buscar from './screens/Buscar'
 import Panel from './screens/Panel'
 
 const TABS = [
   { id: 'registrar', label: 'Registrar', icon: 'registrar', comp: Registrar },
   { id: 'box', label: 'Box', icon: 'box', comp: Box },
+  { id: 'cabina', label: 'Cabina', icon: 'auto', comp: Cabina },
+  { id: 'cajas', label: 'Cajas', icon: 'piso', comp: Cajas },
   { id: 'buscar', label: 'Buscar', icon: 'buscar', comp: Buscar },
   { id: 'panel', label: 'Panel', icon: 'panel', comp: Panel },
 ]
-const ROL_LABEL = { revision: 'Revisión final', box: 'Box', supervisor: 'Supervisión' }
-const ROL_TAB = { revision: 'registrar', box: 'box', supervisor: 'panel' }
+const ROL_LABEL = { revision: 'Revisión final', box: 'Box', supervisor: 'Supervisión', cabina: 'Cabina', cajas: 'Cajas' }
+const ROL_TAB = { revision: 'registrar', box: 'box', supervisor: 'panel', cabina: 'cabina', cajas: 'cajas' }
 
 export default function App() {
   const [rol, setRol] = useState(localStorage.getItem('terminal-rol') || '')

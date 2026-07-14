@@ -3,6 +3,8 @@ import { Icon } from '../components/ui'
 const ROLES = [
   { id: 'revision', t: 'Revisión final', d: 'Detectar defectos y enviar unidades al box', icon: 'lupa2', bg: 'var(--purple-soft)', fg: 'var(--purple)' },
   { id: 'box', t: 'Box de reparación', d: 'Tomar unidades, repararlas y liberarlas', icon: 'llave', bg: 'var(--blue-soft)', fg: 'var(--blue)' },
+  { id: 'cabina', t: 'Cabina', d: 'Registrar y reparar desvíos en Cabina', icon: 'auto', bg: 'var(--blue-soft)', fg: 'var(--blue)' },
+  { id: 'cajas', t: 'Cajas', d: 'Registrar y reparar desvíos en Cajas para llevar', icon: 'piso', bg: 'var(--amber-soft)', fg: 'var(--amber)' },
   { id: 'supervisor', t: 'Supervisión', d: 'Indicadores, alertas y exportación', icon: 'panel', bg: 'var(--green-soft)', fg: 'var(--green)' },
 ]
 

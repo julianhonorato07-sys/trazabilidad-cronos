@@ -22,11 +22,11 @@ export default function Panel() {
       <h3>Panel de supervisión</h3>
       <p className="sub">Foto del piso en tiempo real. Los datos alimentan Power BI vía las vistas SQL.</p>
 
-      <div className="tiles">
+      <div className="tiles" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12 }}>
         <div className="tile">
           <span className="ico"><Icon name="piso" size={20} /></span>
           <div className="n">{k.enPiso}</div>
-          <div className="l">Unidades en piso</div>
+          <div className="l">Carrocerías en piso</div>
         </div>
         <div className={'tile' + (k.mas40 ? ' rojo' : '')}>
           <span className="ico"><Icon name="alerta" size={20} /></span>
@@ -41,7 +41,17 @@ export default function Panel() {
         <div className="tile">
           <span className="ico"><Icon name="ok" size={20} /></span>
           <div className="n">{k.liberadas7}</div>
-          <div className="l">Liberadas últimos 7 días</div>
+          <div className="l">Liberadas 7 días</div>
+        </div>
+        <div className="tile">
+          <span className="ico"><Icon name="auto" size={20} /></span>
+          <div className="n">{k.cabinasActivas}</div>
+          <div className="l">Cabinas en reparación</div>
+        </div>
+        <div className="tile">
+          <span className="ico"><Icon name="piso" size={20} /></span>
+          <div className="n">{k.cajasActivas}</div>
+          <div className="l">Cajas en reparación</div>
         </div>
       </div>
 

@@ -30,10 +30,14 @@ export default function Buscar() {
       <div className="lista" style={{ marginTop: 16 }}>
         {res.map((u) => {
           const incs = incsDe(u.id)
+          const tipoLabel = u.tipo === 'cabina' ? 'Cabina' : u.tipo === 'caja' ? 'Caja' : 'Carrocería'
           return (
             <div key={u.id} className="card">
               <div className="fila">
-                <span className="cis">{u.cis}</span>
+                <div>
+                  <span className="cis">{u.cis}</span>
+                  <span className="chip" style={{ marginLeft: 8, textTransform: 'uppercase', fontSize: 10 }}>{tipoLabel}</span>
+                </div>
                 <span className="chip"><Swatch cest={u.cest} size={12} /> {colorNombre(u.cest)}</span>
               </div>
               {u.salida_linea && (
