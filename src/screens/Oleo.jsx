@@ -54,7 +54,7 @@ export default function Oleo() {
   const [, setTick] = useState(0)
   const refrescar = () => setTick((t) => t + 1)
 
-  const todas = incidencias((i) => (!i.unidad.tipo || i.unidad.tipo === 'carroceria'))
+  const todas = incidencias((i) => i.unidad && (!i.unidad.tipo || i.unidad.tipo === 'carroceria'))
   const abiertas = todas.filter((i) => !i.cerrada_at)
 
   const inc = selInc ? todas.find((i) => i.id === selInc) : null
