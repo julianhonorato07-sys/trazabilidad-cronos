@@ -52,8 +52,8 @@ export default function App() {
       <header className="app">
         <div className="logo">TK</div>
         <div className="brand">
-          <strong>Trazabilidad</strong>
-          <span>Cronos + KP1</span>
+          <strong>TRAZABILIDAD</strong>
+          <span>Cronos · KP1</span>
         </div>
         <div className="spacer" />
         <span className="demo-pill">MODO DEMO</span>
