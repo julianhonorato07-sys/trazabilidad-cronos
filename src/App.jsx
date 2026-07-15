@@ -21,8 +21,15 @@ function tabsDe(rol) {
   ]
 }
 
+// Un puesto guardado de una versión anterior (ej. "cabina", que ya no existe) no debe
+// romper la app: se descarta y se vuelve a pedir el puesto.
+const rolGuardado = () => {
+  const r = localStorage.getItem('terminal-rol') || ''
+  return ROL_LABEL[r] ? r : ''
+}
+
 export default function App() {
-  const [rol, setRol] = useState(localStorage.getItem('terminal-rol') || '')
+  const [rol, setRol] = useState(rolGuardado)
   const [tab, setTab] = useState(location.hash.slice(2))
 
   useEffect(() => {
