@@ -7,18 +7,19 @@ import Panel from './screens/Panel'
 
 const ROL_LABEL = { revision: 'Revisión final', oleo: 'Óleo', box: 'Box de retoques', supervisor: 'Supervisión' }
 
-// Pestañas de la barra inferior según el puesto de la terminal.
+// Los tres puestos operativos son navegables desde la barra inferior, para saltar
+// entre ellos sin pasar por la pantalla de inicio.
+const PUESTOS = [
+  { id: 'revision', label: 'Revisión', icon: 'lupa2' },
+  { id: 'oleo', label: 'Óleo', icon: 'auto' },
+  { id: 'box', label: 'Box', icon: 'llave' },
+]
+
 function tabsDe(rol) {
-  if (rol === 'supervisor') {
-    return [
-      { id: 'panel', label: 'Panel', icon: 'panel', render: () => <Panel /> },
-      { id: 'buscar', label: 'Buscar', icon: 'buscar', render: () => <Buscar /> },
-    ]
-  }
-  return [
-    { id: 'tablero', label: 'Tablero', icon: rol === 'box' ? 'llave' : 'registrar', render: () => <Puesto rol={rol} /> },
-    { id: 'buscar', label: 'Buscar', icon: 'buscar', render: () => <Buscar /> },
-  ]
+  const puestos = PUESTOS.map((p) => ({ ...p, render: () => <Puesto rol={p.id} /> }))
+  const buscar = { id: 'buscar', label: 'Buscar', icon: 'buscar', render: () => <Buscar /> }
+  const panel = { id: 'panel', label: 'Panel', icon: 'panel', render: () => <Panel /> }
+  return rol === 'supervisor' ? [panel, ...puestos, buscar] : [...puestos, buscar]
 }
 
 // Un puesto guardado de una versión anterior (ej. "cabina", que ya no existe) no debe
@@ -45,7 +46,8 @@ export default function App() {
   }
 
   const tabs = tabsDe(rol)
-  const activa = tabs.find((t) => t.id === tab) || tabs[0]
+  // Sin pestaña en la URL, abre la del puesto configurado en la terminal.
+  const activa = tabs.find((t) => t.id === tab) || tabs.find((t) => t.id === rol) || tabs[0]
 
   return (
     <>

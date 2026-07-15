@@ -377,9 +377,12 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-
   display: flex; flex-direction: column; gap: 10px;
   padding: 8vh 18px 40px; max-width: 460px; margin: 0 auto;
 }
-.rol-hero { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+.rol-hero {
+  margin-bottom: 20px; padding-bottom: 20px;
+  border-bottom: 1px solid var(--line); text-align: center;
+}
 .rol-hero .logo {
-  width: 44px; height: 44px; border-radius: 6px; font-size: 13px; margin: 0 0 14px;
+  width: 44px; height: 44px; border-radius: 6px; font-size: 13px; margin: 0 auto 14px;
   background: var(--navy); color: #fff;
 }
 .rol-hero h1 {
