@@ -28,6 +28,11 @@ export default function RolSelect({ onPick }) {
       <p className="muted" style={{ fontSize: 12.5, textAlign: 'center', marginTop: 6 }}>
         Cada puesto maneja Cronos, Cabina y Caja en pestañas. Se puede cambiar desde el encabezado.
       </p>
+
+      <footer className="corp">
+        <span className="corp-mark">STELLANTIS</span>
+        <span className="corp-sub">Sistema interno de trazabilidad · Uso exclusivo de planta</span>
+      </footer>
     </div>
   )
 }
