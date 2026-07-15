@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import {
   TIPOS, ORIGENES, ATRIBUCIONES, catalogo, unidadPorCis, crearIncidencia, incidencias, transicion,
   toggleFalla, eventosDe, dias, fmtDur, fmtRel, fmtFecha, turnoLabel, semaforo, colorNombre, tipoDe, ESTADOS,
@@ -63,6 +63,7 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
   const [atrib, setAtrib] = useState('')
   const [pick, setPick] = useState(false)
   const [err, setErr] = useState('')
+  const cisRef = useRef(null)
 
   const unidad = tipo === 'cronos' && cis.length === 7 ? unidadPorCis(cis, 'cronos') : null
 
@@ -87,6 +88,18 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
     if (origen === 'oleo' && !atrib) return 'Indicá de dónde salió el defecto.'
     return ''
   }
+  // El formulario es largo: si el dato que falta quedó fuera de pantalla, hay que
+  // llevar al operario hasta ahí o parece que el botón no hace nada.
+  const intentar = () => {
+    const v = validar()
+    if (!v) return setPick(true)
+    setErr(v)
+    if (v.includes('CIS')) {
+      cisRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+      cisRef.current?.focus({ preventScroll: true })
+    }
+  }
+
   const enviar = (operario_id, turno) => {
     setPick(false)
     const fallas = []
@@ -107,8 +120,8 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
   return (
     <Modal onClose={onClose}>
       <h3>Registrar desvío · {TIPOS.find((t) => t.id === tipo).label}</h3>
-      {err && <div className="banner err" style={{ marginTop: 10 }}><span>{err}</span><button onClick={() => setErr('')}>Cerrar</button></div>}
       <input
+        ref={cisRef}
         className="cis-input" inputMode="numeric" maxLength={10} placeholder="CIS"
         value={cis} onChange={(e) => { setErr(''); setCis(e.target.value.replace(/\D/g, '')) }}
       />
@@ -170,8 +183,11 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
       <h4>Observaciones (opcional)</h4>
       <textarea placeholder="Ej: bollo grande, revisar grafado…" value={nota} onChange={(e) => setNota(e.target.value)} />
 
+      {/* El error va acá, pegado al botón: es donde está mirando quien lo aprieta. */}
+      {err && <div className="banner err" style={{ margin: '16px 0 0' }}><span>{err}</span><button onClick={() => setErr('')}>Cerrar</button></div>}
+
       <div className="acciones">
-        <button className="btn primary" onClick={() => { const v = validar(); v ? setErr(v) : setPick(true) }}>Enviar al box →</button>
+        <button className="btn primary" onClick={intentar}>Enviar al box →</button>
         <button className="btn ghost" onClick={onClose}>Cancelar</button>
       </div>
 
