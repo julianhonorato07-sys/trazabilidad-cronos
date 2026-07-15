@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import {
-  TIPOS, ORIGENES, catalogo, unidadPorCis, crearIncidencia, incidencias, transicion, toggleFalla,
-  eventosDe, dias, fmtDur, fmtRel, fmtFecha, turno, semaforo, colorNombre, tipoDe, ESTADOS,
+  TIPOS, ORIGENES, ATRIBUCIONES, catalogo, unidadPorCis, crearIncidencia, incidencias, transicion,
+  toggleFalla, eventosDe, dias, fmtDur, fmtRel, fmtFecha, turnoLabel, semaforo, colorNombre, tipoDe, ESTADOS,
 } from '../data/repo'
 import { Modal, OperarioPicker, EstadoChip, FallaTag, Swatch, Vacio, Icon } from '../components/ui'
 
 const PUESTOS = {
   revision: { titulo: 'Revisión final', sub: 'Detectá el defecto y enviá la unidad al box.', origen: 'revision', registra: true, opera: false },
-  oleo: { titulo: 'OLEO', sub: 'Detectá el defecto y enviá la unidad al box.', origen: 'oleo', registra: true, opera: false },
+  oleo: { titulo: 'Óleo', sub: 'Detectá el defecto y enviá la unidad al box.', origen: 'oleo', registra: true, opera: false },
   box: { titulo: 'Box de retoques', sub: 'Tomá las unidades en espera, reparalas y liberalas.', origen: null, registra: false, opera: true },
 }
 
@@ -60,6 +60,7 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
   const [tiposSel, setTiposSel] = useState([])
   const [partsSel, setPartsSel] = useState({})
   const [nota, setNota] = useState('')
+  const [atrib, setAtrib] = useState('')
   const [pick, setPick] = useState(false)
   const [err, setErr] = useState('')
 
@@ -83,9 +84,10 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
       const t = tipos.find((x) => x.id === tid)
       if (t.requiere_particularidad && !(partsSel[tid] || []).length) return `Indicá la particularidad de "${t.nombre}".`
     }
+    if (origen === 'oleo' && !atrib) return 'Indicá de dónde salió el defecto.'
     return ''
   }
-  const enviar = (operario_id) => {
+  const enviar = (operario_id, turno) => {
     setPick(false)
     const fallas = []
     for (const tid of tiposSel) {
@@ -94,7 +96,10 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
       else fallas.push({ tipo_falla_id: tid })
     }
     try {
-      crearIncidencia({ cis, cest: unidad ? unidad.cest : cest, fallas, notas: nota, operario_id, tipo_unidad: tipo, origen })
+      crearIncidencia({
+        cis, cest: unidad ? unidad.cest : cest, fallas, notas: nota, operario_id, turno,
+        atribucion: atrib || null, tipo_unidad: tipo, origen,
+      })
       onDone(cis)
     } catch (e) { setErr(e.message) }
   }
@@ -149,6 +154,19 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
         )
       })}
 
+      {origen === 'oleo' && (
+        <>
+          <h4>¿De dónde salió el defecto?</h4>
+          <div className="fallas-grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
+            {Object.entries(ATRIBUCIONES).map(([id, label]) => (
+              <button key={id} className={'falla-btn' + (atrib === id ? ' on' : '')} onClick={() => { setErr(''); setAtrib(id) }}>
+                {label}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+
       <h4>Observaciones (opcional)</h4>
       <textarea placeholder="Ej: bollo grande, revisar grafado…" value={nota} onChange={(e) => setNota(e.target.value)} />
 
@@ -167,7 +185,7 @@ function DetalleModal({ inc, opera, rolOperario, onClose, onRefresh }) {
   const pendientes = inc.fallas.filter((f) => !f.resuelta_at).length
   const eventos = eventosDe(inc.id)
 
-  const ejecutar = (operario_id) => { transicion(inc.id, accion.nuevo, operario_id); setAccion(null); onClose(); onRefresh() }
+  const ejecutar = (operario_id, turno) => { transicion(inc.id, accion.nuevo, operario_id, turno); setAccion(null); onClose(); onRefresh() }
 
   if (accion) {
     return <OperarioPicker roles={[rolOperario]} titulo={`${accion.label} — ¿quién lo registra?`} onPick={ejecutar} onClose={() => setAccion(null)} />
@@ -181,8 +199,10 @@ function DetalleModal({ inc, opera, rolOperario, onClose, onRefresh }) {
       <p className="muted" style={{ margin: '6px 0 0', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
         <Swatch cest={inc.unidad.cest} size={12} /> {colorNombre(inc.unidad.cest)}
         <span className="chip origen">{ORIGENES[inc.origen] || 'Revisión final'}</span>
+        <span className="chip">{turnoLabel(inc.turno)}</span>
         · detectada {fmtRel(inc.detectada_at)}
       </p>
+      {inc.atribucion && <p className="nota" style={{ marginTop: 10 }}>Origen del defecto: <strong>{ATRIBUCIONES[inc.atribucion]}</strong></p>}
       {inc.notas && <p className="nota" style={{ marginTop: 12 }}>{inc.notas}</p>}
 
       <h4>Fallas ({inc.fallas.length})</h4>
@@ -216,7 +236,7 @@ function DetalleModal({ inc, opera, rolOperario, onClose, onRefresh }) {
               return (
                 <div key={e.id} className={'tl-item ' + css}>
                   {dur != null && <span className="tl-dur">+{fmtDur(dur)}</span>}
-                  <div className="tl-fecha">{fmtFecha(e.registrado_at)} · turno {turno(e.registrado_at).toLowerCase()}</div>
+                  <div className="tl-fecha">{fmtFecha(e.registrado_at)} · {turnoLabel(e.turno)}</div>
                   <div className="tl-txt">{ESTADOS[e.estado_nuevo].label}{e.operario ? <span className="muted" style={{ fontWeight: 700 }}> — {e.operario.nombre}</span> : ''}</div>
                   {e.observacion && <div className="tl-obs">{e.observacion}</div>}
                 </div>

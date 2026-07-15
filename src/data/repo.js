@@ -1,6 +1,6 @@
 import seed from './seed.json'
 
-const KEY = 'traza-cronos-v3'
+const KEY = 'traza-cronos-v4'
 let db = null
 
 export function getDB() {
@@ -11,7 +11,9 @@ export function getDB() {
     db.colores = structuredClone(seed.colores)
     db.particularidades = structuredClone(seed.particularidades)
     db.tipos_falla = structuredClone(seed.tipos_falla)
-    db.operarios = structuredClone(seed.operarios)
+    // Los operarios del seed son la base; los que se agregan a mano se conservan.
+    const propios = (db.operarios || []).filter((o) => o.manual)
+    db.operarios = [...structuredClone(seed.operarios), ...propios]
   }
   return db
 }
@@ -24,7 +26,15 @@ export const TIPOS = [
   { id: 'cabina', label: 'Cabina', sub: 'KP1' },
   { id: 'caja', label: 'Caja', sub: 'KP1' },
 ]
-export const ORIGENES = { revision: 'Revisión final', oleo: 'OLEO' }
+export const ORIGENES = { revision: 'Revisión final', oleo: 'Óleo' }
+
+export const TURNOS = [{ id: 'A', label: 'Turno A' }, { id: 'B', label: 'Turno B' }]
+
+// Solo se pide en Óleo: de dónde salió el defecto. Mide lo que se escapa de Revisión final.
+export const ATRIBUCIONES = {
+  generada_oleo: 'Generada en el Óleo',
+  no_vista_revision: 'No vista en Revisión final',
+}
 
 export const ESTADOS = {
   en_espera: { label: 'En espera', css: 'purple' },
@@ -37,7 +47,7 @@ export const tipoLabel = (id) => (TIPOS.find((t) => t.id === id) || { label: id 
 
 export const ahora = () => new Date().toISOString()
 export const dias = (iso) => (Date.now() - new Date(iso).getTime()) / 86400000
-export const turno = (iso) => (new Date(iso).getHours() < 14 ? 'Mañana' : 'Tarde')
+export const turnoLabel = (t) => (t ? `Turno ${t}` : 'Sin dato')
 export const fmtDur = (d) =>
   d < 1 / 24 ? `${Math.max(1, Math.round(d * 1440))} min` : d < 1 ? `${Math.round(d * 24)} h` : `${Math.floor(d)} d`
 export const fmtHoras = (h) =>
@@ -56,7 +66,8 @@ export const fmtRel = (iso) => {
 export function catalogo(tipo = 'cronos') {
   const d = getDB()
   return {
-    tipos: d.tipos_falla,
+    // Solo las fallas activas se pueden elegir; las viejas siguen vivas en el histórico.
+    tipos: d.tipos_falla.filter((t) => t.activo !== false),
     parts: d.particularidades.filter((p) => p.tipo === tipo),
     colores: d.colores,
     operarios: d.operarios.filter((o) => o.activo !== false),
@@ -97,7 +108,19 @@ export function incidencias(filtro) {
 
 const nid = (arr) => arr.reduce((m, x) => Math.max(m, x.id), 0) + 1
 
-export function crearIncidencia({ cis, cest, fallas, notas, operario_id, tipo_unidad = 'cronos', origen = 'revision' }) {
+// Alta de un operario escrito a mano; queda guardado para la próxima vez.
+export function agregarOperario(nombre, rol) {
+  const d = getDB()
+  const limpio = nombre.trim()
+  const existe = d.operarios.find((o) => o.nombre.toLowerCase() === limpio.toLowerCase() && o.rol === rol)
+  if (existe) return existe.id
+  const op = { id: nid(d.operarios), nombre: limpio, rol, activo: true, manual: true }
+  d.operarios.push(op)
+  persist()
+  return op.id
+}
+
+export function crearIncidencia({ cis, cest, fallas, notas, operario_id, turno = null, atribucion = null, tipo_unidad = 'cronos', origen = 'revision' }) {
   const d = getDB()
   let u = d.unidades.find((x) => x.cis === cis && tipoDe(x) === tipo_unidad)
   if (!u) {
@@ -108,7 +131,11 @@ export function crearIncidencia({ cis, cest, fallas, notas, operario_id, tipo_un
   }
   const abierta = d.incidencias.find((i) => i.unidad_id === u.id && !i.cerrada_at)
   if (abierta) throw new Error(`El CIS ${cis} (${tipoLabel(tipo_unidad)}) ya está en piso.`)
-  const inc = { id: nid(d.incidencias), unidad_id: u.id, estado: 'en_espera', origen, detectada_at: ahora(), cerrada_at: null, notas: notas || '' }
+  const inc = {
+    id: nid(d.incidencias), unidad_id: u.id, estado: 'en_espera', origen, turno,
+    atribucion: origen === 'oleo' ? atribucion : null,
+    detectada_at: ahora(), cerrada_at: null, notas: notas || '',
+  }
   d.incidencias.push(inc)
   for (const f of fallas) {
     d.incidencia_fallas.push({
@@ -118,18 +145,19 @@ export function crearIncidencia({ cis, cest, fallas, notas, operario_id, tipo_un
   }
   d.eventos.push({
     id: nid(d.eventos), incidencia_id: inc.id, estado_anterior: null, estado_nuevo: 'en_espera',
-    operario_id, registrado_at: ahora(), observacion: `Detectada en ${ORIGENES[origen]}, enviada al box`,
+    operario_id, turno, registrado_at: ahora(),
+    observacion: `Detectada en ${ORIGENES[origen]}${atribucion && origen === 'oleo' ? ` · ${ATRIBUCIONES[atribucion]}` : ''}, enviada al box`,
   })
   persist()
   return inc
 }
 
-export function transicion(incId, nuevo, operario_id, obs = '') {
+export function transicion(incId, nuevo, operario_id, turno = null, obs = '') {
   const d = getDB()
   const inc = d.incidencias.find((i) => i.id === incId)
   d.eventos.push({
     id: nid(d.eventos), incidencia_id: incId, estado_anterior: inc.estado, estado_nuevo: nuevo,
-    operario_id, registrado_at: ahora(), observacion: obs,
+    operario_id, turno, registrado_at: ahora(), observacion: obs,
   })
   inc.estado = nuevo
   inc.cerrada_at = nuevo === 'liberada' ? ahora() : null
@@ -155,11 +183,12 @@ function csv(filas) {
   return filas.map((f) => f.map((v) => `"${String(v ?? '').replaceAll('"', '""')}"`).join(';')).join('\n')
 }
 export function csvEnPiso() {
-  const filas = [['CIS', 'Tipo', 'CEST', 'Color', 'Origen', 'Estado', 'Detectada', 'Dias_en_piso', 'Fallas', 'Notas']]
+  const filas = [['CIS', 'Tipo', 'CEST', 'Color', 'Origen', 'Turno', 'Atribucion', 'Estado', 'Detectada', 'Dias_en_piso', 'Fallas', 'Notas']]
   for (const i of incidencias((x) => !x.cerrada_at)) {
     filas.push([
       i.unidad.cis, tipoLabel(tipoDe(i.unidad)), i.unidad.cest, colorNombre(i.unidad.cest),
-      ORIGENES[i.origen] || '', ESTADOS[i.estado].label, i.detectada_at, dias(i.detectada_at).toFixed(1),
+      ORIGENES[i.origen] || '', i.turno || '', ATRIBUCIONES[i.atribucion] || '',
+      ESTADOS[i.estado].label, i.detectada_at, dias(i.detectada_at).toFixed(1),
       i.fallas.map((f) => f.tipo.nombre + (f.part ? ` (${f.part.codigo})` : '')).join(' | '), i.notas,
     ])
   }
@@ -172,7 +201,7 @@ export function csvEventos() {
     const inc = d.incidencias.find((i) => i.id === e.incidencia_id)
     const u = d.unidades.find((x) => x.id === inc.unidad_id)
     const op = d.operarios.find((o) => o.id === e.operario_id)
-    filas.push([u.cis, tipoLabel(tipoDe(u)), e.estado_anterior || '', e.estado_nuevo, e.registrado_at, turno(e.registrado_at), op ? op.nombre : '', e.observacion])
+    filas.push([u.cis, tipoLabel(tipoDe(u)), e.estado_anterior || '', e.estado_nuevo, e.registrado_at, e.turno || '', op ? op.nombre : '', e.observacion])
   }
   return csv(filas)
 }
@@ -205,6 +234,14 @@ export function kpis(tipoFiltro = 'todos') {
   const porOrigen = {}
   for (const i of abiertas) { const o = i.origen || 'revision'; porOrigen[o] = (porOrigen[o] || 0) + 1 }
 
+  // Detecciones por turno (sobre todo el histórico del tipo, no solo lo abierto).
+  const porTurno = { A: 0, B: 0, sd: 0 }
+  for (const i of todas) porTurno[i.turno === 'A' ? 'A' : i.turno === 'B' ? 'B' : 'sd']++
+
+  // Atribución: solo aplica a lo detectado en Óleo.
+  const porAtribucion = { generada_oleo: 0, no_vista_revision: 0 }
+  for (const i of todas) if (i.origen === 'oleo' && i.atribucion) porAtribucion[i.atribucion]++
+
   const porTipo = {}
   for (const t of TIPOS) porTipo[t.id] = incidencias((i) => !i.cerrada_at && tipoDe(i.unidad) === t.id).length
 
@@ -221,6 +258,6 @@ export function kpis(tipoFiltro = 'todos') {
 
   return {
     enPiso: abiertas.length, mas40, promDias, liberadas7,
-    tiempoTotal: prom(totales), pareto, porColor, porOrigen, porTipo, alertas,
+    tiempoTotal: prom(totales), pareto, porColor, porOrigen, porTurno, porAtribucion, porTipo, alertas,
   }
 }

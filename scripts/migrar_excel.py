@@ -24,13 +24,14 @@ CON_SQL = "--sql" in sys.argv
 TIPOS_FALLA = [
     {"id": 1, "nombre": "Bollo", "usa_particularidad": True, "requiere_particularidad": False},
     {"id": 2, "nombre": "Falta de particularidad", "usa_particularidad": True, "requiere_particularidad": True},
-    {"id": 3, "nombre": "Para repintar", "usa_particularidad": False, "requiere_particularidad": False},
-    {"id": 4, "nombre": "Ya repintada", "usa_particularidad": False, "requiere_particularidad": False},
+    {"id": 3, "nombre": "Para repintar", "usa_particularidad": False, "requiere_particularidad": False, "activo": False},
+    {"id": 4, "nombre": "Ya repintada", "usa_particularidad": False, "requiere_particularidad": False, "activo": False},
     {"id": 5, "nombre": "JyP", "usa_particularidad": True, "requiere_particularidad": False},
-    {"id": 6, "nombre": "Marca de operación", "usa_particularidad": True, "requiere_particularidad": False},
+    {"id": 6, "nombre": "Marca de operación", "usa_particularidad": True, "requiere_particularidad": False, "activo": False},
     {"id": 7, "nombre": "Caso especial", "usa_particularidad": False, "requiere_particularidad": False},
     {"id": 8, "nombre": "Otra anomalía", "usa_particularidad": False, "requiere_particularidad": False},
 ]
+# activo=False -> no se puede elegir en registros nuevos, pero el histórico lo conserva.
 # Particularidades (partes) por tipo de unidad. Cronos son las históricas del Excel (ids 1-9,
 # no tocar para no romper la migración). Cabina y Caja (KP1) son TENTATIVAS: confirmar con planta.
 PARTICULARIDADES = [
@@ -66,8 +67,8 @@ OPERARIOS = [
     {"id": 1, "nombre": "Julián H.", "rol": "supervisor", "activo": True},
     {"id": 2, "nombre": "Revisión 1", "rol": "revision", "activo": True},
     {"id": 3, "nombre": "Revisión 2", "rol": "revision", "activo": True},
-    {"id": 4, "nombre": "OLEO 1", "rol": "oleo", "activo": True},
-    {"id": 5, "nombre": "OLEO 2", "rol": "oleo", "activo": True},
+    {"id": 4, "nombre": "Óleo 1", "rol": "oleo", "activo": True},
+    {"id": 5, "nombre": "Óleo 2", "rol": "oleo", "activo": True},
     {"id": 6, "nombre": "Box 1", "rol": "box", "activo": True},
     {"id": 7, "nombre": "Box 2", "rol": "box", "activo": True},
 ]
@@ -156,7 +157,9 @@ for cis in sorted(cats, key=lambda c: info[c]["desde"] or ""):
         unidades.append(u)
         por_cis[cis] = u
     estado = "caso_especial" if 7 in secs else "en_espera"
+    # turno/atribucion en None: el histórico es anterior a la app, no se inventan datos.
     inc = {"id": len(incidencias) + 1, "unidad_id": u["id"], "estado": estado, "origen": "revision",
+           "turno": None, "atribucion": None,
            "detectada_at": d["desde"], "cerrada_at": None, "notas": d["desc"]}
     incidencias.append(inc)
 
@@ -183,8 +186,8 @@ for cis in sorted(cats, key=lambda c: info[c]["desde"] or ""):
     if not any(f["incidencia_id"] == inc["id"] for f in fallas):
         add_falla(8, desc=d["desc"] or "Sin observaciones cargadas")
     eventos.append({"id": len(eventos) + 1, "incidencia_id": inc["id"], "estado_anterior": None,
-                    "estado_nuevo": estado, "operario_id": None, "registrado_at": d["desde"],
-                    "observacion": "Migrado desde Excel"})
+                    "estado_nuevo": estado, "operario_id": None, "turno": None,
+                    "registrado_at": d["desde"], "observacion": "Migrado desde Excel"})
 
 colores = {}
 for u in unidades:

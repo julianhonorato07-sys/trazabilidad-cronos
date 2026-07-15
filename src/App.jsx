@@ -5,7 +5,7 @@ import Puesto from './screens/Puesto'
 import Buscar from './screens/Buscar'
 import Panel from './screens/Panel'
 
-const ROL_LABEL = { revision: 'Revisión final', oleo: 'OLEO', box: 'Box de retoques', supervisor: 'Supervisión' }
+const ROL_LABEL = { revision: 'Revisión final', oleo: 'Óleo', box: 'Box de retoques', supervisor: 'Supervisión' }
 
 // Pestañas de la barra inferior según el puesto de la terminal.
 function tabsDe(rol) {

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {
-  getDB, incidencias, eventosDe, fmtFecha, fmtDur, fmtRel, dias, turno, colorNombre,
-  tipoDe, tipoLabel, ORIGENES, ESTADOS,
+  getDB, incidencias, eventosDe, fmtFecha, fmtDur, fmtRel, dias, turnoLabel, colorNombre,
+  tipoDe, tipoLabel, ORIGENES, ATRIBUCIONES, ESTADOS,
 } from '../data/repo'
 import { Modal, EstadoChip, FallaTag, Swatch, Vacio } from '../components/ui'
 
@@ -74,10 +74,12 @@ export default function Buscar() {
           <p className="muted" style={{ margin: '6px 0 0', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
             <Swatch cest={inc.unidad.cest} size={12} /> {colorNombre(inc.unidad.cest)}
             <span className="chip origen">{ORIGENES[inc.origen] || 'Revisión final'}</span>
+            <span className="chip">{turnoLabel(inc.turno)}</span>
             {inc.cerrada_at
               ? ` · ciclo cerrado en ${fmtDur(dias(inc.detectada_at) - dias(inc.cerrada_at))}`
               : ` · en piso hace ${fmtDur(dias(inc.detectada_at))}`}
           </p>
+          {inc.atribucion && <p className="nota" style={{ marginTop: 10 }}>Origen del defecto: <strong>{ATRIBUCIONES[inc.atribucion]}</strong></p>}
           {inc.notas && <p className="nota" style={{ marginTop: 12 }}>{inc.notas}</p>}
 
           <h4>Fallas</h4>
@@ -91,7 +93,7 @@ export default function Buscar() {
               return (
                 <div key={e.id} className={'tl-item ' + (CSS_TL[e.estado_nuevo] || '')}>
                   {durDias != null && <span className="tl-dur">+{fmtDur(durDias)}</span>}
-                  <div className="tl-fecha">{fmtFecha(e.registrado_at)} · turno {turno(e.registrado_at).toLowerCase()}</div>
+                  <div className="tl-fecha">{fmtFecha(e.registrado_at)} · {turnoLabel(e.turno)}</div>
                   <div className="tl-txt">
                     {ESTADOS[e.estado_nuevo].label}
                     {e.operario ? <span className="muted" style={{ fontWeight: 700 }}> — {e.operario.nombre}</span> : ''}

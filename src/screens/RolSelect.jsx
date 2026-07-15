@@ -2,7 +2,7 @@ import { Icon } from '../components/ui'
 
 const ROLES = [
   { id: 'revision', t: 'Revisión final', d: 'Detectar defectos y enviar unidades al box', icon: 'lupa2', bg: 'var(--purple-soft)', fg: 'var(--purple)' },
-  { id: 'oleo', t: 'OLEO', d: 'Detectar defectos y enviar unidades al box', icon: 'auto', bg: 'var(--amber-soft)', fg: 'var(--amber)' },
+  { id: 'oleo', t: 'Óleo', d: 'Detectar defectos y enviar unidades al box', icon: 'auto', bg: 'var(--amber-soft)', fg: 'var(--amber)' },
   { id: 'box', t: 'Box de retoques', d: 'Tomar unidades, repararlas y liberarlas', icon: 'llave', bg: 'var(--blue-soft)', fg: 'var(--blue)' },
   { id: 'supervisor', t: 'Supervisión', d: 'Indicadores, alertas y exportación', icon: 'panel', bg: 'var(--green-soft)', fg: 'var(--green)' },
 ]

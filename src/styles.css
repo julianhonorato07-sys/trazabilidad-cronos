@@ -210,6 +210,13 @@ textarea:focus { outline: none; border-color: var(--purple); }
 .tabs-tipo button.on { background: var(--purple); color: #fff; }
 
 .reg-btn { display: flex; align-items: center; justify-content: center; gap: 9px; margin-bottom: 14px; }
+.turno-btn { border: 2px solid var(--line); font-size: 17px; }
+.turno-btn.on { border-color: var(--purple); background: var(--purple-soft); color: var(--purple); }
+.nombre-input {
+  width: 100%; font-size: 19px; padding: 14px; border-radius: var(--radius); border: 2px solid var(--line);
+  background: var(--card); color: var(--ink); font-weight: 600; font-family: inherit;
+}
+.nombre-input:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 4px var(--purple-soft); }
 .chip.origen { background: var(--blue-soft); border-color: transparent; color: var(--blue); margin-left: auto; }
 .chip.tipo { background: var(--purple-soft); border-color: transparent; color: var(--purple); text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.5px; }
 

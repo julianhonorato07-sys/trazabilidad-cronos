@@ -42,13 +42,15 @@
    "id": 3,
    "nombre": "Para repintar",
    "usa_particularidad": false,
-   "requiere_particularidad": false
+   "requiere_particularidad": false,
+   "activo": false
   },
   {
    "id": 4,
    "nombre": "Ya repintada",
    "usa_particularidad": false,
-   "requiere_particularidad": false
+   "requiere_particularidad": false,
+   "activo": false
   },
   {
    "id": 5,
@@ -60,7 +62,8 @@
    "id": 6,
    "nombre": "Marca de operación",
    "usa_particularidad": true,
-   "requiere_particularidad": false
+   "requiere_particularidad": false,
+   "activo": false
   },
   {
    "id": 7,
@@ -248,13 +251,13 @@
   },
   {
    "id": 4,
-   "nombre": "OLEO 1",
+   "nombre": "Óleo 1",
    "rol": "oleo",
    "activo": true
   },
   {
    "id": 5,
-   "nombre": "OLEO 2",
+   "nombre": "Óleo 2",
    "rol": "oleo",
    "activo": true
   },
@@ -1654,6 +1657,8 @@
    "unidad_id": 124,
    "estado": "caso_especial",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2025-03-07T16:10:22",
    "cerrada_at": null,
    "notas": "Scrap Tirar"
@@ -1663,6 +1668,8 @@
    "unidad_id": 123,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2025-12-09T14:18:13",
    "cerrada_at": null,
    "notas": "Sin observaciones cargadas"
@@ -1672,6 +1679,8 @@
    "unidad_id": 122,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-01-07T15:58:56",
    "cerrada_at": null,
    "notas": "Sin observaciones cargadas"
@@ -1681,6 +1690,8 @@
    "unidad_id": 121,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-02-12T16:03:07",
    "cerrada_at": null,
    "notas": "JyP"
@@ -1690,6 +1701,8 @@
    "unidad_id": 120,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-02-23T07:15:25",
    "cerrada_at": null,
    "notas": "Box 12 anomalias - ya repintada -  Bollo capot + B (-) Puerta Posterior Sx y Mal grafado Baul"
@@ -1699,6 +1712,8 @@
    "unidad_id": 119,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-03-16T21:23:07",
    "cerrada_at": null,
    "notas": "JyP"
@@ -1708,6 +1723,8 @@
    "unidad_id": 118,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-04-08T07:11:12",
    "cerrada_at": null,
    "notas": "Box Falta baul y Capot - ya repintada"
@@ -1717,6 +1734,8 @@
    "unidad_id": 117,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-04-17T18:41:30",
    "cerrada_at": null,
    "notas": "Sin observaciones cargadas"
@@ -1726,6 +1745,8 @@
    "unidad_id": 116,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-04-20T09:37:34",
    "cerrada_at": null,
    "notas": "Box 6 anomalias"
@@ -1735,6 +1756,8 @@
    "unidad_id": 115,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-04-20T09:41:36",
    "cerrada_at": null,
    "notas": "Box 7 anomalias - Bollo Baul"
@@ -1744,6 +1767,8 @@
    "unidad_id": 114,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-04-22T06:25:37",
    "cerrada_at": null,
    "notas": "Box 9 anomalias - Falta puerta anterior sx"
@@ -1753,6 +1778,8 @@
    "unidad_id": 113,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-04-28T20:59:14",
    "cerrada_at": null,
    "notas": "Box 5 anomalias"
@@ -1762,6 +1789,8 @@
    "unidad_id": 112,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-04-29T21:40:22",
    "cerrada_at": null,
    "notas": "Box 6 anomalias"
@@ -1771,6 +1800,8 @@
    "unidad_id": 111,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-05-11T06:40:30.923000",
    "cerrada_at": null,
    "notas": "Box - Falta Capot para repintar"
@@ -1780,6 +1811,8 @@
    "unidad_id": 110,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-05-11T17:45:59",
    "cerrada_at": null,
    "notas": "Box 3 anomalias - ya repintada - Marca de operación anterior dx."
@@ -1789,6 +1822,8 @@
    "unidad_id": 109,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-05-15T07:06:17",
    "cerrada_at": null,
    "notas": "Box 6 anomalias - ya repintada"
@@ -1798,6 +1833,8 @@
    "unidad_id": 108,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-05-15T07:23:40",
    "cerrada_at": null,
    "notas": "Box 9 anomalia - ya repintada"
@@ -1807,6 +1844,8 @@
    "unidad_id": 107,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-05-15T20:11:43",
    "cerrada_at": null,
    "notas": "Box 1 anomalia"
@@ -1816,6 +1855,8 @@
    "unidad_id": 106,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-05-18T17:09:58",
    "cerrada_at": null,
    "notas": "Box - Fetuchia Baúl KO"
@@ -1825,6 +1866,8 @@
    "unidad_id": 105,
    "estado": "caso_especial",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-05-20T21:22:43",
    "cerrada_at": null,
    "notas": "Box chocado ver reparación chapa"
@@ -1834,6 +1877,8 @@
    "unidad_id": 104,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-05-21T07:54:14",
    "cerrada_at": null,
    "notas": "Box Falta Capot - Bollo Baul"
@@ -1843,6 +1888,8 @@
    "unidad_id": 103,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-05-21T20:29:39",
    "cerrada_at": null,
    "notas": "Box 2 anomalias - Falta capot y cambiar baul. Bollo puerta post sx y bollo puerta anterior dx."
@@ -1852,6 +1899,8 @@
    "unidad_id": 102,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-05-22T08:00:19",
    "cerrada_at": null,
    "notas": "Box - Repintar"
@@ -1861,6 +1910,8 @@
    "unidad_id": 101,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-05-22T18:24:38",
    "cerrada_at": null,
    "notas": "Box 5 anomalias - ya repintada"
@@ -1870,6 +1921,8 @@
    "unidad_id": 100,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-05-26T16:32:05",
    "cerrada_at": null,
    "notas": "Box 12 anomalias - ya repintada - Cambiar capot y baul"
@@ -1879,6 +1932,8 @@
    "unidad_id": 99,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-05-27T06:10:08",
    "cerrada_at": null,
    "notas": "Box 2 anomalias"
@@ -1888,6 +1943,8 @@
    "unidad_id": 98,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-05-28T17:01:03",
    "cerrada_at": null,
    "notas": "Sin observaciones cargadas"
@@ -1897,6 +1954,8 @@
    "unidad_id": 97,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-05-28T20:08:35",
    "cerrada_at": null,
    "notas": "Box 3 anomalias - Falta de Capot"
@@ -1906,6 +1965,8 @@
    "unidad_id": 96,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-06-01T13:51:47",
    "cerrada_at": null,
    "notas": "Box 7 anomalias - ya repintada"
@@ -1915,6 +1976,8 @@
    "unidad_id": 95,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-06-08T06:02:02",
    "cerrada_at": null,
    "notas": "Box 5 anomalias - ya repintada"
@@ -1924,6 +1987,8 @@
    "unidad_id": 92,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-06-16T09:16:29",
    "cerrada_at": null,
    "notas": "Box 2 anomalia"
@@ -1933,6 +1998,8 @@
    "unidad_id": 91,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-06-16T19:25:35.170000",
    "cerrada_at": null,
    "notas": "Box - Para repintar"
@@ -1942,6 +2009,8 @@
    "unidad_id": 89,
    "estado": "caso_especial",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-06-18T09:52:07",
    "cerrada_at": null,
    "notas": "Sin documento"
@@ -1951,6 +2020,8 @@
    "unidad_id": 88,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-06-24T11:35:46",
    "cerrada_at": null,
    "notas": "Box 6 anomalias, Bollo guardabarro dx y Marca de operación en el Baul"
@@ -1960,6 +2031,8 @@
    "unidad_id": 87,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-06-24T14:57:59",
    "cerrada_at": null,
    "notas": "Box 3 anomalias, bollo zocalo y falta capot"
@@ -1969,6 +2042,8 @@
    "unidad_id": 84,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-06-26T07:11:05",
    "cerrada_at": null,
    "notas": "Box 7 anomalias - Marca de operación puerta anterior dx y puerta posterior dx - Ya repintada"
@@ -1978,6 +2053,8 @@
    "unidad_id": 82,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-06-26T13:43:23",
    "cerrada_at": null,
    "notas": "Box 2 anomalias - Marca Operación puerta post sx."
@@ -1987,6 +2064,8 @@
    "unidad_id": 79,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-06-29T14:12:14",
    "cerrada_at": null,
    "notas": "Box 5 anomalias"
@@ -1996,6 +2075,8 @@
    "unidad_id": 72,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-06-30T15:27:13",
    "cerrada_at": null,
    "notas": "JyP Capot"
@@ -2005,6 +2086,8 @@
    "unidad_id": 69,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-06-30T19:05:19",
    "cerrada_at": null,
    "notas": "Box 10 anomalias  - Bollo Capot"
@@ -2014,6 +2097,8 @@
    "unidad_id": 67,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-06-30T19:28:31",
    "cerrada_at": null,
    "notas": "Box 1 anomalia"
@@ -2023,6 +2108,8 @@
    "unidad_id": 55,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-07-02T12:13:46",
    "cerrada_at": null,
    "notas": "Box 5 anomalias"
@@ -2032,6 +2119,8 @@
    "unidad_id": 47,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-07-02T19:41:27",
    "cerrada_at": null,
    "notas": "Box 5 anomalias"
@@ -2041,6 +2130,8 @@
    "unidad_id": 44,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-07-02T21:24:13",
    "cerrada_at": null,
    "notas": "Box - Bollo puerta anterior dx."
@@ -2050,6 +2141,8 @@
    "unidad_id": 41,
    "estado": "en_espera",
    "origen": "revision",
+   "turno": null,
+   "atribucion": null,
    "detectada_at": "2026-07-03T07:21:11",
    "cerrada_at": null,
    "notas": "Box 2 anomalias"
@@ -2512,6 +2605,7 @@
    "estado_anterior": null,
    "estado_nuevo": "caso_especial",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2025-03-07T16:10:22",
    "observacion": "Migrado desde Excel"
   },
@@ -2521,6 +2615,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2025-12-09T14:18:13",
    "observacion": "Migrado desde Excel"
   },
@@ -2530,6 +2625,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-01-07T15:58:56",
    "observacion": "Migrado desde Excel"
   },
@@ -2539,6 +2635,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-02-12T16:03:07",
    "observacion": "Migrado desde Excel"
   },
@@ -2548,6 +2645,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-02-23T07:15:25",
    "observacion": "Migrado desde Excel"
   },
@@ -2557,6 +2655,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-03-16T21:23:07",
    "observacion": "Migrado desde Excel"
   },
@@ -2566,6 +2665,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-04-08T07:11:12",
    "observacion": "Migrado desde Excel"
   },
@@ -2575,6 +2675,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-04-17T18:41:30",
    "observacion": "Migrado desde Excel"
   },
@@ -2584,6 +2685,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-04-20T09:37:34",
    "observacion": "Migrado desde Excel"
   },
@@ -2593,6 +2695,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-04-20T09:41:36",
    "observacion": "Migrado desde Excel"
   },
@@ -2602,6 +2705,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-04-22T06:25:37",
    "observacion": "Migrado desde Excel"
   },
@@ -2611,6 +2715,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-04-28T20:59:14",
    "observacion": "Migrado desde Excel"
   },
@@ -2620,6 +2725,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-04-29T21:40:22",
    "observacion": "Migrado desde Excel"
   },
@@ -2629,6 +2735,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-05-11T06:40:30.923000",
    "observacion": "Migrado desde Excel"
   },
@@ -2638,6 +2745,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-05-11T17:45:59",
    "observacion": "Migrado desde Excel"
   },
@@ -2647,6 +2755,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-05-15T07:06:17",
    "observacion": "Migrado desde Excel"
   },
@@ -2656,6 +2765,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-05-15T07:23:40",
    "observacion": "Migrado desde Excel"
   },
@@ -2665,6 +2775,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-05-15T20:11:43",
    "observacion": "Migrado desde Excel"
   },
@@ -2674,6 +2785,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-05-18T17:09:58",
    "observacion": "Migrado desde Excel"
   },
@@ -2683,6 +2795,7 @@
    "estado_anterior": null,
    "estado_nuevo": "caso_especial",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-05-20T21:22:43",
    "observacion": "Migrado desde Excel"
   },
@@ -2692,6 +2805,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-05-21T07:54:14",
    "observacion": "Migrado desde Excel"
   },
@@ -2701,6 +2815,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-05-21T20:29:39",
    "observacion": "Migrado desde Excel"
   },
@@ -2710,6 +2825,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-05-22T08:00:19",
    "observacion": "Migrado desde Excel"
   },
@@ -2719,6 +2835,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-05-22T18:24:38",
    "observacion": "Migrado desde Excel"
   },
@@ -2728,6 +2845,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-05-26T16:32:05",
    "observacion": "Migrado desde Excel"
   },
@@ -2737,6 +2855,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-05-27T06:10:08",
    "observacion": "Migrado desde Excel"
   },
@@ -2746,6 +2865,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-05-28T17:01:03",
    "observacion": "Migrado desde Excel"
   },
@@ -2755,6 +2875,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-05-28T20:08:35",
    "observacion": "Migrado desde Excel"
   },
@@ -2764,6 +2885,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-06-01T13:51:47",
    "observacion": "Migrado desde Excel"
   },
@@ -2773,6 +2895,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-06-08T06:02:02",
    "observacion": "Migrado desde Excel"
   },
@@ -2782,6 +2905,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-06-16T09:16:29",
    "observacion": "Migrado desde Excel"
   },
@@ -2791,6 +2915,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-06-16T19:25:35.170000",
    "observacion": "Migrado desde Excel"
   },
@@ -2800,6 +2925,7 @@
    "estado_anterior": null,
    "estado_nuevo": "caso_especial",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-06-18T09:52:07",
    "observacion": "Migrado desde Excel"
   },
@@ -2809,6 +2935,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-06-24T11:35:46",
    "observacion": "Migrado desde Excel"
   },
@@ -2818,6 +2945,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-06-24T14:57:59",
    "observacion": "Migrado desde Excel"
   },
@@ -2827,6 +2955,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-06-26T07:11:05",
    "observacion": "Migrado desde Excel"
   },
@@ -2836,6 +2965,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-06-26T13:43:23",
    "observacion": "Migrado desde Excel"
   },
@@ -2845,6 +2975,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-06-29T14:12:14",
    "observacion": "Migrado desde Excel"
   },
@@ -2854,6 +2985,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-06-30T15:27:13",
    "observacion": "Migrado desde Excel"
   },
@@ -2863,6 +2995,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-06-30T19:05:19",
    "observacion": "Migrado desde Excel"
   },
@@ -2872,6 +3005,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-06-30T19:28:31",
    "observacion": "Migrado desde Excel"
   },
@@ -2881,6 +3015,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-07-02T12:13:46",
    "observacion": "Migrado desde Excel"
   },
@@ -2890,6 +3025,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-07-02T19:41:27",
    "observacion": "Migrado desde Excel"
   },
@@ -2899,6 +3035,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-07-02T21:24:13",
    "observacion": "Migrado desde Excel"
   },
@@ -2908,6 +3045,7 @@
    "estado_anterior": null,
    "estado_nuevo": "en_espera",
    "operario_id": null,
+   "turno": null,
    "registrado_at": "2026-07-03T07:21:11",
    "observacion": "Migrado desde Excel"
   }

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {
-  TIPOS, ORIGENES, kpis, incidencias, dias, fmtDur, fmtHoras, semaforo, colorNombre, colorHex,
-  tipoDe, resetDemo, csvEnPiso, csvEventos, ESTADOS,
+  TIPOS, ORIGENES, ATRIBUCIONES, kpis, incidencias, dias, fmtDur, fmtHoras, semaforo, colorNombre,
+  colorHex, tipoDe, resetDemo, csvEnPiso, csvEventos, ESTADOS,
 } from '../data/repo'
 import { Icon, descargar } from '../components/ui'
 
@@ -98,6 +98,29 @@ export default function Panel() {
           <span key={o} className="chip">{ORIGENES[o]}: {k.porOrigen[o] || 0}</span>
         ))}
       </div>
+
+      <h4>Detecciones por turno</h4>
+      <div className="tiles" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+        <div className="tile"><div className="n">{k.porTurno.A}</div><div className="l">Turno A</div></div>
+        <div className="tile"><div className="n">{k.porTurno.B}</div><div className="l">Turno B</div></div>
+        <div className="tile"><div className="n">{k.porTurno.sd}</div><div className="l">Sin dato (previo a la app)</div></div>
+      </div>
+
+      <h4>Defectos detectados en Óleo</h4>
+      {!k.porAtribucion.generada_oleo && !k.porAtribucion.no_vista_revision ? (
+        <p className="muted" style={{ fontSize: 14 }}>Todavía no hay registros cargados desde Óleo.</p>
+      ) : (
+        <div className="tiles" style={{ gridTemplateColumns: '1fr 1fr' }}>
+          <div className="tile">
+            <div className="n">{k.porAtribucion.generada_oleo}</div>
+            <div className="l">{ATRIBUCIONES.generada_oleo}</div>
+          </div>
+          <div className="tile rojo">
+            <div className="n">{k.porAtribucion.no_vista_revision}</div>
+            <div className="l">{ATRIBUCIONES.no_vista_revision} (se escapó)</div>
+          </div>
+        </div>
+      )}
 
       <h4>Pareto de fallas</h4>
       {!k.pareto.length && <p className="muted" style={{ fontSize: 14 }}>Sin fallas registradas para este filtro.</p>}
