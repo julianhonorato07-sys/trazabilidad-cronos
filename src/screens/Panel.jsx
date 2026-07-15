@@ -1,20 +1,22 @@
-import { getDB, kpis, incidencias, dias, fmtDur, fmtHoras, semaforo, colorNombre, colorHex, resetDemo, csvEnPiso, csvEventos, ESTADOS } from '../data/repo'
+import { useState } from 'react'
+import {
+  TIPOS, ORIGENES, kpis, incidencias, dias, fmtDur, fmtHoras, semaforo, colorNombre, colorHex,
+  tipoDe, resetDemo, csvEnPiso, csvEventos, ESTADOS,
+} from '../data/repo'
 import { Icon, descargar } from '../components/ui'
 
-export default function Panel() {
-  const k = kpis()
-  const maxPareto = k.pareto.length ? k.pareto[0][1] : 1
+const FILTROS = [{ id: 'todos', label: 'Todos' }, ...TIPOS.map((t) => ({ id: t.id, label: t.label }))]
 
-  const abiertas = incidencias((i) => !i.cerrada_at)
+export default function Panel() {
+  const [tipo, setTipo] = useState('todos')
+  const k = kpis(tipo)
+
+  const abiertas = incidencias((i) => !i.cerrada_at && (tipo === 'todos' || tipoDe(i.unidad) === tipo))
   const sems = { green: 0, amber: 0, red: 0 }
   for (const i of abiertas) sems[semaforo(dias(i.detectada_at))]++
 
-  const porColor = {}
-  for (const i of abiertas) {
-    const c = i.unidad.cest || 's/d'
-    porColor[c] = (porColor[c] || 0) + 1
-  }
-  const colores = Object.entries(porColor).sort((a, b) => b[1] - a[1])
+  const maxPareto = k.pareto.length ? k.pareto[0][1] : 1
+  const colores = Object.entries(k.porColor).sort((a, b) => b[1] - a[1])
   const maxColor = colores.length ? colores[0][1] : 1
 
   return (
@@ -22,11 +24,19 @@ export default function Panel() {
       <h3>Panel de supervisión</h3>
       <p className="sub">Foto del piso en tiempo real. Los datos alimentan Power BI vía las vistas SQL.</p>
 
-      <div className="tiles" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12 }}>
+      <div className="seg">
+        {FILTROS.map((f) => (
+          <button key={f.id} className={f.id === tipo ? 'on' : ''} onClick={() => setTipo(f.id)}>
+            {f.label}{f.id !== 'todos' ? ` (${k.porTipo[f.id]})` : ''}
+          </button>
+        ))}
+      </div>
+
+      <div className="tiles">
         <div className="tile">
           <span className="ico"><Icon name="piso" size={20} /></span>
           <div className="n">{k.enPiso}</div>
-          <div className="l">Carrocerías en piso</div>
+          <div className="l">Unidades en piso</div>
         </div>
         <div className={'tile' + (k.mas40 ? ' rojo' : '')}>
           <span className="ico"><Icon name="alerta" size={20} /></span>
@@ -41,44 +51,56 @@ export default function Panel() {
         <div className="tile">
           <span className="ico"><Icon name="ok" size={20} /></span>
           <div className="n">{k.liberadas7}</div>
-          <div className="l">Liberadas 7 días</div>
+          <div className="l">Liberadas últimos 7 días</div>
         </div>
-        <div className="tile">
-          <span className="ico"><Icon name="auto" size={20} /></span>
-          <div className="n">{k.cabinasActivas}</div>
-          <div className="l">Cabinas en reparación</div>
-        </div>
-        <div className="tile">
-          <span className="ico"><Icon name="piso" size={20} /></span>
-          <div className="n">{k.cajasActivas}</div>
-          <div className="l">Cajas en reparación</div>
-        </div>
+      </div>
+
+      <h4>En piso por tipo de unidad</h4>
+      <div className="tiles" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+        {TIPOS.map((t) => (
+          <div key={t.id} className="tile">
+            <div className="n">{k.porTipo[t.id]}</div>
+            <div className="l">{t.label} · {t.sub}</div>
+          </div>
+        ))}
       </div>
 
       <h4>Antigüedad del piso</h4>
-      <div className="stack">
-        {sems.green > 0 && <div style={{ width: `${(sems.green / k.enPiso) * 100}%`, background: 'var(--green)' }} />}
-        {sems.amber > 0 && <div style={{ width: `${(sems.amber / k.enPiso) * 100}%`, background: 'var(--amber)' }} />}
-        {sems.red > 0 && <div style={{ width: `${(sems.red / k.enPiso) * 100}%`, background: 'var(--red)' }} />}
-      </div>
-      <div className="leyenda">
-        <span><span className="dot green" /> 0–7 días: {sems.green}</span>
-        <span><span className="dot amber" /> 7–40 días: {sems.amber}</span>
-        <span><span className="dot red" /> +40 días: {sems.red}</span>
-      </div>
-
-      <h4>Tiempos de ciclo (promedio de liberadas)</h4>
-      {k.tiempos.total == null ? (
-        <p className="muted" style={{ fontSize: 14 }}>Se calculan automáticamente cuando el box empiece a liberar unidades.</p>
+      {!k.enPiso ? (
+        <p className="muted" style={{ fontSize: 14 }}>Sin unidades en piso para este filtro.</p>
       ) : (
-        <div className="tiles" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
-          <div className="tile"><div className="n">{k.tiempos.espera != null ? fmtHoras(k.tiempos.espera) : '—'}</div><div className="l">Espera de box</div></div>
-          <div className="tile"><div className="n">{k.tiempos.reparacion != null ? fmtHoras(k.tiempos.reparacion) : '—'}</div><div className="l">Reparación</div></div>
-          <div className="tile"><div className="n">{fmtHoras(k.tiempos.total)}</div><div className="l">Total en piso</div></div>
+        <>
+          <div className="stack">
+            {sems.green > 0 && <div style={{ width: `${(sems.green / k.enPiso) * 100}%`, background: 'var(--green)' }} />}
+            {sems.amber > 0 && <div style={{ width: `${(sems.amber / k.enPiso) * 100}%`, background: 'var(--amber)' }} />}
+            {sems.red > 0 && <div style={{ width: `${(sems.red / k.enPiso) * 100}%`, background: 'var(--red)' }} />}
+          </div>
+          <div className="leyenda">
+            <span><span className="dot green" /> 0–7 días: {sems.green}</span>
+            <span><span className="dot amber" /> 7–40 días: {sems.amber}</span>
+            <span><span className="dot red" /> +40 días: {sems.red}</span>
+          </div>
+        </>
+      )}
+
+      <h4>Tiempo de ciclo (promedio de liberadas)</h4>
+      {k.tiempoTotal == null ? (
+        <p className="muted" style={{ fontSize: 14 }}>Se calcula automáticamente cuando el box empiece a liberar unidades.</p>
+      ) : (
+        <div className="tiles" style={{ gridTemplateColumns: '1fr' }}>
+          <div className="tile"><div className="n">{fmtHoras(k.tiempoTotal)}</div><div className="l">Desde que se detecta hasta que se libera</div></div>
         </div>
       )}
 
+      <h4>En piso por origen</h4>
+      <div className="strip">
+        {Object.keys(ORIGENES).map((o) => (
+          <span key={o} className="chip">{ORIGENES[o]}: {k.porOrigen[o] || 0}</span>
+        ))}
+      </div>
+
       <h4>Pareto de fallas</h4>
+      {!k.pareto.length && <p className="muted" style={{ fontSize: 14 }}>Sin fallas registradas para este filtro.</p>}
       {k.pareto.map(([nombre, n]) => (
         <div key={nombre} className="pareto-fila">
           <span className="pl">{nombre}</span>
@@ -88,6 +110,7 @@ export default function Panel() {
       ))}
 
       <h4>En piso por color</h4>
+      {!colores.length && <p className="muted" style={{ fontSize: 14 }}>Sin unidades en piso.</p>}
       {colores.map(([cest, n]) => (
         <div key={cest} className="color-fila">
           <span className="cl">
@@ -112,9 +135,7 @@ export default function Panel() {
           <span className={'chip ' + a.nivel}>{fmtDur(dias(a.inc.detectada_at))}</span>
         </div>
       ))}
-      {k.alertas.length > 12 && (
-        <p className="muted" style={{ fontSize: 13 }}>… y {k.alertas.length - 12} alertas más.</p>
-      )}
+      {k.alertas.length > 12 && <p className="muted" style={{ fontSize: 13 }}>… y {k.alertas.length - 12} alertas más.</p>}
 
       <h4>Exportar</h4>
       <p className="muted" style={{ fontSize: 13.5, margin: '0 0 4px' }}>
@@ -126,17 +147,11 @@ export default function Panel() {
       </div>
 
       <div className="acciones" style={{ marginTop: 26 }}>
-        <button
-          className="btn ghost"
-          onClick={() => {
-            if (confirm('¿Restaurar los datos de demo a partir del Excel? Se pierden los cambios hechos en la app.')) {
-              resetDemo()
-              location.reload()
-            }
-          }}
-        >
-          Restaurar datos de demo
-        </button>
+        <button className="btn ghost" onClick={() => {
+          if (confirm('¿Restaurar los datos de demo a partir del Excel? Se pierden los cambios hechos en la app.')) {
+            resetDemo(); location.reload()
+          }
+        }}>Restaurar datos de demo</button>
       </div>
     </div>
   )

@@ -195,6 +195,24 @@ textarea:focus { outline: none; border-color: var(--purple); }
 }
 @keyframes pop { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
+/* ── Pestañas de tipo de unidad (Cronos / Cabina / Caja) ─ */
+.tabs-tipo {
+  display: flex; gap: 6px; background: var(--card); border: 1px solid var(--line);
+  border-radius: 16px; padding: 5px; margin-bottom: 14px; box-shadow: var(--shadow);
+}
+.tabs-tipo button {
+  flex: 1; border: none; background: none; border-radius: 12px; padding: 10px 8px;
+  display: flex; flex-direction: column; gap: 1px; align-items: center; color: var(--muted);
+  transition: all 0.15s; min-height: 54px; justify-content: center;
+}
+.tabs-tipo button strong { font-size: 15px; font-weight: 800; }
+.tabs-tipo button span { font-size: 11px; font-weight: 700; opacity: 0.75; }
+.tabs-tipo button.on { background: var(--purple); color: #fff; }
+
+.reg-btn { display: flex; align-items: center; justify-content: center; gap: 9px; margin-bottom: 14px; }
+.chip.origen { background: var(--blue-soft); border-color: transparent; color: var(--blue); margin-left: auto; }
+.chip.tipo { background: var(--purple-soft); border-color: transparent; color: var(--purple); text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.5px; }
+
 /* ── Box board ──────────────────────────────────────── */
 .strip { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
 .seg {

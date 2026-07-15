@@ -31,23 +31,45 @@ TIPOS_FALLA = [
     {"id": 7, "nombre": "Caso especial", "usa_particularidad": False, "requiere_particularidad": False},
     {"id": 8, "nombre": "Otra anomalía", "usa_particularidad": False, "requiere_particularidad": False},
 ]
+# Particularidades (partes) por tipo de unidad. Cronos son las históricas del Excel (ids 1-9,
+# no tocar para no romper la migración). Cabina y Caja (KP1) son TENTATIVAS: confirmar con planta.
 PARTICULARIDADES = [
-    {"id": 1, "codigo": "CAPOT", "nombre": "Capot"},
-    {"id": 2, "codigo": "BAUL", "nombre": "Baúl"},
-    {"id": 3, "codigo": "PASX", "nombre": "Puerta anterior izq."},
-    {"id": 4, "codigo": "PADX", "nombre": "Puerta anterior der."},
-    {"id": 5, "codigo": "PPSX", "nombre": "Puerta posterior izq."},
-    {"id": 6, "codigo": "PPDX", "nombre": "Puerta posterior der."},
-    {"id": 7, "codigo": "GBSX", "nombre": "Guardabarro izq."},
-    {"id": 8, "codigo": "GBDX", "nombre": "Guardabarro der."},
-    {"id": 9, "codigo": "ZOC", "nombre": "Zócalo"},
+    {"id": 1, "codigo": "CAPOT", "nombre": "Capot", "tipo": "cronos"},
+    {"id": 2, "codigo": "BAUL", "nombre": "Baúl", "tipo": "cronos"},
+    {"id": 3, "codigo": "PASX", "nombre": "Puerta anterior izq.", "tipo": "cronos"},
+    {"id": 4, "codigo": "PADX", "nombre": "Puerta anterior der.", "tipo": "cronos"},
+    {"id": 5, "codigo": "PPSX", "nombre": "Puerta posterior izq.", "tipo": "cronos"},
+    {"id": 6, "codigo": "PPDX", "nombre": "Puerta posterior der.", "tipo": "cronos"},
+    {"id": 7, "codigo": "GBSX", "nombre": "Guardabarro izq.", "tipo": "cronos"},
+    {"id": 8, "codigo": "GBDX", "nombre": "Guardabarro der.", "tipo": "cronos"},
+    {"id": 9, "codigo": "ZOC", "nombre": "Zócalo", "tipo": "cronos"},
+    {"id": 10, "codigo": "TECHO", "nombre": "Techo", "tipo": "cronos"},
+    # Cabina (KP1) — TENTATIVO
+    {"id": 11, "codigo": "CAB-PSX", "nombre": "Puerta izq.", "tipo": "cabina"},
+    {"id": 12, "codigo": "CAB-PDX", "nombre": "Puerta der.", "tipo": "cabina"},
+    {"id": 13, "codigo": "CAB-CAPOT", "nombre": "Capot", "tipo": "cabina"},
+    {"id": 14, "codigo": "CAB-TECHO", "nombre": "Techo", "tipo": "cabina"},
+    {"id": 15, "codigo": "CAB-PARSX", "nombre": "Parante izq.", "tipo": "cabina"},
+    {"id": 16, "codigo": "CAB-PARDX", "nombre": "Parante der.", "tipo": "cabina"},
+    {"id": 17, "codigo": "CAB-GBSX", "nombre": "Guardabarro izq.", "tipo": "cabina"},
+    {"id": 18, "codigo": "CAB-GBDX", "nombre": "Guardabarro der.", "tipo": "cabina"},
+    # Caja (KP1) — TENTATIVO
+    {"id": 19, "codigo": "CAJ-LSX", "nombre": "Lateral izq.", "tipo": "caja"},
+    {"id": 20, "codigo": "CAJ-LDX", "nombre": "Lateral der.", "tipo": "caja"},
+    {"id": 21, "codigo": "CAJ-PORT", "nombre": "Portón trasero", "tipo": "caja"},
+    {"id": 22, "codigo": "CAJ-PISO", "nombre": "Piso de caja", "tipo": "caja"},
+    {"id": 23, "codigo": "CAJ-FRENTE", "nombre": "Frente de caja", "tipo": "caja"},
+    {"id": 24, "codigo": "CAJ-BARSX", "nombre": "Baranda izq.", "tipo": "caja"},
+    {"id": 25, "codigo": "CAJ-BARDX", "nombre": "Baranda der.", "tipo": "caja"},
 ]
 OPERARIOS = [
     {"id": 1, "nombre": "Julián H.", "rol": "supervisor", "activo": True},
     {"id": 2, "nombre": "Revisión 1", "rol": "revision", "activo": True},
     {"id": 3, "nombre": "Revisión 2", "rol": "revision", "activo": True},
-    {"id": 4, "nombre": "Box 1", "rol": "box", "activo": True},
-    {"id": 5, "nombre": "Box 2", "rol": "box", "activo": True},
+    {"id": 4, "nombre": "OLEO 1", "rol": "oleo", "activo": True},
+    {"id": 5, "nombre": "OLEO 2", "rol": "oleo", "activo": True},
+    {"id": 6, "nombre": "Box 1", "rol": "box", "activo": True},
+    {"id": 7, "nombre": "Box 2", "rol": "box", "activo": True},
 ]
 # Colores confirmados en planta (12/07/2026). El hex es el swatch visual de la app.
 CEST_INFO = {
@@ -82,6 +104,7 @@ for r in wb["CISDetailsDataActual"].iter_rows(min_row=2, values_only=True):
         "id": len(unidades) + 1, "cis": cis, "check_digit": r[1],
         "salida_linea": iso(r[2]), "st": str(r[3] or "").strip(),
         "ssc": str(r[4] or ""), "smo": str(r[5] or ""), "cest": str(r[6] or ""),
+        "tipo": "cronos",
     }
     unidades.append(u)
     por_cis[cis] = u
@@ -128,11 +151,12 @@ for cis in sorted(cats, key=lambda c: info[c]["desde"] or ""):
     u = por_cis.get(cis)
     if not u:
         u = {"id": len(unidades) + 1, "cis": cis, "check_digit": None,
-             "salida_linea": d["desde"], "st": "", "ssc": "", "smo": "", "cest": d["cest"]}
+             "salida_linea": d["desde"], "st": "", "ssc": "", "smo": "", "cest": d["cest"],
+             "tipo": "cronos"}
         unidades.append(u)
         por_cis[cis] = u
-    estado = "caso_especial" if 7 in secs else "en_box"
-    inc = {"id": len(incidencias) + 1, "unidad_id": u["id"], "estado": estado,
+    estado = "caso_especial" if 7 in secs else "en_espera"
+    inc = {"id": len(incidencias) + 1, "unidad_id": u["id"], "estado": estado, "origen": "revision",
            "detectada_at": d["desde"], "cerrada_at": None, "notas": d["desc"]}
     incidencias.append(inc)
 

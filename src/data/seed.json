@@ -79,47 +79,152 @@
   {
    "id": 1,
    "codigo": "CAPOT",
-   "nombre": "Capot"
+   "nombre": "Capot",
+   "tipo": "cronos"
   },
   {
    "id": 2,
    "codigo": "BAUL",
-   "nombre": "Baúl"
+   "nombre": "Baúl",
+   "tipo": "cronos"
   },
   {
    "id": 3,
    "codigo": "PASX",
-   "nombre": "Puerta anterior izq."
+   "nombre": "Puerta anterior izq.",
+   "tipo": "cronos"
   },
   {
    "id": 4,
    "codigo": "PADX",
-   "nombre": "Puerta anterior der."
+   "nombre": "Puerta anterior der.",
+   "tipo": "cronos"
   },
   {
    "id": 5,
    "codigo": "PPSX",
-   "nombre": "Puerta posterior izq."
+   "nombre": "Puerta posterior izq.",
+   "tipo": "cronos"
   },
   {
    "id": 6,
    "codigo": "PPDX",
-   "nombre": "Puerta posterior der."
+   "nombre": "Puerta posterior der.",
+   "tipo": "cronos"
   },
   {
    "id": 7,
    "codigo": "GBSX",
-   "nombre": "Guardabarro izq."
+   "nombre": "Guardabarro izq.",
+   "tipo": "cronos"
   },
   {
    "id": 8,
    "codigo": "GBDX",
-   "nombre": "Guardabarro der."
+   "nombre": "Guardabarro der.",
+   "tipo": "cronos"
   },
   {
    "id": 9,
    "codigo": "ZOC",
-   "nombre": "Zócalo"
+   "nombre": "Zócalo",
+   "tipo": "cronos"
+  },
+  {
+   "id": 10,
+   "codigo": "TECHO",
+   "nombre": "Techo",
+   "tipo": "cronos"
+  },
+  {
+   "id": 11,
+   "codigo": "CAB-PSX",
+   "nombre": "Puerta izq.",
+   "tipo": "cabina"
+  },
+  {
+   "id": 12,
+   "codigo": "CAB-PDX",
+   "nombre": "Puerta der.",
+   "tipo": "cabina"
+  },
+  {
+   "id": 13,
+   "codigo": "CAB-CAPOT",
+   "nombre": "Capot",
+   "tipo": "cabina"
+  },
+  {
+   "id": 14,
+   "codigo": "CAB-TECHO",
+   "nombre": "Techo",
+   "tipo": "cabina"
+  },
+  {
+   "id": 15,
+   "codigo": "CAB-PARSX",
+   "nombre": "Parante izq.",
+   "tipo": "cabina"
+  },
+  {
+   "id": 16,
+   "codigo": "CAB-PARDX",
+   "nombre": "Parante der.",
+   "tipo": "cabina"
+  },
+  {
+   "id": 17,
+   "codigo": "CAB-GBSX",
+   "nombre": "Guardabarro izq.",
+   "tipo": "cabina"
+  },
+  {
+   "id": 18,
+   "codigo": "CAB-GBDX",
+   "nombre": "Guardabarro der.",
+   "tipo": "cabina"
+  },
+  {
+   "id": 19,
+   "codigo": "CAJ-LSX",
+   "nombre": "Lateral izq.",
+   "tipo": "caja"
+  },
+  {
+   "id": 20,
+   "codigo": "CAJ-LDX",
+   "nombre": "Lateral der.",
+   "tipo": "caja"
+  },
+  {
+   "id": 21,
+   "codigo": "CAJ-PORT",
+   "nombre": "Portón trasero",
+   "tipo": "caja"
+  },
+  {
+   "id": 22,
+   "codigo": "CAJ-PISO",
+   "nombre": "Piso de caja",
+   "tipo": "caja"
+  },
+  {
+   "id": 23,
+   "codigo": "CAJ-FRENTE",
+   "nombre": "Frente de caja",
+   "tipo": "caja"
+  },
+  {
+   "id": 24,
+   "codigo": "CAJ-BARSX",
+   "nombre": "Baranda izq.",
+   "tipo": "caja"
+  },
+  {
+   "id": 25,
+   "codigo": "CAJ-BARDX",
+   "nombre": "Baranda der.",
+   "tipo": "caja"
   }
  ],
  "operarios": [
@@ -143,12 +248,24 @@
   },
   {
    "id": 4,
+   "nombre": "OLEO 1",
+   "rol": "oleo",
+   "activo": true
+  },
+  {
+   "id": 5,
+   "nombre": "OLEO 2",
+   "rol": "oleo",
+   "activo": true
+  },
+  {
+   "id": 6,
    "nombre": "Box 1",
    "rol": "box",
    "activo": true
   },
   {
-   "id": 5,
+   "id": 7,
    "nombre": "Box 2",
    "rol": "box",
    "activo": true
@@ -163,7 +280,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 2,
@@ -173,7 +291,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 3,
@@ -183,7 +302,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 4,
@@ -193,7 +313,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 5,
@@ -203,7 +324,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 6,
@@ -213,7 +335,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 7,
@@ -223,7 +346,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 8,
@@ -233,7 +357,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 9,
@@ -243,7 +368,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 10,
@@ -253,7 +379,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 11,
@@ -263,7 +390,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 12,
@@ -273,7 +401,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 13,
@@ -283,7 +412,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 14,
@@ -293,7 +423,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 15,
@@ -303,7 +434,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 16,
@@ -313,7 +445,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 17,
@@ -323,7 +456,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 18,
@@ -333,7 +467,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 19,
@@ -343,7 +478,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 20,
@@ -353,7 +489,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 21,
@@ -363,7 +500,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 22,
@@ -373,7 +511,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 23,
@@ -383,7 +522,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 24,
@@ -393,7 +533,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "806"
+   "cest": "806",
+   "tipo": "cronos"
   },
   {
    "id": 25,
@@ -403,7 +544,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "806"
+   "cest": "806",
+   "tipo": "cronos"
   },
   {
    "id": 26,
@@ -413,7 +555,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "806"
+   "cest": "806",
+   "tipo": "cronos"
   },
   {
    "id": 27,
@@ -423,7 +566,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "806"
+   "cest": "806",
+   "tipo": "cronos"
   },
   {
    "id": 28,
@@ -433,7 +577,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "806"
+   "cest": "806",
+   "tipo": "cronos"
   },
   {
    "id": 29,
@@ -443,7 +588,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 30,
@@ -453,7 +599,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 31,
@@ -463,7 +610,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 32,
@@ -473,7 +621,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 33,
@@ -483,7 +632,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 34,
@@ -493,7 +643,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 35,
@@ -503,7 +654,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 36,
@@ -513,7 +665,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 37,
@@ -523,7 +676,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 38,
@@ -533,7 +687,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 39,
@@ -543,7 +698,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 40,
@@ -553,7 +709,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 41,
@@ -563,7 +720,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 42,
@@ -573,7 +731,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 43,
@@ -583,7 +742,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 44,
@@ -593,7 +753,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 45,
@@ -603,7 +764,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 46,
@@ -613,7 +775,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 47,
@@ -623,7 +786,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 48,
@@ -633,7 +797,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 49,
@@ -643,7 +808,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "534"
+   "cest": "534",
+   "tipo": "cronos"
   },
   {
    "id": 50,
@@ -653,7 +819,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 51,
@@ -663,7 +830,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 52,
@@ -673,7 +841,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 53,
@@ -683,7 +852,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 54,
@@ -693,7 +863,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "710",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 55,
@@ -703,7 +874,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "534"
+   "cest": "534",
+   "tipo": "cronos"
   },
   {
    "id": 56,
@@ -713,7 +885,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "534"
+   "cest": "534",
+   "tipo": "cronos"
   },
   {
    "id": 57,
@@ -723,7 +896,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 58,
@@ -733,7 +907,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 59,
@@ -743,7 +918,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 60,
@@ -753,7 +929,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 61,
@@ -763,7 +940,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 62,
@@ -773,7 +951,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 63,
@@ -783,7 +962,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 64,
@@ -793,7 +973,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 65,
@@ -803,7 +984,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "710",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 66,
@@ -813,7 +995,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 67,
@@ -823,7 +1006,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 68,
@@ -833,7 +1017,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 69,
@@ -843,7 +1028,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 70,
@@ -853,7 +1039,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 71,
@@ -863,7 +1050,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 72,
@@ -873,7 +1061,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 73,
@@ -883,7 +1072,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 74,
@@ -893,7 +1083,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 75,
@@ -903,7 +1094,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "710",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 76,
@@ -913,7 +1105,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 77,
@@ -923,7 +1116,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 78,
@@ -933,7 +1127,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 79,
@@ -943,7 +1138,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "534"
+   "cest": "534",
+   "tipo": "cronos"
   },
   {
    "id": 80,
@@ -953,7 +1149,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 81,
@@ -963,7 +1160,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 82,
@@ -973,7 +1171,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 83,
@@ -983,7 +1182,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 84,
@@ -993,7 +1193,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 85,
@@ -1003,7 +1204,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 86,
@@ -1013,7 +1215,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 87,
@@ -1023,7 +1226,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 88,
@@ -1033,7 +1237,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 89,
@@ -1043,7 +1248,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 90,
@@ -1053,7 +1259,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 91,
@@ -1063,7 +1270,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "534"
+   "cest": "534",
+   "tipo": "cronos"
   },
   {
    "id": 92,
@@ -1073,7 +1281,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "806"
+   "cest": "806",
+   "tipo": "cronos"
   },
   {
    "id": 93,
@@ -1083,7 +1292,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 94,
@@ -1093,7 +1303,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 95,
@@ -1103,7 +1314,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 96,
@@ -1113,7 +1325,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "806"
+   "cest": "806",
+   "tipo": "cronos"
   },
   {
    "id": 97,
@@ -1123,7 +1336,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "806"
+   "cest": "806",
+   "tipo": "cronos"
   },
   {
    "id": 98,
@@ -1133,7 +1347,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 99,
@@ -1143,7 +1358,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 100,
@@ -1153,7 +1369,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 101,
@@ -1163,7 +1380,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 102,
@@ -1173,7 +1391,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 103,
@@ -1183,7 +1402,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 104,
@@ -1193,7 +1413,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 105,
@@ -1203,7 +1424,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 106,
@@ -1213,7 +1435,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 107,
@@ -1223,7 +1446,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 108,
@@ -1233,7 +1457,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 109,
@@ -1243,7 +1468,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 110,
@@ -1253,7 +1479,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "978"
+   "cest": "978",
+   "tipo": "cronos"
   },
   {
    "id": 111,
@@ -1263,7 +1490,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 112,
@@ -1273,7 +1501,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 113,
@@ -1283,7 +1512,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 114,
@@ -1293,7 +1523,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 115,
@@ -1303,7 +1534,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 116,
@@ -1313,7 +1545,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 117,
@@ -1323,7 +1556,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 118,
@@ -1333,7 +1567,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 119,
@@ -1343,7 +1578,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "702",
-   "cest": "534"
+   "cest": "534",
+   "tipo": "cronos"
   },
   {
    "id": 120,
@@ -1353,7 +1589,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "249"
+   "cest": "249",
+   "tipo": "cronos"
   },
   {
    "id": 121,
@@ -1363,7 +1600,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 122,
@@ -1373,7 +1611,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "712",
-   "cest": "979"
+   "cest": "979",
+   "tipo": "cronos"
   },
   {
    "id": 123,
@@ -1383,7 +1622,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 124,
@@ -1393,7 +1633,8 @@
    "st": "I1",
    "ssc": "101",
    "smo": "711",
-   "cest": "619"
+   "cest": "619",
+   "tipo": "cronos"
   },
   {
    "id": 125,
@@ -1403,7 +1644,8 @@
    "st": "",
    "ssc": "",
    "smo": "",
-   "cest": ""
+   "cest": "",
+   "tipo": "cronos"
   }
  ],
  "incidencias": [
@@ -1411,6 +1653,7 @@
    "id": 1,
    "unidad_id": 124,
    "estado": "caso_especial",
+   "origen": "revision",
    "detectada_at": "2025-03-07T16:10:22",
    "cerrada_at": null,
    "notas": "Scrap Tirar"
@@ -1418,7 +1661,8 @@
   {
    "id": 2,
    "unidad_id": 123,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2025-12-09T14:18:13",
    "cerrada_at": null,
    "notas": "Sin observaciones cargadas"
@@ -1426,7 +1670,8 @@
   {
    "id": 3,
    "unidad_id": 122,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-01-07T15:58:56",
    "cerrada_at": null,
    "notas": "Sin observaciones cargadas"
@@ -1434,7 +1679,8 @@
   {
    "id": 4,
    "unidad_id": 121,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-02-12T16:03:07",
    "cerrada_at": null,
    "notas": "JyP"
@@ -1442,7 +1688,8 @@
   {
    "id": 5,
    "unidad_id": 120,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-02-23T07:15:25",
    "cerrada_at": null,
    "notas": "Box 12 anomalias - ya repintada -  Bollo capot + B (-) Puerta Posterior Sx y Mal grafado Baul"
@@ -1450,7 +1697,8 @@
   {
    "id": 6,
    "unidad_id": 119,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-03-16T21:23:07",
    "cerrada_at": null,
    "notas": "JyP"
@@ -1458,7 +1706,8 @@
   {
    "id": 7,
    "unidad_id": 118,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-04-08T07:11:12",
    "cerrada_at": null,
    "notas": "Box Falta baul y Capot - ya repintada"
@@ -1466,7 +1715,8 @@
   {
    "id": 8,
    "unidad_id": 117,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-04-17T18:41:30",
    "cerrada_at": null,
    "notas": "Sin observaciones cargadas"
@@ -1474,7 +1724,8 @@
   {
    "id": 9,
    "unidad_id": 116,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-04-20T09:37:34",
    "cerrada_at": null,
    "notas": "Box 6 anomalias"
@@ -1482,7 +1733,8 @@
   {
    "id": 10,
    "unidad_id": 115,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-04-20T09:41:36",
    "cerrada_at": null,
    "notas": "Box 7 anomalias - Bollo Baul"
@@ -1490,7 +1742,8 @@
   {
    "id": 11,
    "unidad_id": 114,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-04-22T06:25:37",
    "cerrada_at": null,
    "notas": "Box 9 anomalias - Falta puerta anterior sx"
@@ -1498,7 +1751,8 @@
   {
    "id": 12,
    "unidad_id": 113,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-04-28T20:59:14",
    "cerrada_at": null,
    "notas": "Box 5 anomalias"
@@ -1506,7 +1760,8 @@
   {
    "id": 13,
    "unidad_id": 112,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-04-29T21:40:22",
    "cerrada_at": null,
    "notas": "Box 6 anomalias"
@@ -1514,7 +1769,8 @@
   {
    "id": 14,
    "unidad_id": 111,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-05-11T06:40:30.923000",
    "cerrada_at": null,
    "notas": "Box - Falta Capot para repintar"
@@ -1522,7 +1778,8 @@
   {
    "id": 15,
    "unidad_id": 110,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-05-11T17:45:59",
    "cerrada_at": null,
    "notas": "Box 3 anomalias - ya repintada - Marca de operación anterior dx."
@@ -1530,7 +1787,8 @@
   {
    "id": 16,
    "unidad_id": 109,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-05-15T07:06:17",
    "cerrada_at": null,
    "notas": "Box 6 anomalias - ya repintada"
@@ -1538,7 +1796,8 @@
   {
    "id": 17,
    "unidad_id": 108,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-05-15T07:23:40",
    "cerrada_at": null,
    "notas": "Box 9 anomalia - ya repintada"
@@ -1546,7 +1805,8 @@
   {
    "id": 18,
    "unidad_id": 107,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-05-15T20:11:43",
    "cerrada_at": null,
    "notas": "Box 1 anomalia"
@@ -1554,7 +1814,8 @@
   {
    "id": 19,
    "unidad_id": 106,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-05-18T17:09:58",
    "cerrada_at": null,
    "notas": "Box - Fetuchia Baúl KO"
@@ -1563,6 +1824,7 @@
    "id": 20,
    "unidad_id": 105,
    "estado": "caso_especial",
+   "origen": "revision",
    "detectada_at": "2026-05-20T21:22:43",
    "cerrada_at": null,
    "notas": "Box chocado ver reparación chapa"
@@ -1570,7 +1832,8 @@
   {
    "id": 21,
    "unidad_id": 104,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-05-21T07:54:14",
    "cerrada_at": null,
    "notas": "Box Falta Capot - Bollo Baul"
@@ -1578,7 +1841,8 @@
   {
    "id": 22,
    "unidad_id": 103,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-05-21T20:29:39",
    "cerrada_at": null,
    "notas": "Box 2 anomalias - Falta capot y cambiar baul. Bollo puerta post sx y bollo puerta anterior dx."
@@ -1586,7 +1850,8 @@
   {
    "id": 23,
    "unidad_id": 102,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-05-22T08:00:19",
    "cerrada_at": null,
    "notas": "Box - Repintar"
@@ -1594,7 +1859,8 @@
   {
    "id": 24,
    "unidad_id": 101,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-05-22T18:24:38",
    "cerrada_at": null,
    "notas": "Box 5 anomalias - ya repintada"
@@ -1602,7 +1868,8 @@
   {
    "id": 25,
    "unidad_id": 100,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-05-26T16:32:05",
    "cerrada_at": null,
    "notas": "Box 12 anomalias - ya repintada - Cambiar capot y baul"
@@ -1610,7 +1877,8 @@
   {
    "id": 26,
    "unidad_id": 99,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-05-27T06:10:08",
    "cerrada_at": null,
    "notas": "Box 2 anomalias"
@@ -1618,7 +1886,8 @@
   {
    "id": 27,
    "unidad_id": 98,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-05-28T17:01:03",
    "cerrada_at": null,
    "notas": "Sin observaciones cargadas"
@@ -1626,7 +1895,8 @@
   {
    "id": 28,
    "unidad_id": 97,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-05-28T20:08:35",
    "cerrada_at": null,
    "notas": "Box 3 anomalias - Falta de Capot"
@@ -1634,7 +1904,8 @@
   {
    "id": 29,
    "unidad_id": 96,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-06-01T13:51:47",
    "cerrada_at": null,
    "notas": "Box 7 anomalias - ya repintada"
@@ -1642,7 +1913,8 @@
   {
    "id": 30,
    "unidad_id": 95,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-06-08T06:02:02",
    "cerrada_at": null,
    "notas": "Box 5 anomalias - ya repintada"
@@ -1650,7 +1922,8 @@
   {
    "id": 31,
    "unidad_id": 92,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-06-16T09:16:29",
    "cerrada_at": null,
    "notas": "Box 2 anomalia"
@@ -1658,7 +1931,8 @@
   {
    "id": 32,
    "unidad_id": 91,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-06-16T19:25:35.170000",
    "cerrada_at": null,
    "notas": "Box - Para repintar"
@@ -1667,6 +1941,7 @@
    "id": 33,
    "unidad_id": 89,
    "estado": "caso_especial",
+   "origen": "revision",
    "detectada_at": "2026-06-18T09:52:07",
    "cerrada_at": null,
    "notas": "Sin documento"
@@ -1674,7 +1949,8 @@
   {
    "id": 34,
    "unidad_id": 88,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-06-24T11:35:46",
    "cerrada_at": null,
    "notas": "Box 6 anomalias, Bollo guardabarro dx y Marca de operación en el Baul"
@@ -1682,7 +1958,8 @@
   {
    "id": 35,
    "unidad_id": 87,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-06-24T14:57:59",
    "cerrada_at": null,
    "notas": "Box 3 anomalias, bollo zocalo y falta capot"
@@ -1690,7 +1967,8 @@
   {
    "id": 36,
    "unidad_id": 84,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-06-26T07:11:05",
    "cerrada_at": null,
    "notas": "Box 7 anomalias - Marca de operación puerta anterior dx y puerta posterior dx - Ya repintada"
@@ -1698,7 +1976,8 @@
   {
    "id": 37,
    "unidad_id": 82,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-06-26T13:43:23",
    "cerrada_at": null,
    "notas": "Box 2 anomalias - Marca Operación puerta post sx."
@@ -1706,7 +1985,8 @@
   {
    "id": 38,
    "unidad_id": 79,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-06-29T14:12:14",
    "cerrada_at": null,
    "notas": "Box 5 anomalias"
@@ -1714,7 +1994,8 @@
   {
    "id": 39,
    "unidad_id": 72,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-06-30T15:27:13",
    "cerrada_at": null,
    "notas": "JyP Capot"
@@ -1722,7 +2003,8 @@
   {
    "id": 40,
    "unidad_id": 69,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-06-30T19:05:19",
    "cerrada_at": null,
    "notas": "Box 10 anomalias  - Bollo Capot"
@@ -1730,7 +2012,8 @@
   {
    "id": 41,
    "unidad_id": 67,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-06-30T19:28:31",
    "cerrada_at": null,
    "notas": "Box 1 anomalia"
@@ -1738,7 +2021,8 @@
   {
    "id": 42,
    "unidad_id": 55,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-07-02T12:13:46",
    "cerrada_at": null,
    "notas": "Box 5 anomalias"
@@ -1746,7 +2030,8 @@
   {
    "id": 43,
    "unidad_id": 47,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-07-02T19:41:27",
    "cerrada_at": null,
    "notas": "Box 5 anomalias"
@@ -1754,7 +2039,8 @@
   {
    "id": 44,
    "unidad_id": 44,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-07-02T21:24:13",
    "cerrada_at": null,
    "notas": "Box - Bollo puerta anterior dx."
@@ -1762,7 +2048,8 @@
   {
    "id": 45,
    "unidad_id": 41,
-   "estado": "en_box",
+   "estado": "en_espera",
+   "origen": "revision",
    "detectada_at": "2026-07-03T07:21:11",
    "cerrada_at": null,
    "notas": "Box 2 anomalias"
@@ -2232,7 +2519,7 @@
    "id": 2,
    "incidencia_id": 2,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2025-12-09T14:18:13",
    "observacion": "Migrado desde Excel"
@@ -2241,7 +2528,7 @@
    "id": 3,
    "incidencia_id": 3,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-01-07T15:58:56",
    "observacion": "Migrado desde Excel"
@@ -2250,7 +2537,7 @@
    "id": 4,
    "incidencia_id": 4,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-02-12T16:03:07",
    "observacion": "Migrado desde Excel"
@@ -2259,7 +2546,7 @@
    "id": 5,
    "incidencia_id": 5,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-02-23T07:15:25",
    "observacion": "Migrado desde Excel"
@@ -2268,7 +2555,7 @@
    "id": 6,
    "incidencia_id": 6,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-03-16T21:23:07",
    "observacion": "Migrado desde Excel"
@@ -2277,7 +2564,7 @@
    "id": 7,
    "incidencia_id": 7,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-04-08T07:11:12",
    "observacion": "Migrado desde Excel"
@@ -2286,7 +2573,7 @@
    "id": 8,
    "incidencia_id": 8,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-04-17T18:41:30",
    "observacion": "Migrado desde Excel"
@@ -2295,7 +2582,7 @@
    "id": 9,
    "incidencia_id": 9,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-04-20T09:37:34",
    "observacion": "Migrado desde Excel"
@@ -2304,7 +2591,7 @@
    "id": 10,
    "incidencia_id": 10,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-04-20T09:41:36",
    "observacion": "Migrado desde Excel"
@@ -2313,7 +2600,7 @@
    "id": 11,
    "incidencia_id": 11,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-04-22T06:25:37",
    "observacion": "Migrado desde Excel"
@@ -2322,7 +2609,7 @@
    "id": 12,
    "incidencia_id": 12,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-04-28T20:59:14",
    "observacion": "Migrado desde Excel"
@@ -2331,7 +2618,7 @@
    "id": 13,
    "incidencia_id": 13,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-04-29T21:40:22",
    "observacion": "Migrado desde Excel"
@@ -2340,7 +2627,7 @@
    "id": 14,
    "incidencia_id": 14,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-05-11T06:40:30.923000",
    "observacion": "Migrado desde Excel"
@@ -2349,7 +2636,7 @@
    "id": 15,
    "incidencia_id": 15,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-05-11T17:45:59",
    "observacion": "Migrado desde Excel"
@@ -2358,7 +2645,7 @@
    "id": 16,
    "incidencia_id": 16,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-05-15T07:06:17",
    "observacion": "Migrado desde Excel"
@@ -2367,7 +2654,7 @@
    "id": 17,
    "incidencia_id": 17,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-05-15T07:23:40",
    "observacion": "Migrado desde Excel"
@@ -2376,7 +2663,7 @@
    "id": 18,
    "incidencia_id": 18,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-05-15T20:11:43",
    "observacion": "Migrado desde Excel"
@@ -2385,7 +2672,7 @@
    "id": 19,
    "incidencia_id": 19,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-05-18T17:09:58",
    "observacion": "Migrado desde Excel"
@@ -2403,7 +2690,7 @@
    "id": 21,
    "incidencia_id": 21,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-05-21T07:54:14",
    "observacion": "Migrado desde Excel"
@@ -2412,7 +2699,7 @@
    "id": 22,
    "incidencia_id": 22,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-05-21T20:29:39",
    "observacion": "Migrado desde Excel"
@@ -2421,7 +2708,7 @@
    "id": 23,
    "incidencia_id": 23,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-05-22T08:00:19",
    "observacion": "Migrado desde Excel"
@@ -2430,7 +2717,7 @@
    "id": 24,
    "incidencia_id": 24,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-05-22T18:24:38",
    "observacion": "Migrado desde Excel"
@@ -2439,7 +2726,7 @@
    "id": 25,
    "incidencia_id": 25,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-05-26T16:32:05",
    "observacion": "Migrado desde Excel"
@@ -2448,7 +2735,7 @@
    "id": 26,
    "incidencia_id": 26,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-05-27T06:10:08",
    "observacion": "Migrado desde Excel"
@@ -2457,7 +2744,7 @@
    "id": 27,
    "incidencia_id": 27,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-05-28T17:01:03",
    "observacion": "Migrado desde Excel"
@@ -2466,7 +2753,7 @@
    "id": 28,
    "incidencia_id": 28,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-05-28T20:08:35",
    "observacion": "Migrado desde Excel"
@@ -2475,7 +2762,7 @@
    "id": 29,
    "incidencia_id": 29,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-06-01T13:51:47",
    "observacion": "Migrado desde Excel"
@@ -2484,7 +2771,7 @@
    "id": 30,
    "incidencia_id": 30,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-06-08T06:02:02",
    "observacion": "Migrado desde Excel"
@@ -2493,7 +2780,7 @@
    "id": 31,
    "incidencia_id": 31,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-06-16T09:16:29",
    "observacion": "Migrado desde Excel"
@@ -2502,7 +2789,7 @@
    "id": 32,
    "incidencia_id": 32,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-06-16T19:25:35.170000",
    "observacion": "Migrado desde Excel"
@@ -2520,7 +2807,7 @@
    "id": 34,
    "incidencia_id": 34,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-06-24T11:35:46",
    "observacion": "Migrado desde Excel"
@@ -2529,7 +2816,7 @@
    "id": 35,
    "incidencia_id": 35,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-06-24T14:57:59",
    "observacion": "Migrado desde Excel"
@@ -2538,7 +2825,7 @@
    "id": 36,
    "incidencia_id": 36,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-06-26T07:11:05",
    "observacion": "Migrado desde Excel"
@@ -2547,7 +2834,7 @@
    "id": 37,
    "incidencia_id": 37,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-06-26T13:43:23",
    "observacion": "Migrado desde Excel"
@@ -2556,7 +2843,7 @@
    "id": 38,
    "incidencia_id": 38,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-06-29T14:12:14",
    "observacion": "Migrado desde Excel"
@@ -2565,7 +2852,7 @@
    "id": 39,
    "incidencia_id": 39,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-06-30T15:27:13",
    "observacion": "Migrado desde Excel"
@@ -2574,7 +2861,7 @@
    "id": 40,
    "incidencia_id": 40,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-06-30T19:05:19",
    "observacion": "Migrado desde Excel"
@@ -2583,7 +2870,7 @@
    "id": 41,
    "incidencia_id": 41,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-06-30T19:28:31",
    "observacion": "Migrado desde Excel"
@@ -2592,7 +2879,7 @@
    "id": 42,
    "incidencia_id": 42,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-07-02T12:13:46",
    "observacion": "Migrado desde Excel"
@@ -2601,7 +2888,7 @@
    "id": 43,
    "incidencia_id": 43,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-07-02T19:41:27",
    "observacion": "Migrado desde Excel"
@@ -2610,7 +2897,7 @@
    "id": 44,
    "incidencia_id": 44,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-07-02T21:24:13",
    "observacion": "Migrado desde Excel"
@@ -2619,7 +2906,7 @@
    "id": 45,
    "incidencia_id": 45,
    "estado_anterior": null,
-   "estado_nuevo": "en_box",
+   "estado_nuevo": "en_espera",
    "operario_id": null,
    "registrado_at": "2026-07-03T07:21:11",
    "observacion": "Migrado desde Excel"

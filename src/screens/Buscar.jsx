@@ -1,8 +1,11 @@
 import { useState } from 'react'
-import { getDB, incidencias, eventosDe, fmtFecha, fmtDur, fmtRel, dias, turno, colorNombre, ESTADOS } from '../data/repo'
+import {
+  getDB, incidencias, eventosDe, fmtFecha, fmtDur, fmtRel, dias, turno, colorNombre,
+  tipoDe, tipoLabel, ORIGENES, ESTADOS,
+} from '../data/repo'
 import { Modal, EstadoChip, FallaTag, Swatch, Vacio } from '../components/ui'
 
-const CSS_TL = { liberada: 'g', caso_especial: 'r', espera_particularidad: 'a', en_reparacion: 'b', en_box: '' }
+const CSS_TL = { liberada: 'g', caso_especial: 'r', en_espera: '' }
 
 export default function Buscar() {
   const [q, setQ] = useState('')
@@ -10,33 +13,27 @@ export default function Buscar() {
 
   const d = getDB()
   const res = q.length >= 3 ? d.unidades.filter((u) => u.cis.includes(q)).slice(0, 25) : []
-  const incsDe = (uid) => incidencias((i) => i.unidad_id === uid)
   const inc = sel ? incidencias((i) => i.id === sel)[0] : null
   const eventos = inc ? eventosDe(inc.id) : []
 
   return (
     <div>
-      <h3>Buscar carrocería</h3>
-      <p className="sub">Historial completo de cualquier CIS: estados, tiempos y operarios.</p>
+      <h3>Buscar unidad</h3>
+      <p className="sub">Historial completo de cualquier CIS (Cronos, Cabina o Caja): estados, tiempos y operarios.</p>
       <input
-        className="cis-input"
-        inputMode="numeric"
-        maxLength={7}
-        placeholder="CIS o parte del número"
-        value={q}
-        onChange={(e) => setQ(e.target.value.replace(/\D/g, ''))}
+        className="cis-input" inputMode="numeric" maxLength={10} placeholder="CIS o parte del número"
+        value={q} onChange={(e) => setQ(e.target.value.replace(/\D/g, ''))}
       />
 
       <div className="lista" style={{ marginTop: 16 }}>
         {res.map((u) => {
-          const incs = incsDe(u.id)
-          const tipoLabel = u.tipo === 'cabina' ? 'Cabina' : u.tipo === 'caja' ? 'Caja' : 'Carrocería'
+          const incs = incidencias((i) => i.unidad_id === u.id)
           return (
             <div key={u.id} className="card">
               <div className="fila">
-                <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <span className="cis">{u.cis}</span>
-                  <span className="chip" style={{ marginLeft: 8, textTransform: 'uppercase', fontSize: 10 }}>{tipoLabel}</span>
+                  <span className="chip tipo">{tipoLabel(tipoDe(u))}</span>
                 </div>
                 <span className="chip"><Swatch cest={u.cest} size={12} /> {colorNombre(u.cest)}</span>
               </div>
@@ -45,7 +42,7 @@ export default function Buscar() {
                   Salida de línea: {fmtFecha(u.salida_linea)}
                 </p>
               )}
-              {incs.length === 0 && (
+              {!incs.length && (
                 <p className="muted" style={{ margin: '8px 0 0', fontSize: 13.5 }}>
                   Sin desvíos registrados — nunca salió de la línea regular.
                 </p>
@@ -68,11 +65,15 @@ export default function Buscar() {
       {inc && (
         <Modal onClose={() => setSel(null)}>
           <div className="fila">
-            <span className="cis">{inc.unidad.cis}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span className="cis">{inc.unidad.cis}</span>
+              <span className="chip tipo">{tipoLabel(tipoDe(inc.unidad))}</span>
+            </div>
             <EstadoChip estado={inc.estado} />
           </div>
-          <p className="muted" style={{ margin: '6px 0 0', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <p className="muted" style={{ margin: '6px 0 0', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
             <Swatch cest={inc.unidad.cest} size={12} /> {colorNombre(inc.unidad.cest)}
+            <span className="chip origen">{ORIGENES[inc.origen] || 'Revisión final'}</span>
             {inc.cerrada_at
               ? ` · ciclo cerrado en ${fmtDur(dias(inc.detectada_at) - dias(inc.cerrada_at))}`
               : ` · en piso hace ${fmtDur(dias(inc.detectada_at))}`}
@@ -101,9 +102,7 @@ export default function Buscar() {
             })}
           </div>
 
-          <div className="acciones">
-            <button className="btn ghost" onClick={() => setSel(null)}>Cerrar</button>
-          </div>
+          <div className="acciones"><button className="btn ghost" onClick={() => setSel(null)}>Cerrar</button></div>
         </Modal>
       )}
     </div>
