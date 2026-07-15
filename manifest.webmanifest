@@ -1,0 +1,11 @@
+{
+  "name": "Trazabilidad Cronos",
+  "short_name": "Trazabilidad",
+  "description": "Trazabilidad de carrocerías con defectos — revisión final y box de reparación",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#00133b",
+  "theme_color": "#00133b",
+  "icons": []
+}
