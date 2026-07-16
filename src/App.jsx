@@ -4,11 +4,11 @@ import RolSelect from './screens/RolSelect'
 import Puesto from './screens/Puesto'
 import Buscar from './screens/Buscar'
 import Panel from './screens/Panel'
+import { initDB, onDataChange } from './data/repo'
+import { USE_SUPABASE } from './data/supabase'
 
 const ROL_LABEL = { revision: 'Revisión final', oleo: 'Óleo', box: 'Box de retoques', supervisor: 'Supervisión' }
 
-// Los tres puestos operativos son navegables desde la barra inferior, para saltar
-// entre ellos sin pasar por la pantalla de inicio.
 const PUESTOS = [
   { id: 'revision', label: 'Revisión', icon: 'lupa2' },
   { id: 'oleo', label: 'Óleo', icon: 'auto' },
@@ -22,22 +22,50 @@ function tabsDe(rol) {
   return rol === 'supervisor' ? [panel, ...puestos, buscar] : [...puestos, buscar]
 }
 
-// Un puesto guardado de una versión anterior (ej. "cabina", que ya no existe) no debe
-// romper la app: se descarta y se vuelve a pedir el puesto.
 const rolGuardado = () => {
   const r = localStorage.getItem('terminal-rol') || ''
   return ROL_LABEL[r] ? r : ''
 }
 
 export default function App() {
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
   const [rol, setRol] = useState(rolGuardado)
   const [tab, setTab] = useState(location.hash.slice(2))
+  const [, setTick] = useState(0)
+
+  useEffect(() => {
+    initDB()
+      .then(() => setLoading(false))
+      .catch((e) => setError(e.message))
+  }, [])
+
+  useEffect(() => onDataChange(() => setTick((t) => t + 1)), [])
 
   useEffect(() => {
     const f = () => setTab(location.hash.slice(2))
     window.addEventListener('hashchange', f)
     return () => window.removeEventListener('hashchange', f)
   }, [])
+
+  if (error) {
+    return (
+      <div style={{ padding: 32, textAlign: 'center' }}>
+        <h2>Error de conexión</h2>
+        <p style={{ color: '#c33' }}>{error}</p>
+        <p>Verificá que las credenciales de Supabase estén correctas en el archivo <code>.env</code></p>
+      </div>
+    )
+  }
+
+  if (loading) {
+    return (
+      <div style={{ padding: 32, textAlign: 'center', marginTop: '30vh' }}>
+        <div className="spinner" />
+        <p style={{ marginTop: 16, opacity: 0.7 }}>Conectando…</p>
+      </div>
+    )
+  }
 
   if (!rol) {
     return (
@@ -46,7 +74,6 @@ export default function App() {
   }
 
   const tabs = tabsDe(rol)
-  // Sin pestaña en la URL, abre la del puesto configurado en la terminal.
   const activa = tabs.find((t) => t.id === tab) || tabs.find((t) => t.id === rol) || tabs[0]
 
   return (
@@ -58,7 +85,9 @@ export default function App() {
           <span>Cronos · KP1</span>
         </div>
         <div className="spacer" />
-        <span className="demo-pill">MODO DEMO</span>
+        <span className={USE_SUPABASE ? 'online-pill' : 'demo-pill'}>
+          {USE_SUPABASE ? 'EN LÍNEA' : 'MODO DEMO'}
+        </span>
         <button className="rol-chip" title="Cambiar puesto de la terminal"
           onClick={() => { localStorage.removeItem('terminal-rol'); setRol('') }}>
           {ROL_LABEL[rol]} ⌄

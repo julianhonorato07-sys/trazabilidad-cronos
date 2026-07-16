@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   TIPOS, ORIGENES, ATRIBUCIONES, catalogo, unidadPorCis, crearIncidencia, incidencias, transicion,
   toggleFalla, eventosDe, dias, fmtDur, fmtRel, fmtFecha, turnoLabel, semaforo, colorNombre, tipoDe, ESTADOS,
+  onDataChange,
 } from '../data/repo'
 import { Modal, OperarioPicker, EstadoChip, FallaTag, Swatch, Vacio, Icon } from '../components/ui'
 
@@ -63,6 +64,7 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
   const [atrib, setAtrib] = useState('')
   const [pick, setPick] = useState(false)
   const [err, setErr] = useState('')
+  const [saving, setSaving] = useState(false)
   const cisRef = useRef(null)
 
   const unidad = tipo === 'cronos' && cis.length === 7 ? unidadPorCis(cis, 'cronos') : null
@@ -88,8 +90,6 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
     if (origen === 'oleo' && !atrib) return 'Indicá de dónde salió el defecto.'
     return ''
   }
-  // El formulario es largo: si el dato que falta quedó fuera de pantalla, hay que
-  // llevar al operario hasta ahí o parece que el botón no hace nada.
   const intentar = () => {
     const v = validar()
     if (!v) return setPick(true)
@@ -100,8 +100,9 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
     }
   }
 
-  const enviar = (operario_id, turno) => {
+  const enviar = async (operario_id, turno) => {
     setPick(false)
+    setSaving(true)
     const fallas = []
     for (const tid of tiposSel) {
       const ps = partsSel[tid] || []
@@ -109,12 +110,16 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
       else fallas.push({ tipo_falla_id: tid })
     }
     try {
-      crearIncidencia({
+      await crearIncidencia({
         cis, cest: unidad ? unidad.cest : cest, fallas, notas: nota, operario_id, turno,
         atribucion: atrib || null, tipo_unidad: tipo, origen,
       })
       onDone(cis)
-    } catch (e) { setErr(e.message) }
+    } catch (e) {
+      setErr(e.message)
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
@@ -183,11 +188,12 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
       <h4>Observaciones (opcional)</h4>
       <textarea placeholder="Ej: bollo grande, revisar grafado…" value={nota} onChange={(e) => setNota(e.target.value)} />
 
-      {/* El error va acá, pegado al botón: es donde está mirando quien lo aprieta. */}
       {err && <div className="banner err" style={{ margin: '16px 0 0' }}><span>{err}</span><button onClick={() => setErr('')}>Cerrar</button></div>}
 
       <div className="acciones">
-        <button className="btn primary" onClick={intentar}>Enviar al box →</button>
+        <button className="btn primary" onClick={intentar} disabled={saving}>
+          {saving ? 'Guardando…' : 'Enviar al box →'}
+        </button>
         <button className="btn ghost" onClick={onClose}>Cancelar</button>
       </div>
 
@@ -196,12 +202,26 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
   )
 }
 
-function DetalleModal({ inc, opera, rolOperario, onClose, onRefresh }) {
+function DetalleModal({ inc, opera, rolOperario, onClose }) {
   const [accion, setAccion] = useState(null)
+  const [saving, setSaving] = useState(false)
   const pendientes = inc.fallas.filter((f) => !f.resuelta_at).length
   const eventos = eventosDe(inc.id)
 
-  const ejecutar = (operario_id, turno) => { transicion(inc.id, accion.nuevo, operario_id, turno); setAccion(null); onClose(); onRefresh() }
+  const ejecutar = async (operario_id, turno) => {
+    setSaving(true)
+    try {
+      await transicion(inc.id, accion.nuevo, operario_id, turno)
+      setAccion(null)
+      onClose()
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const marcarFalla = async (fallaId) => {
+    await toggleFalla(fallaId)
+  }
 
   if (accion) {
     return <OperarioPicker roles={[rolOperario]} titulo={`${accion.label} — ¿quién lo registra?`} onPick={ejecutar} onClose={() => setAccion(null)} />
@@ -224,7 +244,7 @@ function DetalleModal({ inc, opera, rolOperario, onClose, onRefresh }) {
       <h4>Fallas ({inc.fallas.length})</h4>
       {inc.fallas.map((f) => (
         <label key={f.id} className="check">
-          <input type="checkbox" disabled={!opera} checked={!!f.resuelta_at} onChange={() => { toggleFalla(f.id); onRefresh() }} />
+          <input type="checkbox" disabled={!opera || saving} checked={!!f.resuelta_at} onChange={() => marcarFalla(f.id)} />
           <span className={f.resuelta_at ? 'res-txt' : ''}>
             {f.tipo.nombre}{f.part ? ' · ' + f.part.nombre : ''}{f.descripcion ? ` — ${f.descripcion}` : ''}
           </span>
@@ -236,7 +256,7 @@ function DetalleModal({ inc, opera, rolOperario, onClose, onRefresh }) {
           {inc.estado === 'en_espera' && pendientes > 0 && <p className="warn-txt">Quedan {pendientes} fallas sin marcar como resueltas.</p>}
           <div className="acciones">
             {ACCIONES[inc.estado].map((a) => (
-              <button key={a.nuevo} className={'btn ' + a.css} onClick={() => setAccion(a)}>{a.label}</button>
+              <button key={a.nuevo} className={'btn ' + a.css} onClick={() => setAccion(a)} disabled={saving}>{a.label}</button>
             ))}
             <button className="btn ghost" onClick={onClose}>Cerrar</button>
           </div>
@@ -274,7 +294,8 @@ export default function Puesto({ rol }) {
   const [reg, setReg] = useState(false)
   const [ok, setOk] = useState('')
   const [, setTick] = useState(0)
-  const refrescar = () => setTick((t) => t + 1)
+
+  useEffect(() => onDataChange(() => setTick((t) => t + 1)), [])
 
   const base = incidencias((i) => tipoDe(i.unidad) === tipo && (cfg.origen ? i.origen === cfg.origen : true))
   const inc = selId ? base.find((i) => i.id === selId) : null
@@ -326,10 +347,10 @@ export default function Puesto({ rol }) {
       </div>
 
       {inc && (
-        <DetalleModal inc={inc} opera={cfg.opera} rolOperario="box" onClose={() => setSelId(null)} onRefresh={refrescar} />
+        <DetalleModal inc={inc} opera={cfg.opera} rolOperario="box" onClose={() => setSelId(null)} />
       )}
       {reg && (
-        <RegistroModal tipo={tipo} origen={cfg.origen} onClose={() => setReg(false)} onDone={(cis) => { setReg(false); setOk(cis); refrescar() }} />
+        <RegistroModal tipo={tipo} origen={cfg.origen} onClose={() => setReg(false)} onDone={(cis) => { setReg(false); setOk(cis) }} />
       )}
       {ok && (
         <div className="exito" onClick={() => setOk('')}>

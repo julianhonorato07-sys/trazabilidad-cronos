@@ -1,50 +1,35 @@
+import { supabase, USE_SUPABASE } from './supabase'
 import seed from './seed.json'
 
 const KEY = 'traza-cronos-v4'
 let db = null
 
-export function getDB() {
-  if (!db) {
-    const raw = localStorage.getItem(KEY)
-    db = raw ? JSON.parse(raw) : structuredClone(seed)
-    // Catálogos vivos: se refrescan desde el seed aunque haya datos guardados.
-    db.colores = structuredClone(seed.colores)
-    db.particularidades = structuredClone(seed.particularidades)
-    db.tipos_falla = structuredClone(seed.tipos_falla)
-    // Los operarios del seed son la base; los que se agregan a mano se conservan.
-    const propios = (db.operarios || []).filter((o) => o.manual)
-    db.operarios = [...structuredClone(seed.operarios), ...propios]
-  }
-  return db
-}
-function persist() { localStorage.setItem(KEY, JSON.stringify(getDB())) }
-export function resetDemo() { localStorage.removeItem(KEY); db = null }
+// ── Pub/sub para que los componentes se refresque en tiempo real ───────
+const listeners = new Set()
+function notify() { for (const fn of listeners) fn() }
+export function onDataChange(fn) { listeners.add(fn); return () => listeners.delete(fn) }
 
-// Tres tipos de unidad. Cronos = carrocería; KP1 = cabina + caja.
+// ── Constantes (sin cambios) ──────────────────────────────────────────
 export const TIPOS = [
   { id: 'cronos', label: 'Cronos', sub: 'Carrocería' },
   { id: 'cabina', label: 'Cabina', sub: 'KP1' },
   { id: 'caja', label: 'Caja', sub: 'KP1' },
 ]
 export const ORIGENES = { revision: 'Revisión final', oleo: 'Óleo' }
-
 export const TURNOS = [{ id: 'A', label: 'Turno A' }, { id: 'B', label: 'Turno B' }]
-
-// Solo se pide en Óleo: de dónde salió el defecto. Mide lo que se escapa de Revisión final.
 export const ATRIBUCIONES = {
   generada_oleo: 'Generada en el Óleo',
   no_vista_revision: 'No vista en Revisión final',
 }
-
 export const ESTADOS = {
   en_espera: { label: 'En espera', css: 'purple' },
   liberada: { label: 'Liberada', css: 'green' },
   caso_especial: { label: 'Caso especial', css: 'red' },
 }
 
+// ── Helpers (sin cambios) ─────────────────────────────────────────────
 export const tipoDe = (u) => (u && u.tipo) || 'cronos'
 export const tipoLabel = (id) => (TIPOS.find((t) => t.id === id) || { label: id }).label
-
 export const ahora = () => new Date().toISOString()
 export const dias = (iso) => (Date.now() - new Date(iso).getTime()) / 86400000
 export const turnoLabel = (t) => (t ? `Turno ${t}` : 'Sin dato')
@@ -62,11 +47,86 @@ export const fmtRel = (iso) => {
   return `hace ${Math.floor(d)} d`
 }
 
-// Catálogo, con particularidades filtradas por tipo de unidad.
+// ── Inicialización ────────────────────────────────────────────────────
+export async function initDB() {
+  if (USE_SUPABASE) {
+    await loadFromSupabase()
+    subscribeRealtime()
+  } else {
+    loadFromLocalStorage()
+  }
+}
+
+function loadFromLocalStorage() {
+  const raw = localStorage.getItem(KEY)
+  db = raw ? JSON.parse(raw) : structuredClone(seed)
+  db.colores = structuredClone(seed.colores)
+  db.particularidades = structuredClone(seed.particularidades)
+  db.tipos_falla = structuredClone(seed.tipos_falla)
+  const propios = (db.operarios || []).filter((o) => o.manual)
+  db.operarios = [...structuredClone(seed.operarios), ...propios]
+}
+
+function persist() {
+  if (!USE_SUPABASE) localStorage.setItem(KEY, JSON.stringify(db))
+}
+
+async function loadFromSupabase() {
+  const [col, tf, par, ops, uni, inc, fal, evt] = await Promise.all([
+    supabase.from('colores').select('*'),
+    supabase.from('tipos_falla').select('*'),
+    supabase.from('particularidades').select('*'),
+    supabase.from('operarios').select('*').order('id'),
+    supabase.from('unidades').select('*').order('id'),
+    supabase.from('incidencias').select('*').order('id'),
+    supabase.from('incidencia_fallas').select('*').order('id'),
+    supabase.from('eventos').select('*').order('registrado_at'),
+  ])
+  for (const r of [col, tf, par, ops, uni, inc, fal, evt]) {
+    if (r.error) throw new Error(`Error cargando datos: ${r.error.message}`)
+  }
+  const colores = {}
+  for (const c of col.data) colores[c.cest] = { nombre: c.nombre, hex: c.hex }
+  db = {
+    colores,
+    tipos_falla: tf.data,
+    particularidades: par.data,
+    operarios: ops.data,
+    unidades: uni.data,
+    incidencias: inc.data,
+    incidencia_fallas: fal.data,
+    eventos: evt.data,
+  }
+}
+
+let reloadTimer = null
+function scheduleReload() {
+  clearTimeout(reloadTimer)
+  reloadTimer = setTimeout(async () => {
+    await loadFromSupabase()
+    notify()
+  }, 250)
+}
+
+function subscribeRealtime() {
+  supabase.channel('db-changes')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'incidencias' }, scheduleReload)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'incidencia_fallas' }, scheduleReload)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'eventos' }, scheduleReload)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'unidades' }, scheduleReload)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'operarios' }, scheduleReload)
+    .subscribe()
+}
+
+// ── Lecturas (sincrónicas, desde cache) ───────────────────────────────
+export function getDB() {
+  if (!db) loadFromLocalStorage()
+  return db
+}
+
 export function catalogo(tipo = 'cronos') {
   const d = getDB()
   return {
-    // Solo las fallas activas se pueden elegir; las viejas siguen vivas en el histórico.
     tipos: d.tipos_falla.filter((t) => t.activo !== false),
     parts: d.particularidades.filter((p) => p.tipo === tipo),
     colores: d.colores,
@@ -79,6 +139,7 @@ export function colorNombre(cest) {
   const c = getDB().colores[cest]
   return c && c.nombre ? `${cest} · ${c.nombre}` : `CEST ${cest}`
 }
+
 export function colorHex(cest) {
   const c = getDB().colores[cest]
   return (c && c.hex) || '#B9B3A8'
@@ -106,21 +167,46 @@ export function incidencias(filtro) {
     .filter((i) => !filtro || filtro(i))
 }
 
+export function eventosDe(incId) {
+  const d = getDB()
+  return d.eventos
+    .filter((e) => e.incidencia_id === incId)
+    .map((e) => ({ ...e, operario: d.operarios.find((o) => o.id === e.operario_id) || null }))
+    .sort((a, b) => a.registrado_at.localeCompare(b.registrado_at))
+}
+
+// ── Escrituras ────────────────────────────────────────────────────────
 const nid = (arr) => arr.reduce((m, x) => Math.max(m, x.id), 0) + 1
 
-// Alta de un operario escrito a mano; queda guardado para la próxima vez.
-export function agregarOperario(nombre, rol) {
+export async function agregarOperario(nombre, rol) {
   const d = getDB()
   const limpio = nombre.trim()
   const existe = d.operarios.find((o) => o.nombre.toLowerCase() === limpio.toLowerCase() && o.rol === rol)
   if (existe) return existe.id
+
+  if (USE_SUPABASE) {
+    const { data, error } = await supabase.from('operarios')
+      .insert({ nombre: limpio, rol, activo: true, manual: true })
+      .select().single()
+    if (error) throw new Error(error.message)
+    d.operarios.push(data)
+    return data.id
+  }
+
   const op = { id: nid(d.operarios), nombre: limpio, rol, activo: true, manual: true }
   d.operarios.push(op)
   persist()
   return op.id
 }
 
-export function crearIncidencia({ cis, cest, fallas, notas, operario_id, turno = null, atribucion = null, tipo_unidad = 'cronos', origen = 'revision' }) {
+export async function crearIncidencia({ cis, cest, fallas, notas, operario_id, turno = null, atribucion = null, tipo_unidad = 'cronos', origen = 'revision' }) {
+  if (USE_SUPABASE) {
+    return await crearIncidenciaSupabase({ cis, cest, fallas, notas, operario_id, turno, atribucion, tipo_unidad, origen })
+  }
+  return crearIncidenciaLocal({ cis, cest, fallas, notas, operario_id, turno, atribucion, tipo_unidad, origen })
+}
+
+function crearIncidenciaLocal({ cis, cest, fallas, notas, operario_id, turno, atribucion, tipo_unidad, origen }) {
   const d = getDB()
   let u = d.unidades.find((x) => x.cis === cis && tipoDe(x) === tipo_unidad)
   if (!u) {
@@ -152,36 +238,115 @@ export function crearIncidencia({ cis, cest, fallas, notas, operario_id, turno =
   return inc
 }
 
-export function transicion(incId, nuevo, operario_id, turno = null, obs = '') {
+async function crearIncidenciaSupabase({ cis, cest, fallas, notas, operario_id, turno, atribucion, tipo_unidad, origen }) {
+  let { data: u } = await supabase.from('unidades')
+    .select('*').eq('cis', cis).eq('tipo', tipo_unidad).maybeSingle()
+
+  if (!u) {
+    const { data, error } = await supabase.from('unidades')
+      .insert({ cis, cest: cest || null, tipo: tipo_unidad })
+      .select().single()
+    if (error) throw new Error(error.message)
+    u = data
+  } else if (cest && !u.cest) {
+    await supabase.from('unidades').update({ cest }).eq('id', u.id)
+    u.cest = cest
+  }
+
+  const { data: abierta } = await supabase.from('incidencias')
+    .select('id').eq('unidad_id', u.id).is('cerrada_at', null).maybeSingle()
+  if (abierta) throw new Error(`El CIS ${cis} (${tipoLabel(tipo_unidad)}) ya está en piso.`)
+
+  const { data: inc, error: incErr } = await supabase.from('incidencias')
+    .insert({
+      unidad_id: u.id, estado: 'en_espera', origen, turno,
+      atribucion: origen === 'oleo' ? atribucion : null,
+      notas: notas || '',
+    })
+    .select().single()
+  if (incErr) throw new Error(incErr.message)
+
+  const fallasRows = fallas.map((f) => ({
+    incidencia_id: inc.id, tipo_falla_id: f.tipo_falla_id,
+    particularidad_id: f.particularidad_id || null,
+    descripcion: f.descripcion || '',
+  }))
+  if (fallasRows.length) {
+    const { error } = await supabase.from('incidencia_fallas').insert(fallasRows)
+    if (error) throw new Error(error.message)
+  }
+
+  const obs = `Detectada en ${ORIGENES[origen]}${atribucion && origen === 'oleo' ? ` · ${ATRIBUCIONES[atribucion]}` : ''}, enviada al box`
+  const { error: evtErr } = await supabase.from('eventos')
+    .insert({ incidencia_id: inc.id, estado_anterior: null, estado_nuevo: 'en_espera', operario_id, turno, observacion: obs })
+  if (evtErr) throw new Error(evtErr.message)
+
+  await loadFromSupabase()
+  notify()
+  return inc
+}
+
+export async function transicion(incId, nuevo, operario_id, turno = null, obs = '') {
   const d = getDB()
   const inc = d.incidencias.find((i) => i.id === incId)
-  d.eventos.push({
-    id: nid(d.eventos), incidencia_id: incId, estado_anterior: inc.estado, estado_nuevo: nuevo,
-    operario_id, turno, registrado_at: ahora(), observacion: obs,
-  })
-  inc.estado = nuevo
-  inc.cerrada_at = nuevo === 'liberada' ? ahora() : null
-  persist()
+
+  if (USE_SUPABASE) {
+    const { error: evtErr } = await supabase.from('eventos')
+      .insert({ incidencia_id: incId, estado_anterior: inc.estado, estado_nuevo: nuevo, operario_id, turno, observacion: obs })
+    if (evtErr) throw new Error(evtErr.message)
+    const update = { estado: nuevo, cerrada_at: nuevo === 'liberada' ? new Date().toISOString() : null }
+    const { error } = await supabase.from('incidencias').update(update).eq('id', incId)
+    if (error) throw new Error(error.message)
+    await loadFromSupabase()
+    notify()
+  } else {
+    d.eventos.push({
+      id: nid(d.eventos), incidencia_id: incId, estado_anterior: inc.estado, estado_nuevo: nuevo,
+      operario_id, turno, registrado_at: ahora(), observacion: obs,
+    })
+    inc.estado = nuevo
+    inc.cerrada_at = nuevo === 'liberada' ? ahora() : null
+    persist()
+  }
 }
 
-export function toggleFalla(fallaId) {
+export async function toggleFalla(fallaId) {
   const d = getDB()
   const f = d.incidencia_fallas.find((x) => x.id === fallaId)
-  f.resuelta_at = f.resuelta_at ? null : ahora()
-  persist()
+
+  if (USE_SUPABASE) {
+    const val = f.resuelta_at ? null : new Date().toISOString()
+    const { error } = await supabase.from('incidencia_fallas')
+      .update({ resuelta_at: val }).eq('id', fallaId)
+    if (error) throw new Error(error.message)
+    f.resuelta_at = val
+    notify()
+  } else {
+    f.resuelta_at = f.resuelta_at ? null : ahora()
+    persist()
+  }
 }
 
-export function eventosDe(incId) {
-  const d = getDB()
-  return d.eventos
-    .filter((e) => e.incidencia_id === incId)
-    .map((e) => ({ ...e, operario: d.operarios.find((o) => o.id === e.operario_id) || null }))
-    .sort((a, b) => a.registrado_at.localeCompare(b.registrado_at))
+export async function resetDemo() {
+  if (USE_SUPABASE) {
+    await supabase.from('eventos').delete().neq('id', 0)
+    await supabase.from('incidencia_fallas').delete().neq('id', 0)
+    await supabase.from('incidencias').delete().neq('id', 0)
+    await supabase.from('unidades').delete().neq('id', 0)
+    await supabase.from('operarios').delete().eq('manual', true)
+    await loadFromSupabase()
+    notify()
+  } else {
+    localStorage.removeItem(KEY)
+    db = null
+  }
 }
 
+// ── KPIs y exportación (sin cambios en lógica) ────────────────────────
 function csv(filas) {
   return filas.map((f) => f.map((v) => `"${String(v ?? '').replaceAll('"', '""')}"`).join(';')).join('\n')
 }
+
 export function csvEnPiso() {
   const filas = [['CIS', 'Tipo', 'CEST', 'Color', 'Origen', 'Turno', 'Atribucion', 'Estado', 'Detectada', 'Dias_en_piso', 'Fallas', 'Notas']]
   for (const i of incidencias((x) => !x.cerrada_at)) {
@@ -194,6 +359,7 @@ export function csvEnPiso() {
   }
   return csv(filas)
 }
+
 export function csvEventos() {
   const d = getDB()
   const filas = [['CIS', 'Tipo', 'Estado_anterior', 'Estado_nuevo', 'Fecha', 'Turno', 'Operario', 'Observacion']]
@@ -206,7 +372,6 @@ export function csvEventos() {
   return csv(filas)
 }
 
-// KPIs de un tipo de unidad ('cronos'|'cabina'|'caja') o 'todos'.
 export function kpis(tipoFiltro = 'todos') {
   const d = getDB()
   const delTipo = (i) => tipoFiltro === 'todos' || tipoDe(i.unidad) === tipoFiltro
@@ -234,11 +399,9 @@ export function kpis(tipoFiltro = 'todos') {
   const porOrigen = {}
   for (const i of abiertas) { const o = i.origen || 'revision'; porOrigen[o] = (porOrigen[o] || 0) + 1 }
 
-  // Detecciones por turno (sobre todo el histórico del tipo, no solo lo abierto).
   const porTurno = { A: 0, B: 0, sd: 0 }
   for (const i of todas) porTurno[i.turno === 'A' ? 'A' : i.turno === 'B' ? 'B' : 'sd']++
 
-  // Atribución: solo aplica a lo detectado en Óleo.
   const porAtribucion = { generada_oleo: 0, no_vista_revision: 0 }
   for (const i of todas) if (i.origen === 'oleo' && i.atribucion) porAtribucion[i.atribucion]++
 

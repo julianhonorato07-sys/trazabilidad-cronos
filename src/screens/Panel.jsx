@@ -1,14 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   TIPOS, ORIGENES, ATRIBUCIONES, kpis, incidencias, dias, fmtDur, fmtHoras, semaforo, colorNombre,
-  colorHex, tipoDe, resetDemo, csvEnPiso, csvEventos, ESTADOS,
+  colorHex, tipoDe, resetDemo, csvEnPiso, csvEventos, ESTADOS, onDataChange,
 } from '../data/repo'
+import { USE_SUPABASE } from '../data/supabase'
 import { Icon, descargar } from '../components/ui'
 
 const FILTROS = [{ id: 'todos', label: 'Todos' }, ...TIPOS.map((t) => ({ id: t.id, label: t.label }))]
 
 export default function Panel() {
   const [tipo, setTipo] = useState('todos')
+  const [, setTick] = useState(0)
+
+  useEffect(() => onDataChange(() => setTick((t) => t + 1)), [])
+
   const k = kpis(tipo)
 
   const abiertas = incidencias((i) => !i.cerrada_at && (tipo === 'todos' || tipoDe(i.unidad) === tipo))
@@ -169,13 +174,15 @@ export default function Panel() {
         <button className="btn" onClick={() => descargar('historial_eventos.csv', csvEventos())}>⬇ Historial de eventos (CSV)</button>
       </div>
 
-      <div className="acciones" style={{ marginTop: 26 }}>
-        <button className="btn ghost" onClick={() => {
-          if (confirm('¿Restaurar los datos de demo a partir del Excel? Se pierden los cambios hechos en la app.')) {
-            resetDemo(); location.reload()
-          }
-        }}>Restaurar datos de demo</button>
-      </div>
+      {!USE_SUPABASE && (
+        <div className="acciones" style={{ marginTop: 26 }}>
+          <button className="btn ghost" onClick={async () => {
+            if (confirm('¿Restaurar los datos de demo a partir del Excel? Se pierden los cambios hechos en la app.')) {
+              await resetDemo(); location.reload()
+            }
+          }}>Restaurar datos de demo</button>
+        </div>
+      )}
     </div>
   )
 }

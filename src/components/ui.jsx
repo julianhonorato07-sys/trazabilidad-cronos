@@ -61,10 +61,11 @@ export function OperarioPicker({ roles, titulo, onPick, onClose }) {
     if (!turno) return setErr('Elegí primero el turno.')
     onPick(operario_id, turno)
   }
-  const confirmarNuevo = () => {
+  const confirmarNuevo = async () => {
     if (!turno) return setErr('Elegí primero el turno.')
     if (nombre.trim().length < 2) return setErr('Escribí el nombre del operario.')
-    onPick(agregarOperario(nombre, rol), turno)
+    const id = await agregarOperario(nombre, rol)
+    onPick(id, turno)
   }
 
   return (

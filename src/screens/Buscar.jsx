@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   getDB, incidencias, eventosDe, fmtFecha, fmtDur, fmtRel, dias, turnoLabel, colorNombre,
-  tipoDe, tipoLabel, ORIGENES, ATRIBUCIONES, ESTADOS,
+  tipoDe, tipoLabel, ORIGENES, ATRIBUCIONES, ESTADOS, onDataChange,
 } from '../data/repo'
 import { Modal, EstadoChip, FallaTag, Swatch, Vacio } from '../components/ui'
 
@@ -10,6 +10,9 @@ const CSS_TL = { liberada: 'g', caso_especial: 'r', en_espera: '' }
 export default function Buscar() {
   const [q, setQ] = useState('')
   const [sel, setSel] = useState(null)
+  const [, setTick] = useState(0)
+
+  useEffect(() => onDataChange(() => setTick((t) => t + 1)), [])
 
   const d = getDB()
   const res = q.length >= 3 ? d.unidades.filter((u) => u.cis.includes(q)).slice(0, 25) : []
