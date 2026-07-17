@@ -327,6 +327,22 @@ export async function toggleFalla(fallaId) {
   }
 }
 
+// Borra una incidencia cargada por error, con sus fallas y eventos.
+export async function eliminarIncidencia(incId) {
+  if (USE_SUPABASE) {
+    const { error } = await supabase.from('incidencias').delete().eq('id', incId)
+    if (error) throw new Error(error.message)
+    await loadFromSupabase()
+    notify()
+  } else {
+    const d = getDB()
+    d.eventos = d.eventos.filter((e) => e.incidencia_id !== incId)
+    d.incidencia_fallas = d.incidencia_fallas.filter((f) => f.incidencia_id !== incId)
+    d.incidencias = d.incidencias.filter((i) => i.id !== incId)
+    persist()
+  }
+}
+
 export async function resetDemo() {
   if (USE_SUPABASE) {
     await supabase.from('eventos').delete().neq('id', 0)

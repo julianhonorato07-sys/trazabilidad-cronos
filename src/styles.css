@@ -165,6 +165,7 @@ header.app {
 .btn.warn { background: var(--amber-soft); border-color: var(--amber); color: var(--amber); }
 .btn.danger { background: var(--red-soft); border-color: var(--red); color: var(--red); }
 .btn.ghost { background: none; box-shadow: none; border-color: var(--line); }
+.btn.eliminar { background: none; box-shadow: none; border-color: var(--red); color: var(--red); }
 .btn:disabled { opacity: 0.45; }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 

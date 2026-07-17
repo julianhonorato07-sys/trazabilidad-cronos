@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import {
   TIPOS, ORIGENES, ATRIBUCIONES, catalogo, unidadPorCis, crearIncidencia, incidencias, transicion,
-  toggleFalla, eventosDe, dias, fmtDur, fmtRel, fmtFecha, turnoLabel, semaforo, colorNombre, tipoDe, ESTADOS,
+  toggleFalla, eventosDe, eliminarIncidencia, dias, fmtDur, fmtRel, fmtFecha, turnoLabel, semaforo, colorNombre, tipoDe, ESTADOS,
   onDataChange,
 } from '../data/repo'
 import { Modal, OperarioPicker, EstadoChip, FallaTag, Swatch, Vacio, Icon } from '../components/ui'
@@ -223,6 +223,17 @@ function DetalleModal({ inc, opera, rolOperario, onClose }) {
     await toggleFalla(fallaId)
   }
 
+  const eliminar = async () => {
+    if (!confirm(`¿Eliminar el registro del CIS ${inc.unidad.cis}? Esta acción no se puede deshacer.`)) return
+    setSaving(true)
+    try {
+      await eliminarIncidencia(inc.id)
+      onClose()
+    } finally {
+      setSaving(false)
+    }
+  }
+
   if (accion) {
     return <OperarioPicker roles={[rolOperario]} titulo={`${accion.label} — ¿quién lo registra?`} onPick={ejecutar} onClose={() => setAccion(null)} />
   }
@@ -259,6 +270,7 @@ function DetalleModal({ inc, opera, rolOperario, onClose }) {
               <button key={a.nuevo} className={'btn ' + a.css} onClick={() => setAccion(a)} disabled={saving}>{a.label}</button>
             ))}
             <button className="btn ghost" onClick={onClose}>Cerrar</button>
+            <button className="btn eliminar" onClick={eliminar} disabled={saving}>🗑 Eliminar registro</button>
           </div>
         </>
       ) : (
@@ -279,7 +291,10 @@ function DetalleModal({ inc, opera, rolOperario, onClose }) {
               )
             })}
           </div>
-          <div className="acciones"><button className="btn ghost" onClick={onClose}>Cerrar</button></div>
+          <div className="acciones">
+            <button className="btn ghost" onClick={onClose}>Cerrar</button>
+            <button className="btn eliminar" onClick={eliminar} disabled={saving}>🗑 Eliminar registro</button>
+          </div>
         </>
       )}
     </Modal>
