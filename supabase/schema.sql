@@ -128,7 +128,9 @@ insert into colores (cest, nombre, hex) values
   ('619', 'Plata Bari', '#C9CBCD'),
   ('806', 'Negro', '#1E2124'),
   ('534', 'Blanco Alaska', '#FBFBFA'),
-  ('978', 'Rojo', '#9E2B32');
+  ('978', 'Rojo', '#9E2B32'),
+  ('504', 'Naranja (RAM)', '#D95B1E'),
+  ('860', 'Azul (RAM)', '#1F4E8C');
 
 insert into tipos_falla (id, nombre, usa_particularidad, requiere_particularidad, activo) values
   (1, 'Bollo', true, false, true),

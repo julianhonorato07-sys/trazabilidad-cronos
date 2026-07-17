@@ -124,12 +124,20 @@ export function getDB() {
   return db
 }
 
+// Las cabinas y cajas KP1 (RAM) tienen su propia paleta de colores.
+const COLORES_RAM = ['504', '860']
+
 export function catalogo(tipo = 'cronos') {
   const d = getDB()
+  const colores = Object.fromEntries(
+    Object.entries(d.colores).filter(([c]) =>
+      tipo === 'cronos' ? !COLORES_RAM.includes(c) : COLORES_RAM.includes(c)
+    )
+  )
   return {
     tipos: d.tipos_falla.filter((t) => t.activo !== false),
     parts: d.particularidades.filter((p) => p.tipo === tipo),
-    colores: d.colores,
+    colores,
     operarios: d.operarios.filter((o) => o.activo !== false),
   }
 }
@@ -424,6 +432,19 @@ export function kpis(tipoFiltro = 'todos') {
   const porTipo = {}
   for (const t of TIPOS) porTipo[t.id] = incidencias((i) => !i.cerrada_at && tipoDe(i.unidad) === t.id).length
 
+  // Liberaciones por operario y turno: cuenta cada evento "liberada".
+  const idsTipo = new Set(todas.map((i) => i.id))
+  const libMap = {}
+  for (const e of d.eventos) {
+    if (e.estado_nuevo !== 'liberada' || !idsTipo.has(e.incidencia_id)) continue
+    const op = d.operarios.find((o) => o.id === e.operario_id)
+    const key = `${op ? op.nombre : 'Sin dato'}|${e.turno || ''}`
+    libMap[key] = (libMap[key] || 0) + 1
+  }
+  const porLiberador = Object.entries(libMap)
+    .map(([k, n]) => { const [nombre, turno] = k.split('|'); return { nombre, turno, n } })
+    .sort((a, b) => b.n - a.n)
+
   const alertas = abiertas
     .map((i) => {
       const dd = dias(i.detectada_at)
@@ -438,5 +459,6 @@ export function kpis(tipoFiltro = 'todos') {
   return {
     enPiso: abiertas.length, mas40, promDias, liberadas7,
     tiempoTotal: prom(totales), pareto, porColor, porOrigen, porTurno, porAtribucion, porTipo, alertas,
+    porLiberador,
   }
 }

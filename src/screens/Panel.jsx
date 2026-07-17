@@ -111,6 +111,19 @@ export default function Panel() {
         <div className="tile"><div className="n">{k.porTurno.sd}</div><div className="l">Sin dato (previo a la app)</div></div>
       </div>
 
+      <h4>Liberaciones por operario</h4>
+      {!k.porLiberador.length ? (
+        <p className="muted" style={{ fontSize: 14 }}>Todavía no hay unidades liberadas.</p>
+      ) : (
+        k.porLiberador.map((r) => (
+          <div key={r.nombre + '|' + r.turno} className="lib-fila">
+            <span className="lib-nombre">{r.nombre}</span>
+            <span className="chip">{r.turno ? `Turno ${r.turno}` : 'Sin turno'}</span>
+            <span className="lib-n">{r.n}</span>
+          </div>
+        ))
+      )}
+
       <h4>Defectos detectados en Óleo</h4>
       {!k.porAtribucion.generada_oleo && !k.porAtribucion.no_vista_revision ? (
         <p className="muted" style={{ fontSize: 14 }}>Todavía no hay registros cargados desde Óleo.</p>

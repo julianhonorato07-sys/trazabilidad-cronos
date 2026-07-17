@@ -82,12 +82,13 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
   }
   const validar = () => {
     if (cis.replace(/\D/g, '').length < (tipo === 'cronos' ? 7 : 4)) return 'Ingresá el CIS de la unidad.'
+    // En Óleo no se detallan fallas: solo importa de dónde salió el defecto.
+    if (origen === 'oleo') return atrib ? '' : 'Indicá de dónde salió el defecto.'
     if (!tiposSel.length) return 'Seleccioná al menos una falla.'
     for (const tid of tiposSel) {
       const t = tipos.find((x) => x.id === tid)
       if (t.requiere_particularidad && !(partsSel[tid] || []).length) return `Indicá la particularidad de "${t.nombre}".`
     }
-    if (origen === 'oleo' && !atrib) return 'Indicá de dónde salió el defecto.'
     return ''
   }
   const intentar = () => {
@@ -148,29 +149,33 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
         </div>
       )}
 
-      <h4>Fallas detectadas {tiposSel.length > 0 && `· ${tiposSel.length}`}</h4>
-      <div className="fallas-grid">
-        {tipos.map((t) => (
-          <button key={t.id} className={'falla-btn' + (tiposSel.includes(t.id) ? ' on' : '')} onClick={() => toggleTipo(t.id)}>
-            {t.nombre}
-          </button>
-        ))}
-      </div>
-      {tiposSel.map((tid) => {
-        const t = tipos.find((x) => x.id === tid)
-        if (!t.usa_particularidad) return null
-        return (
-          <div key={tid} className="parts">
-            <span className="parts-lbl">{t.nombre} — ¿en qué particularidad?</span>
-            {parts.length === 0 && <span className="muted" style={{ fontSize: 13 }}>Sin partes cargadas para este tipo.</span>}
-            {parts.map((p) => (
-              <button key={p.id} className={'chip pick' + ((partsSel[tid] || []).includes(p.id) ? ' on' : '')} onClick={() => togglePart(tid, p.id)}>
-                {p.nombre}
+      {origen !== 'oleo' && (
+        <>
+          <h4>Fallas detectadas {tiposSel.length > 0 && `· ${tiposSel.length}`}</h4>
+          <div className="fallas-grid">
+            {tipos.map((t) => (
+              <button key={t.id} className={'falla-btn' + (tiposSel.includes(t.id) ? ' on' : '')} onClick={() => toggleTipo(t.id)}>
+                {t.nombre}
               </button>
             ))}
           </div>
-        )
-      })}
+          {tiposSel.map((tid) => {
+            const t = tipos.find((x) => x.id === tid)
+            if (!t.usa_particularidad) return null
+            return (
+              <div key={tid} className="parts">
+                <span className="parts-lbl">{t.nombre} — ¿en qué particularidad?</span>
+                {parts.length === 0 && <span className="muted" style={{ fontSize: 13 }}>Sin partes cargadas para este tipo.</span>}
+                {parts.map((p) => (
+                  <button key={p.id} className={'chip pick' + ((partsSel[tid] || []).includes(p.id) ? ' on' : '')} onClick={() => togglePart(tid, p.id)}>
+                    {p.nombre}
+                  </button>
+                ))}
+              </div>
+            )
+          })}
+        </>
+      )}
 
       {origen === 'oleo' && (
         <>

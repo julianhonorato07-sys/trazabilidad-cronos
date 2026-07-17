@@ -23,6 +23,14 @@
   "978": {
    "nombre": "Rojo",
    "hex": "#9E2B32"
+  },
+  "504": {
+   "nombre": "Naranja (RAM)",
+   "hex": "#D95B1E"
+  },
+  "860": {
+   "nombre": "Azul (RAM)",
+   "hex": "#1F4E8C"
   }
  },
  "tipos_falla": [
