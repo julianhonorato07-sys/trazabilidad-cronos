@@ -86,7 +86,7 @@ async function loadFromSupabase() {
     if (r.error) throw new Error(`Error cargando datos: ${r.error.message}`)
   }
   const colores = {}
-  for (const c of col.data) colores[c.cest] = { nombre: c.nombre, hex: c.hex }
+  for (const c of col.data) colores[c.cest] = { nombre: c.nombre, hex: c.hex, manual: c.manual }
   db = {
     colores,
     tipos_falla: tf.data,
@@ -115,6 +115,7 @@ function subscribeRealtime() {
     .on('postgres_changes', { event: '*', schema: 'public', table: 'eventos' }, scheduleReload)
     .on('postgres_changes', { event: '*', schema: 'public', table: 'unidades' }, scheduleReload)
     .on('postgres_changes', { event: '*', schema: 'public', table: 'operarios' }, scheduleReload)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'colores' }, scheduleReload)
     .subscribe()
 }
 
@@ -129,9 +130,11 @@ const COLORES_RAM = ['504', '860']
 
 export function catalogo(tipo = 'cronos') {
   const d = getDB()
+  // Cronos usa su paleta oficial; cabina/caja usan la RAM más los colores
+  // que los operarios agregaron a mano.
   const colores = Object.fromEntries(
-    Object.entries(d.colores).filter(([c]) =>
-      tipo === 'cronos' ? !COLORES_RAM.includes(c) : COLORES_RAM.includes(c)
+    Object.entries(d.colores).filter(([c, v]) =>
+      tipo === 'cronos' ? !COLORES_RAM.includes(c) && !v.manual : COLORES_RAM.includes(c) || v.manual
     )
   )
   return {
@@ -145,7 +148,9 @@ export function catalogo(tipo = 'cronos') {
 export function colorNombre(cest) {
   if (!cest) return 'Color s/d'
   const c = getDB().colores[cest]
-  return c && c.nombre ? `${cest} · ${c.nombre}` : `CEST ${cest}`
+  if (!c || !c.nombre) return `CEST ${cest}`
+  // Los colores escritos a mano usan el nombre como código: no repetirlo.
+  return c.nombre === cest ? c.nombre : `${cest} · ${c.nombre}`
 }
 
 export function colorHex(cest) {
@@ -205,6 +210,21 @@ export async function agregarOperario(nombre, rol) {
   d.operarios.push(op)
   persist()
   return op.id
+}
+
+// Alta de un color escrito a mano (cabina/caja); el nombre queda como código.
+export async function agregarColor(nombre) {
+  const d = getDB()
+  const limpio = nombre.trim()
+  const existe = Object.entries(d.colores).find(([, c]) => (c.nombre || '').toLowerCase() === limpio.toLowerCase())
+  if (existe) return existe[0]
+  if (USE_SUPABASE) {
+    const { error } = await supabase.from('colores').insert({ cest: limpio, nombre: limpio, manual: true })
+    if (error) throw new Error(error.message)
+  }
+  d.colores[limpio] = { nombre: limpio, hex: null, manual: true }
+  persist()
+  return limpio
 }
 
 export async function crearIncidencia({ cis, cest, fallas, notas, operario_id, turno = null, atribucion = null, tipo_unidad = 'cronos', origen = 'revision' }) {

@@ -5,7 +5,8 @@
 create table colores (
   cest   text primary key,
   nombre text,
-  hex    text
+  hex    text,
+  manual boolean not null default false
 );
 
 create table tipos_falla (
@@ -91,6 +92,7 @@ alter publication supabase_realtime add table incidencia_fallas;
 alter publication supabase_realtime add table eventos;
 alter publication supabase_realtime add table unidades;
 alter publication supabase_realtime add table operarios;
+alter publication supabase_realtime add table colores;
 
 -- ── Acceso sin autenticación ───────────────────────────────────────────
 -- La app se usa dentro de la planta sin login. Estas políticas permiten

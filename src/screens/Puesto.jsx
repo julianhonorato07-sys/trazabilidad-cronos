@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import {
   TIPOS, ORIGENES, ATRIBUCIONES, catalogo, unidadPorCis, crearIncidencia, incidencias, transicion,
-  toggleFalla, eventosDe, eliminarIncidencia, dias, fmtDur, fmtRel, fmtFecha, turnoLabel, semaforo, colorNombre, tipoDe, ESTADOS,
+  toggleFalla, eventosDe, eliminarIncidencia, agregarColor, dias, fmtDur, fmtRel, fmtFecha, turnoLabel, semaforo, colorNombre, tipoDe, ESTADOS,
   onDataChange,
 } from '../data/repo'
 import { Modal, OperarioPicker, EstadoChip, FallaTag, Swatch, Vacio, Icon } from '../components/ui'
@@ -65,7 +65,17 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
   const [pick, setPick] = useState(false)
   const [err, setErr] = useState('')
   const [saving, setSaving] = useState(false)
+  const [otroColor, setOtroColor] = useState('')
   const cisRef = useRef(null)
+
+  const confirmarOtroColor = async () => {
+    if (otroColor.trim().length < 2) return setErr('Escribí el nombre del color.')
+    try {
+      const key = await agregarColor(otroColor)
+      setCest(key)
+      setOtroColor('')
+    } catch (e) { setErr(e.message) }
+  }
 
   const unidad = tipo === 'cronos' && cis.length === 7 ? unidadPorCis(cis, 'cronos') : null
 
@@ -146,6 +156,15 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
               </button>
             ))}
           </span>
+          {tipo !== 'cronos' && (
+            <span style={{ display: 'flex', gap: 8, marginTop: 8, width: '100%' }}>
+              <input
+                className="nombre-input" style={{ flex: 1, margin: 0 }} placeholder="Otro color (escribilo)"
+                value={otroColor} onChange={(e) => { setErr(''); setOtroColor(e.target.value) }}
+              />
+              <button className="btn" onClick={confirmarOtroColor}>Agregar</button>
+            </span>
+          )}
         </div>
       )}
 
