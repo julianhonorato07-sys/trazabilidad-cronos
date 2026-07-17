@@ -236,6 +236,12 @@
    "codigo": "CAJ-BARDX",
    "nombre": "Baranda der.",
    "tipo": "caja"
+  },
+  {
+   "id": 26,
+   "codigo": "CAJ-TAPACOMB",
+   "nombre": "Tapa de combustible",
+   "tipo": "caja"
   }
  ],
  "operarios": [

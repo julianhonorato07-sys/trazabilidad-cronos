@@ -153,7 +153,24 @@ insert into particularidades (id, codigo, nombre, tipo) values
   (6, 'PPDX', 'Puerta posterior der.', 'cronos'),
   (7, 'GBSX', 'Guardabarro izq.', 'cronos'),
   (8, 'GBDX', 'Guardabarro der.', 'cronos'),
-  (9, 'ZOC', 'Zócalo', 'cronos');
+  (9, 'ZOC', 'Zócalo', 'cronos'),
+  (10, 'TECHO', 'Techo', 'cronos'),
+  (11, 'CAB-PSX', 'Puerta izq.', 'cabina'),
+  (12, 'CAB-PDX', 'Puerta der.', 'cabina'),
+  (13, 'CAB-CAPOT', 'Capot', 'cabina'),
+  (14, 'CAB-TECHO', 'Techo', 'cabina'),
+  (15, 'CAB-PARSX', 'Parante izq.', 'cabina'),
+  (16, 'CAB-PARDX', 'Parante der.', 'cabina'),
+  (17, 'CAB-GBSX', 'Guardabarro izq.', 'cabina'),
+  (18, 'CAB-GBDX', 'Guardabarro der.', 'cabina'),
+  (19, 'CAJ-LSX', 'Lateral izq.', 'caja'),
+  (20, 'CAJ-LDX', 'Lateral der.', 'caja'),
+  (21, 'CAJ-PORT', 'Portón trasero', 'caja'),
+  (22, 'CAJ-PISO', 'Piso de caja', 'caja'),
+  (23, 'CAJ-FRENTE', 'Frente de caja', 'caja'),
+  (24, 'CAJ-BARSX', 'Baranda izq.', 'caja'),
+  (25, 'CAJ-BARDX', 'Baranda der.', 'caja'),
+  (26, 'CAJ-TAPACOMB', 'Tapa de combustible', 'caja');
 
 insert into operarios (nombre, rol) values
   ('Julián H.', 'supervisor'),
