@@ -130,11 +130,10 @@ const COLORES_RAM = ['504', '860']
 
 export function catalogo(tipo = 'cronos') {
   const d = getDB()
-  // Cronos usa su paleta oficial; cabina/caja usan la RAM más los colores
-  // que los operarios agregaron a mano.
+  // Cronos usa su paleta oficial; cabina/caja usan solo la RAM.
   const colores = Object.fromEntries(
     Object.entries(d.colores).filter(([c, v]) =>
-      tipo === 'cronos' ? !COLORES_RAM.includes(c) && !v.manual : COLORES_RAM.includes(c) || v.manual
+      tipo === 'cronos' ? !COLORES_RAM.includes(c) && !v.manual : COLORES_RAM.includes(c)
     )
   )
   return {
@@ -210,21 +209,6 @@ export async function agregarOperario(nombre, rol) {
   d.operarios.push(op)
   persist()
   return op.id
-}
-
-// Alta de un color escrito a mano (cabina/caja); el nombre queda como código.
-export async function agregarColor(nombre) {
-  const d = getDB()
-  const limpio = nombre.trim()
-  const existe = Object.entries(d.colores).find(([, c]) => (c.nombre || '').toLowerCase() === limpio.toLowerCase())
-  if (existe) return existe[0]
-  if (USE_SUPABASE) {
-    const { error } = await supabase.from('colores').insert({ cest: limpio, nombre: limpio, manual: true })
-    if (error) throw new Error(error.message)
-  }
-  d.colores[limpio] = { nombre: limpio, hex: null, manual: true }
-  persist()
-  return limpio
 }
 
 export async function crearIncidencia({ cis, cest, fallas, notas, operario_id, turno = null, atribucion = null, tipo_unidad = 'cronos', origen = 'revision' }) {
