@@ -324,10 +324,28 @@ export default function Puesto({ rol }) {
   const base = incidencias((i) => tipoDe(i.unidad) === tipo && (cfg.origen ? i.origen === cfg.origen : true))
   const inc = selId ? base.find((i) => i.id === selId) : null
 
+  // Total físico en el box ahora (todas las abiertas, de todos los tipos).
+  const enBox = incidencias((i) => !i.cerrada_at)
+  const enBoxPorTipo = TIPOS.map((t) => ({ ...t, n: enBox.filter((i) => tipoDe(i.unidad) === t.id).length }))
+
   return (
     <div>
       <h3>{cfg.titulo}</h3>
       <p className="sub">{cfg.sub}</p>
+
+      {cfg.opera && (
+        <div className="box-counter">
+          <div className="bc-n">{enBox.length}</div>
+          <div className="bc-info">
+            <div className="bc-l">Carrocerías en el box ahora</div>
+            <div className="bc-tipos">
+              {enBoxPorTipo.map((t) => (
+                <span key={t.id} className="chip">{t.label}: {t.n}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="tabs-tipo">
         {TIPOS.map((t) => {

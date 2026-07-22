@@ -168,6 +168,20 @@ header.app {
 .btn.danger { background: var(--red-soft); border-color: var(--red); color: var(--red); }
 .btn.ghost { background: none; box-shadow: none; border-color: var(--line); }
 .btn.eliminar { background: none; box-shadow: none; border-color: var(--red); color: var(--red); }
+.box-counter {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 10px;
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--accent);
+  border-radius: var(--radius); padding: 10px 14px; box-shadow: var(--shadow);
+}
+.box-counter .bc-n {
+  font-size: 34px; font-weight: 700; letter-spacing: -1px;
+  font-variant-numeric: tabular-nums; line-height: 1; color: var(--accent-ink);
+}
+.box-counter .bc-l {
+  font-size: 10.5px; color: var(--muted); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.7px;
+}
+.box-counter .bc-tipos { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 4px; }
 .lib-fila {
   display: flex; align-items: center; gap: 8px;
   padding: 7px 4px; border-bottom: 1px solid var(--line);
