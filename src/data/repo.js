@@ -130,10 +130,10 @@ const COLORES_RAM = ['504', '860']
 
 export function catalogo(tipo = 'cronos') {
   const d = getDB()
-  // Cronos usa su paleta oficial; cabina/caja usan solo la RAM.
+  // Cronos usa su paleta oficial; cabina/caja suman la RAM a esa paleta.
   const colores = Object.fromEntries(
     Object.entries(d.colores).filter(([c, v]) =>
-      tipo === 'cronos' ? !COLORES_RAM.includes(c) && !v.manual : COLORES_RAM.includes(c)
+      !v.manual && (tipo === 'cronos' ? !COLORES_RAM.includes(c) : true)
     )
   )
   return {

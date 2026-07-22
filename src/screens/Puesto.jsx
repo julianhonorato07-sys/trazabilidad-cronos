@@ -68,6 +68,9 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
   const cisRef = useRef(null)
 
   const unidad = tipo === 'cronos' && cis.length === 7 ? unidadPorCis(cis, 'cronos') : null
+  // Fallas: solo se detallan en Revisión final para cabina/caja.
+  // Cronos en revisión y todo Óleo se registran sin detalle de fallas.
+  const conFallas = origen === 'revision' && tipo !== 'cronos'
 
   const toggleTipo = (id) => {
     setErr('')
@@ -84,6 +87,7 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
     if (cis.replace(/\D/g, '').length < (tipo === 'cronos' ? 7 : 4)) return 'Ingresá el CIS de la unidad.'
     // En Óleo no se detallan fallas: solo importa de dónde salió el defecto.
     if (origen === 'oleo') return atrib ? '' : 'Indicá de dónde salió el defecto.'
+    if (!conFallas) return ''
     if (!tiposSel.length) return 'Seleccioná al menos una falla.'
     for (const tid of tiposSel) {
       const t = tipos.find((x) => x.id === tid)
@@ -149,7 +153,7 @@ function RegistroModal({ tipo, origen, onDone, onClose }) {
         </div>
       )}
 
-      {origen !== 'oleo' && (
+      {conFallas && (
         <>
           <h4>Fallas detectadas {tiposSel.length > 0 && `· ${tiposSel.length}`}</h4>
           <div className="fallas-grid">
