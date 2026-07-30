@@ -427,6 +427,7 @@ textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-
   text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
 }
 .rol-hero p { color: var(--muted); margin: 0; font-size: 12.5px; font-weight: 600; }
+.rol-hero p.saludo { color: var(--ink); font-size: 14px; font-weight: 700; margin-bottom: 3px; }
 .btn.rol { display: flex; align-items: center; gap: 11px; padding: 10px 13px; min-height: 58px; text-align: left; }
 .btn.rol .rol-ico { width: 33px; height: 33px; border-radius: 5px; display: grid; place-items: center; flex: none; }
 .btn.rol div { display: flex; flex-direction: column; gap: 1px; }

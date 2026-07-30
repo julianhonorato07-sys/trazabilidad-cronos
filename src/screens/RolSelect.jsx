@@ -1,4 +1,18 @@
+import { useEffect, useState } from 'react'
 import { Icon } from '../components/ui'
+
+const saludoDe = (h) => (h < 12 ? 'Buenos días' : h < 20 ? 'Buenas tardes' : 'Buenas noches')
+
+// La terminal queda abierta en esta pantalla durante todo el turno: refrescamos
+// el saludo cada minuto para que acompañe el cambio de franja horaria.
+function useSaludo() {
+  const [saludo, setSaludo] = useState(() => saludoDe(new Date().getHours()))
+  useEffect(() => {
+    const id = setInterval(() => setSaludo(saludoDe(new Date().getHours())), 60000)
+    return () => clearInterval(id)
+  }, [])
+  return saludo
+}
 
 const ROLES = [
   { id: 'revision', t: 'Revisión final', d: 'Detectar defectos y enviar unidades al box', icon: 'lupa2', bg: 'var(--accent-soft)', fg: 'var(--accent-ink)' },
@@ -8,12 +22,14 @@ const ROLES = [
 ]
 
 export default function RolSelect({ onPick }) {
+  const saludo = useSaludo()
   return (
     <div className="rol-select">
       <div className="rol-hero">
         <div className="logo">TK</div>
         <span className="kicker">Cronos · KP1</span>
         <h1>TRAZABILIDAD</h1>
+        <p className="saludo">{saludo}</p>
         <p>Elegí el puesto de esta terminal</p>
       </div>
       {ROLES.map((r) => (
