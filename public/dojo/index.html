@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#00133b" />
+<title>Dojo AM Pintura</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  /* Deck de sala: un solo tema oscuro, pintado explícitamente.
+     Navy institucional de fondo, azul de marca aclarado como acento,
+     ámbar "laca" reservado para juegos y cifras clave. */
+  :root {
+    --navy: #00133b;
+    --navy-2: #071b4d;
+    --panel: #0d2258;
+    --panel-2: #132a66;
+    --line: #23407f;
+    --line-soft: #1a3470;
+    --ink: #f2f5fb;
+    --ink-2: #c9d4ec;
+    --muted: #8fa3cf;
+    --accent: #7b96f2;
+    --accent-ink: #b9c8fa;
+    --laca: #f2b63a;
+    --laca-ink: #ffd987;
+    --red: #ef7a72;
+    --red-soft: rgba(239, 122, 114, 0.16);
+    --green: #5fd19b;
+    --green-soft: rgba(95, 209, 155, 0.16);
+    --sans: 'IBM Plex Sans', -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --cond: 'IBM Plex Sans Condensed', 'IBM Plex Sans', 'Arial Narrow', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--navy);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 18px;
+    line-height: 1.45;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Escenario 16:9 escalado al viewport ─────────────── */
+  .viewport { position: fixed; inset: 0; display: grid; place-items: center; overflow: hidden; }
+  .stage {
+    position: relative; width: 1280px; height: 720px; flex: none;
+    transform-origin: center center;
+    background: var(--navy);
+  }
+  .slide {
+    position: absolute; inset: 0; padding: 44px 64px 52px;
+    display: flex; flex-direction: column;
+    opacity: 0; visibility: hidden; transition: opacity .28s ease;
+  }
+  .slide.is-active { opacity: 1; visibility: visible; }
+  @media (prefers-reduced-motion: reduce) { .slide { transition: none; } }
+
+  /* Riel superior: sección + número. Estructura, no decoración: la sección
+     dice en qué parte de la propuesta estamos. */
+  .rail {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--mono); font-size: 13px; letter-spacing: 1.4px;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 18px;
+  }
+  .rail b { color: var(--accent-ink); font-weight: 500; }
+  .rail .num { font-variant-numeric: tabular-nums; }
+
+  h1, h2, h3 { margin: 0; font-family: var(--cond); text-wrap: balance; }
+  h1 { font-size: 84px; line-height: .98; font-weight: 700; letter-spacing: -1px; }
+  h2 { font-size: 40px; line-height: 1.05; font-weight: 700; letter-spacing: -.4px; max-width: 30ch; }
+  h3 { font-size: 21px; font-weight: 600; line-height: 1.2; }
+  p { margin: 0; }
+  .lead { font-size: 19.5px; color: var(--ink-2); max-width: 62ch; text-wrap: pretty; }
+  .small { font-size: 15px; color: var(--muted); }
+  .mono { font-family: var(--mono); }
+  .laca { color: var(--laca); }
+  .accent { color: var(--accent-ink); }
+
+  .body { flex: 1; display: flex; flex-direction: column; gap: 16px; min-height: 0; }
+  .foot {
+    margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line-soft);
+    display: flex; justify-content: space-between; gap: 24px;
+    font-size: 13.5px; color: var(--muted);
+  }
+  .foot .nota { color: var(--muted); }
+  .foot .nota::before { content: 'Nota · '; color: var(--laca); font-family: var(--mono); font-size: 12px; letter-spacing: 1px; }
+
+  /* Rejillas */
+  .cols { display: grid; gap: 16px; }
+  .cols-2 { grid-template-columns: 1fr 1fr; }
+  .cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .cols-13 { grid-template-columns: 5fr 7fr; }
+  .cols-31 { grid-template-columns: 7fr 5fr; }
+
+  /* Un solo tipo de tarjeta; el énfasis lo da el borde superior de color, por rol. */
+  .card {
+    background: var(--panel); border: 1px solid var(--line-soft); border-radius: 6px;
+    padding: 14px 16px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .card.top-accent { border-top: 3px solid var(--accent); }
+  .card.top-laca { border-top: 3px solid var(--laca); }
+  .card.top-red { border-top: 3px solid var(--red); }
+  .card.top-green { border-top: 3px solid var(--green); }
+  .card .tag {
+    font-family: var(--mono); font-size: 12.5px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted);
+  }
+  .card ul { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: 15px; display: flex; flex-direction: column; gap: 4px; }
+  .card p { color: var(--ink-2); font-size: 15px; }
+
+  .kv { display: grid; grid-template-columns: 112px 1fr; gap: 5px 14px; font-size: 15px; }
+  .kv dt { font-family: var(--mono); font-size: 12.5px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+  .kv dd { margin: 0; color: var(--ink-2); }
+
+  /* Tabla de problemas */
+  .tbl-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; }
+  th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  th { font-family: var(--mono); font-size: 12.5px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  td:first-child { font-weight: 600; color: var(--ink); }
+  td { color: var(--ink-2); }
+  .paso { display: inline-block; font-family: var(--mono); font-size: 12.5px; padding: 2px 8px; border-radius: 3px; background: var(--panel-2); border: 1px solid var(--line); color: var(--accent-ink); white-space: nowrap; }
+
+  /* Pasos AM: es una secuencia real, los números llevan información. */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; position: relative; }
+  .step { padding: 16px 18px 14px; border: 1px solid var(--line-soft); background: var(--panel); display: flex; flex-direction: column; gap: 10px; }
+  .step + .step { border-left: none; }
+  .step:first-child { border-radius: 6px 0 0 6px; }
+  .step:last-child { border-radius: 0 6px 6px 0; }
+  .step .n { font-family: var(--cond); font-size: 48px; line-height: 1; font-weight: 700; color: var(--accent); }
+  .step h3 { font-size: 24px; }
+  .step .en { margin-top: auto; padding-top: 10px; border-top: 1px dashed var(--line); font-size: 14.5px; color: var(--ink-2); }
+  .step .en b { color: var(--laca-ink); font-weight: 600; }
+
+  /* Cifras */
+  .big { font-family: var(--cond); font-weight: 700; font-size: 104px; line-height: .95; letter-spacing: -2px; color: var(--laca); font-variant-numeric: tabular-nums; }
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+  .stat .v { font-family: var(--cond); font-size: 36px; font-weight: 700; line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .stat .l { font-size: 14.5px; color: var(--muted); }
+
+  /* Agenda / cronograma */
+  .agenda { display: grid; grid-template-columns: 80px 1fr 200px; gap: 0 16px; font-size: 15px; }
+  .agenda > div { padding: 6px 0; border-bottom: 1px solid var(--line-soft); }
+  .agenda .t { font-family: var(--mono); color: var(--accent-ink); font-size: 14.5px; font-variant-numeric: tabular-nums; }
+  .agenda .d { color: var(--ink-2); }
+  .agenda .w { color: var(--muted); font-size: 14.5px; }
+  .agenda .h { color: var(--ink); font-weight: 600; }
+
+  .fases { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .fase { position: relative; padding: 14px 16px 12px; background: var(--panel); border: 1px solid var(--line-soft); border-radius: 6px; display: flex; flex-direction: column; gap: 8px; }
+  .fase .when { font-family: var(--mono); font-size: 12.5px; letter-spacing: 1px; color: var(--laca-ink); text-transform: uppercase; }
+  .fase h3 { font-size: 22px; }
+  .fase ul { margin: 0; padding-left: 18px; font-size: 14.5px; color: var(--ink-2); display: flex; flex-direction: column; gap: 4px; }
+  .fase .out { margin-top: auto; padding-top: 8px; border-top: 1px dashed var(--line); font-size: 14px; color: var(--muted); }
+  .fase .out b { color: var(--green); font-weight: 600; }
+
+  /* Portada */
+  .cover { justify-content: flex-end; }
+  .cover .mark { position: absolute; right: 60px; top: 40px; font-family: var(--cond); font-weight: 700; font-size: 380px; line-height: 1; color: var(--navy-2); letter-spacing: -14px; user-select: none; }
+  .cover .kicker { position: relative; margin-top: auto; font-family: var(--mono); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--laca); margin-bottom: 18px; }
+  .cover h1 { position: relative; max-width: 11ch; }
+  .cover .lead { position: relative; margin-top: 22px; font-size: 24px; }
+  .cover .foot { position: relative; margin-top: 56px; }
+
+  /* Etiquetas AM */
+  .tarjeta { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; padding: 4px 10px 4px 6px; border-radius: 3px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink-2); }
+  .tarjeta i { width: 12px; height: 16px; border-radius: 2px; display: inline-block; }
+  .tarjeta.azul i { background: var(--accent); }
+  .tarjeta.roja i { background: var(--red); }
+
+  /* Navegación */
+  .nav {
+    position: fixed; left: 0; right: 0; bottom: 0; padding: 10px 16px; display: flex; align-items: center; gap: 14px;
+    font-family: var(--mono); font-size: 12px; color: var(--muted); z-index: 5;
+    background: linear-gradient(to top, rgba(0,19,59,.9), rgba(0,19,59,0));
+  }
+  .nav button {
+    font: inherit; color: var(--ink-2); background: var(--panel); border: 1px solid var(--line); border-radius: 4px;
+    padding: 6px 12px; cursor: pointer;
+  }
+  .nav button:hover { background: var(--panel-2); }
+  .nav button:focus-visible, a:focus-visible { outline: 2px solid var(--laca); outline-offset: 2px; }
+  .dots { display: flex; gap: 5px; flex-wrap: wrap; }
+  .dots button { width: 14px; height: 14px; padding: 0; border-radius: 2px; background: var(--line-soft); border: none; }
+  .dots button.on { background: var(--laca); }
+  .nav .hint { margin-left: auto; }
+  .progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--laca); z-index: 6; transition: width .25s ease; }
+
+  @media (max-width: 720px) { .nav .hint { display: none; } }
+
+  /* Impresión: una diapositiva por página, sin escalado. */
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    body { overflow: visible; background: var(--navy); }
+    .viewport { position: static; display: block; }
+    .stage { transform: none !important; width: 1280px; height: auto; }
+    .slide { position: relative; opacity: 1; visibility: visible; height: 720px; page-break-after: always; break-after: page; }
+    .nav, .progress { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="viewport">
+<div class="stage" id="stage">
+
+  <!-- 1 · Portada -->
+  <section class="slide cover" data-title="Portada">
+    <div class="mark" aria-hidden="true">AM</div>
+    <div class="kicker">Stellantis · Unidad Pintura · Pilar Mantenimiento Autónomo</div>
+    <h1>Dojo de Mantenimiento Autónomo</h1>
+    <p class="lead">Un espacio físico donde el operario de Pintura aprende haciendo, con las manos en la máquina, para dejar de depender de Mantenimiento en lo básico y ser dueño de su puesto.</p>
+    <div class="foot">
+      <span>Propuesta para la Unidad Pintura</span>
+      <span>Mismo modelo aplicado en Betim Powertrain</span>
+    </div>
+  </section>
+
+  <!-- 2 · Punto de partida -->
+  <section class="slide" data-title="Punto de partida">
+    <div class="rail"><span><b>01</b> · Punto de partida</span><span class="num">2 / 15</span></div>
+    <div class="body">
+      <h2>Hoy, una pistola tapada es un llamado a Mantenimiento</h2>
+      <div class="cols cols-13">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <p class="lead">Las fallas más frecuentes de Pintura son básicas: suciedad, desgaste visible, conexiones flojas, filtros al límite. Pero el conocimiento para verlas y resolverlas está en Mantenimiento, y el equipo está en manos de Producción.</p>
+          <p class="lead">Cada llamado es espera, línea detenida o retrabajo de carrocería. Y cada uno es una anomalía que el operario tuvo delante durante horas.</p>
+        </div>
+        <div class="card top-red">
+          <span class="tag">Lo que se ve todos los días en cabina y circuito</span>
+          <div class="cols cols-2" style="gap:10px 20px">
+            <ul>
+              <li><b>Pistolas tapadas</b>: boquilla y aguja con pintura seca.</li>
+              <li><b>Filtros saturados</b>: presión diferencial fuera de rango.</li>
+              <li><b>Bombas con fugas</b>: sellos y bridas goteando.</li>
+            </ul>
+            <ul>
+              <li><b>Mangueras de alta presión</b>: abrasión, radios forzados, racores flojos.</li>
+              <li><b>Overspray en cabina</b>: grating, paredes y protecciones cargadas.</li>
+            </ul>
+          </div>
+          <p class="small">Cinco problemas reales que hoy terminan en orden de trabajo y que el Dojo toma como material de entrenamiento.</p>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span>El conocimiento está en Mantenimiento. El equipo, en manos de Producción.</span><span>Dojo AM · Pintura</span></div>
+  </section>
+
+  <!-- 3 · Qué es el Dojo -->
+  <section class="slide" data-title="Qué es el Dojo">
+    <div class="rail"><span><b>02</b> · La propuesta</span><span class="num">3 / 15</span></div>
+    <div class="body">
+      <h2>Un dojo: se aprende haciendo, no mirando una diapositiva</h2>
+      <div class="cols cols-3">
+        <div class="card top-accent">
+          <span class="tag">Espacio físico</span>
+          <h3>Dentro de Pintura, con maquetas reales</h3>
+          <p>Un área delimitada junto a la línea, con cuatro estaciones armadas con componentes reales de proceso: pistolas, filtros, bombas, mangueras y una sección de cabina.</p>
+        </div>
+        <div class="card top-accent">
+          <span class="tag">Método</span>
+          <h3>Manos en la máquina</h3>
+          <p>Breve marco teórico y el resto del tiempo en las estaciones: desarmar, limpiar, inspeccionar, etiquetar, apretar y escribir el estándar. Se sale con algo hecho, no con algo escuchado.</p>
+        </div>
+        <div class="card top-laca">
+          <span class="tag">Objetivo</span>
+          <h3>El operario dueño de su puesto</h3>
+          <p>Que detecte la anomalía antes de que sea falla, resuelva lo básico por sí mismo y etiquete con criterio lo que sí es de Mantenimiento.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
+            <span class="tarjeta azul"><i></i>Tarjeta azul: lo resuelve Producción</span>
+            <span class="tarjeta roja"><i></i>Tarjeta roja: lo resuelve Mantenimiento</span>
+          </div>
+        </div>
+      </div>
+      <p class="lead" style="max-width:none">Alcance: los tres primeros pasos del Mantenimiento Autónomo, aplicados a los problemas reales de Pintura, con evaluación por juegos.</p>
+    </div>
+    <div class="foot"><span>Mi máquina la cuido yo.</span><span>Dojo AM · Pintura</span></div>
+  </section>
+
+  <!-- 4 · Los 3 pasos -->
+  <section class="slide" data-title="Los 3 pasos del AM">
+    <div class="rail"><span><b>02</b> · La propuesta · Contenido</span><span class="num">4 / 15</span></div>
+    <div class="body">
+      <h2>Los tres primeros pasos del Mantenimiento Autónomo</h2>
+      <div class="steps">
+        <div class="step">
+          <span class="n">1</span>
+          <h3>Limpieza inicial</h3>
+          <p>Limpiar es inspeccionar. Se deja el equipo en condición básica y se etiqueta cada anomalía encontrada: suciedad, fugas, desgaste, piezas flojas.</p>
+          <div class="en"><b>En Pintura:</b> desarme y limpieza de pistola, limpieza de grating y paredes de cabina, inspección de bomba y mangueras con tarjetas AM.</div>
+        </div>
+        <div class="step">
+          <span class="n">2</span>
+          <h3>Eliminar fuentes de suciedad y lugares de difícil acceso</h3>
+          <p>Atacar el origen: contener lo que ensucia y facilitar el acceso para que la limpieza siguiente sea más corta.</p>
+          <div class="en"><b>En Pintura:</b> contener el overspray, proteger racores y bandejas, eliminar los puntos de fuga en la bomba, dejar el filtro a mano.</div>
+        </div>
+        <div class="step">
+          <span class="n">3</span>
+          <h3>Estándares de limpieza, lubricación y apriete</h3>
+          <p>Escribir qué, cómo, con qué, cuánto tiempo y cada cuánto, en una hoja que el operario pueda cumplir dentro de su turno.</p>
+          <div class="en"><b>En Pintura:</b> estándar de limpieza de pistola fin de turno, control de presión diferencial del filtro, apriete de racores con torque, lubricación de bomba.</div>
+        </div>
+      </div>
+      <p class="small">Cada paso se practica sobre el problema real que le corresponde. El operario no aprende "el paso 2", aprende por qué el overspray vuelve todos los días.</p>
+    </div>
+    <div class="foot"><span>Secuencia del pilar AM. Los pasos 4 a 7 quedan para una etapa posterior del Dojo.</span><span>Dojo AM · Pintura</span></div>
+  </section>
+
+  <!-- 5 · Problemas reales -->
+  <section class="slide" data-title="Problemas reales">
+    <div class="rail"><span><b>02</b> · La propuesta · Contenido</span><span class="num">5 / 15</span></div>
+    <div class="body">
+      <h2>Problemas reales de Pintura, no ejercicios de manual</h2>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Problema</th><th>Lo que hoy pasa</th><th>Lo que aprende a hacer</th><th>Paso AM</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Pistola tapada</td>
+              <td>Se cambia la pistola o se llama a Mantenimiento. Defectos de aplicación hasta que alguien la ve.</td>
+              <td>Desarmar, limpiar boquilla y aguja, inspeccionar desgaste, armar y probar patrón de abanico.</td>
+              <td><span class="paso">Paso 1</span> <span class="paso">Paso 3</span></td>
+            </tr>
+            <tr>
+              <td>Filtro saturado</td>
+              <td>Se descubre por caída de caudal o por defectos en carrocería.</td>
+              <td>Leer presión diferencial, reconocer el límite, cambiar cartucho y registrar en el estándar.</td>
+              <td><span class="paso">Paso 1</span> <span class="paso">Paso 3</span></td>
+            </tr>
+            <tr>
+              <td>Bomba con fugas</td>
+              <td>Goteo tolerado hasta que se vuelve pérdida de presión o derrame.</td>
+              <td>Detectar la fuga en sello o brida, apretar lo que corresponde, etiquetar lo que no, eliminar la fuente.</td>
+              <td><span class="paso">Paso 1</span> <span class="paso">Paso 2</span></td>
+            </tr>
+            <tr>
+              <td>Mangueras de alta presión</td>
+              <td>Abrasión y radios forzados que nadie inspecciona hasta la rotura.</td>
+              <td>Inspección visual y táctil, criterio de reemplazo, radio de curvatura, apriete de racores con torque.</td>
+              <td><span class="paso">Paso 1</span> <span class="paso">Paso 3</span></td>
+            </tr>
+            <tr>
+              <td>Overspray en cabina</td>
+              <td>Limpieza de cabina larga y repetitiva porque la fuente sigue activa.</td>
+              <td>Identificar de dónde viene, contenerlo, proteger, y dejar un estándar de limpieza de cabina más corto.</td>
+              <td><span class="paso">Paso 2</span> <span class="paso">Paso 3</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="foot"><span>Los cinco casos alimentan las estaciones, el quiz y las anomalías escondidas.</span><span>Dojo AM · Pintura</span></div>
+  </section>
+
+  <!-- 6 · Cuatro estaciones -->
+  <section class="slide" data-title="Cuatro estaciones">
+    <div class="rail"><span><b>03</b> · Las estaciones</span><span class="num">6 / 15</span></div>
+    <div class="body">
+      <h2>Cuatro estaciones prácticas con maquetas reales</h2>
+      <div class="cols cols-31">
+        <div class="cols cols-2" style="gap:12px">
+          <div class="card top-accent">
+            <span class="tag">Estación 1</span>
+            <h3>Pistola y aplicación</h3>
+            <p>Pistola desarmable, boquillas, kit de limpieza, banco de abanico.</p>
+            <ul><li>Desarme y limpieza inicial</li><li>Inspección de boquilla y aguja</li><li>Estándar de limpieza fin de turno</li></ul>
+          </div>
+          <div class="card top-accent">
+            <span class="tag">Estación 2</span>
+            <h3>Filtración y bombas</h3>
+            <p>Bomba, filtro con manómetros de entrada y salida, válvulas.</p>
+            <ul><li>Lectura de presión diferencial</li><li>Detección de fugas en sello y brida</li><li>Cambio de cartucho y lubricación</li></ul>
+          </div>
+          <div class="card top-accent">
+            <span class="tag">Estación 3</span>
+            <h3>Mangueras de alta presión</h3>
+            <p>Tramos de manguera, racores, protecciones, llave de torque.</p>
+            <ul><li>Inspección de desgaste y radios</li><li>Criterio de reemplazo</li><li>Apriete con torque y etiquetado</li></ul>
+          </div>
+          <div class="card top-accent">
+            <span class="tag">Estación 4</span>
+            <h3>Cabina y overspray</h3>
+            <p>Sección de cabina con grating, pared, protecciones y flujo de aire.</p>
+            <ul><li>Identificar fuentes de overspray</li><li>Contener y proteger</li><li>Estándar de limpieza de cabina</li></ul>
+          </div>
+        </div>
+        <div class="card" style="padding:18px">
+          <span class="tag">Distribución propuesta del área</span>
+          <svg viewBox="0 0 440 330" width="100%" style="max-height:255px" role="img" aria-label="Plano esquemático del Dojo con cuatro estaciones alrededor de un área central de juegos y una zona de apertura">
+            <rect x="8" y="8" width="424" height="314" rx="6" fill="#071b4d" stroke="#23407f" stroke-width="2"/>
+            <!-- Zona teoría -->
+            <rect x="22" y="22" width="396" height="58" rx="4" fill="#0d2258" stroke="#1a3470"/>
+            <text x="34" y="46" fill="#8fa3cf" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.2">APERTURA · 20 MIN</text>
+            <text x="34" y="66" fill="#c9d4ec" font-family="IBM Plex Sans, sans-serif" font-size="13">Marco AM, seguridad, tarjetas azul y roja</text>
+            <!-- Estaciones -->
+            <g font-family="IBM Plex Sans Condensed, sans-serif" font-size="14" font-weight="600" fill="#f2f5fb">
+              <rect x="22" y="94" width="120" height="100" rx="4" fill="#0d2258" stroke="#7b96f2"/>
+              <text x="32" y="116" fill="#7b96f2" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="500">E1</text>
+              <text x="32" y="138">Pistola y</text><text x="32" y="156">aplicación</text>
+              <rect x="298" y="94" width="120" height="100" rx="4" fill="#0d2258" stroke="#7b96f2"/>
+              <text x="308" y="116" fill="#7b96f2" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="500">E2</text>
+              <text x="308" y="138">Filtración</text><text x="308" y="156">y bombas</text>
+              <rect x="22" y="208" width="120" height="100" rx="4" fill="#0d2258" stroke="#7b96f2"/>
+              <text x="32" y="230" fill="#7b96f2" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="500">E3</text>
+              <text x="32" y="252">Mangueras</text><text x="32" y="270">alta presión</text>
+              <rect x="298" y="208" width="120" height="100" rx="4" fill="#0d2258" stroke="#7b96f2"/>
+              <text x="308" y="230" fill="#7b96f2" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="500">E4</text>
+              <text x="308" y="252">Cabina y</text><text x="308" y="270">overspray</text>
+            </g>
+            <!-- Área de juegos -->
+            <rect x="156" y="94" width="128" height="214" rx="4" fill="#132a66" stroke="#f2b63a" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <text x="220" y="176" text-anchor="middle" fill="#f2b63a" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.2">JUEGOS</text>
+            <text x="220" y="200" text-anchor="middle" fill="#f2f5fb" font-family="IBM Plex Sans, sans-serif" font-size="13">AM Game · Fórmula 1</text>
+            <text x="220" y="220" text-anchor="middle" fill="#f2f5fb" font-family="IBM Plex Sans, sans-serif" font-size="13">Caza de anomalías</text>
+            <!-- Flujo -->
+            <g stroke="#8fa3cf" stroke-width="1.5" fill="none" marker-end="url(#ar)">
+              <path d="M82 194 v8"/>
+              <path d="M358 194 v8"/>
+              <path d="M142 144 h10"/>
+              <path d="M288 144 h6"/>
+            </g>
+            <defs><marker id="ar" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 z" fill="#8fa3cf"/></marker></defs>
+          </svg>
+          <p class="small">Rotación en grupos de 4 a 5 personas por estación. El área central se usa para los juegos y el cierre.</p>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span>Las maquetas se arman con componentes reales dados de baja o de repuesto, no con réplicas.</span><span>Dojo AM · Pintura</span></div>
+  </section>
+
+  <!-- 7 · Evaluar jugando -->
+  <section class="slide" data-title="Evaluar jugando">
+    <div class="rail"><span><b>04</b> · La evaluación</span><span class="num">7 / 15</span></div>
+    <div class="body">
+      <h2>Para que no sea aburrido: la evaluación son tres juegos</h2>
+      <p class="lead">No hay examen escrito. Cada juego mide una capacidad distinta, y las tres juntas dicen si el operario está listo para hacerse cargo de su puesto.</p>
+      <div class="cols cols-3">
+        <div class="card top-laca">
+          <span class="tag">Juego 1 · Individual · Digital</span>
+          <h3>AM Game</h3>
+          <p>Quiz interactivo con fotos reales de Pintura. Mide si el operario <b>sabe</b>: conceptos de los 3 pasos y criterio de tarjeta azul o roja.</p>
+        </div>
+        <div class="card top-laca">
+          <span class="tag">Juego 2 · Por equipos · Contra reloj</span>
+          <h3>Fórmula 1 AM</h3>
+          <p>Carrera de pit stop sobre una maqueta. Mide si el equipo <b>sabe hacer</b>: ejecutar el estándar completo, rápido y sin saltearse la seguridad.</p>
+        </div>
+        <div class="card top-laca">
+          <span class="tag">Juego 3 · Individual o en pareja · Observación</span>
+          <h3>Caza de las 10 Anomalías</h3>
+          <p>Una máquina con diez errores escondidos. Mide si el operario <b>sabe ver</b>: el ojo de inspección que evita la falla.</p>
+        </div>
+      </div>
+      <div class="cols cols-3">
+        <div class="stat"><span class="v">Saber</span><span class="l">Conocimiento del método y del proceso de Pintura</span></div>
+        <div class="stat"><span class="v">Hacer</span><span class="l">Ejecución del estándar bajo presión de tiempo</span></div>
+        <div class="stat"><span class="v">Ver</span><span class="l">Detección de anomalías antes de que sean fallas</span></div>
+      </div>
+    </div>
+    <div class="foot"><span>Puntaje por persona y por equipo, visible en un ranking por turno.</span><span>Dojo AM · Pintura</span></div>
+  </section>
+
+  <!-- 8 · AM Game -->
+  <section class="slide" data-title="AM Game digital">
+    <div class="rail"><span><b>04</b> · La evaluación · Juego 1</span><span class="num">8 / 15</span></div>
+    <div class="body">
+      <div class="cols cols-31" style="align-items:start">
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <h2>AM Game digital: el quiz interactivo</h2>
+          <p class="lead">Se juega en tablet o pantalla táctil al final del recorrido. Cada pregunta parte de una foto o video corto de un equipo real de Pintura, y hay que decidir: ¿es anomalía?, ¿qué paso la ataca?, ¿tarjeta azul o roja?</p>
+          <div class="cols cols-2" style="gap:14px">
+            <div class="card">
+              <span class="tag">Cómo se juega</span>
+              <ul>
+                <li>Preguntas con imagen real, tres o cuatro opciones.</li>
+                <li>Respuesta inmediata con la explicación de por qué.</li>
+                <li>Tres niveles: básico, proceso, criterio.</li>
+                <li>Puntaje individual y ranking por turno en pantalla.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <span class="tag">Qué evalúa</span>
+              <ul>
+                <li>Los 3 pasos del AM y su orden.</li>
+                <li>Los cinco problemas reales de Pintura.</li>
+                <li>Criterio de tarjeta: qué resuelvo yo y qué escalo.</li>
+                <li>Seguridad: presión residual, energía cero, EPP.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card top-laca" style="gap:14px">
+          <span class="tag">Referencia · Betim Powertrain</span>
+          <span class="big">+1300</span>
+          <p style="font-size:17px">personas completaron el AM Game con este formato. Es la pieza que demostró que un quiz bien hecho sí engancha en planta.</p>
+          <dl class="kv" style="margin-top:6px">
+            <dt>Formato</dt><dd>Individual, digital, con imagen real</dd>
+            <dt>Duración</dt><dd>15 a 20 minutos</dd>
+            <dt>Aprobación</dt><dd>80 % de aciertos, propuesta</dd>
+            <dt>Repetible</dt><dd>Sí, con banco de preguntas rotativo</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span class="nota">La cantidad de preguntas y el umbral de aprobación se definen con el equipo de Pintura antes del piloto.</span><span>Dojo AM · Pintura</span></div>
+  </section>
+
+  <!-- 9 · Fórmula 1 AM -->
+  <section class="slide" data-title="Fórmula 1 AM">
+    <div class="rail"><span><b>04</b> · La evaluación · Juego 2</span><span class="num">9 / 15</span></div>
+    <div class="body">
+      <h2>Fórmula 1 AM: la carrera de pit stop por equipos</h2>
+      <p class="lead">La maqueta es el auto y el equipo es el pit crew. Hay que dejar el equipo en condición básica siguiendo el estándar completo, en el menor tiempo posible y sin una sola penalización.</p>
+      <div class="cols cols-3">
+        <div class="card top-laca">
+          <span class="tag">La carrera</span>
+          <ul>
+            <li>Equipos de 4 personas con roles: limpieza, inspección, lubricación y apriete.</li>
+            <li>Una maqueta preparada en condición "fin de turno": sucia, con un racor flojo y un punto sin lubricar.</li>
+            <li>Bandera verde, cronómetro y hoja de estándar a la vista.</li>
+            <li>Bandera a cuadros cuando el líder declara "condición básica".</li>
+          </ul>
+        </div>
+        <div class="card top-red">
+          <span class="tag">Penalizaciones</span>
+          <ul>
+            <li>Empezar sin verificar presión cero o sin EPP: <b>+60 s</b>.</li>
+            <li>Saltearse un ítem del estándar: <b>+30 s</b> por ítem.</li>
+            <li>Anomalía no etiquetada al final: <b>+30 s</b>.</li>
+            <li>Racor apretado sin torque o fuera de rango: <b>+30 s</b>.</li>
+          </ul>
+        </div>
+        <div class="card top-green">
+          <span class="tag">Qué se lleva el equipo</span>
+          <ul>
+            <li>Que el estándar es más rápido que improvisar.</li>
+            <li>Que la seguridad no se negocia por tiempo.</li>
+            <li>Roles claros y comunicación en el puesto.</li>
+            <li>Un tiempo de referencia real para el estándar de línea.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cols cols-4" style="gap:16px">
+        <div class="stat"><span class="v">4</span><span class="l">personas por equipo</span></div>
+        <div class="stat"><span class="v">2</span><span class="l">vueltas: la segunda con el estándar mejorado por ellos</span></div>
+        <div class="stat"><span class="v">0</span><span class="l">penalizaciones para clasificar</span></div>
+        <div class="stat"><span class="v">1</span><span class="l">podio por jornada, visible en el tablero del Dojo</span></div>
+      </div>
+    </div>
+    <div class="foot"><span class="nota">Valores de penalización propuestos; se calibran en el piloto.</span><span>Dojo AM · Pintura</span></div>
+  </section>
+
+  <!-- 10 · Caza de anomalías -->
+  <section class="slide" data-title="Caza de las 10 Anomalías">
+    <div class="rail"><span><b>04</b> · La evaluación · Juego 3</span><span class="num">10 / 15</span></div>
+    <div class="body">
+      <h2>Caza de las 10 Anomalías: encontrar lo que nadie ve</h2>
+      <div class="cols cols-13">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <p class="lead">Una máquina de la estación se prepara con diez anomalías plantadas. El operario tiene tiempo limitado, una linterna y un bloque de tarjetas AM. Cada anomalía encontrada y bien clasificada suma.</p>
+          <div class="card">
+            <span class="tag">Reglas</span>
+            <ul>
+              <li>10 minutos, individual o en pareja.</li>
+              <li>Cada anomalía se marca con tarjeta azul o roja.</li>
+              <li>Tarjeta correcta: 1 punto. Color equivocado: medio punto.</li>
+              <li>Tarjeta en algo que no es anomalía: resta.</li>
+              <li>Al final se revela la lista y se discute cada una.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card top-laca">
+          <span class="tag">Las diez anomalías de la maqueta de Pintura</span>
+          <div class="cols cols-2" style="gap:6px 22px">
+            <ol style="margin:0;padding-left:22px;color:var(--ink-2);font-size:16px;display:flex;flex-direction:column;gap:6px">
+              <li>Racor de manguera flojo</li>
+              <li>Fuga en sello de bomba</li>
+              <li>Filtro con presión diferencial fuera de rango</li>
+              <li>Manguera con abrasión visible</li>
+              <li>Punto de lubricación seco</li>
+            </ol>
+            <ol start="6" style="margin:0;padding-left:22px;color:var(--ink-2);font-size:16px;display:flex;flex-direction:column;gap:6px">
+              <li>Boquilla de pistola con pintura seca</li>
+              <li>Protección de grating suelta</li>
+              <li>Manómetro sin marca de rango</li>
+              <li>Cable o sensor sin fijar</li>
+              <li>Tarjeta AM vencida sin cerrar</li>
+            </ol>
+          </div>
+          <p class="small" style="margin-top:8px">Se rota el set entre jornadas para que no se aprendan de memoria. Cinco son de tarjeta azul y cinco de tarjeta roja.</p>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span>Se aprueba con 8 de 10, propuesta. Es el juego que más se parece a un turno normal.</span><span>Dojo AM · Pintura</span></div>
+  </section>
+
+  <!-- 11 · Recorrido -->
+  <section class="slide" data-title="Recorrido del operario">
+    <div class="rail"><span><b>05</b> · La jornada</span><span class="num">11 / 15</span></div>
+    <div class="body">
+      <h2>El recorrido de un operario en el Dojo</h2>
+      <div class="cols cols-31">
+        <div class="agenda">
+          <div class="t">00:00</div><div class="d"><span class="h">Apertura.</span> Por qué AM, seguridad en el Dojo, tarjetas azul y roja.</div><div class="w">Área central · 20 min</div>
+          <div class="t">00:20</div><div class="d"><span class="h">Estación 1 y 2.</span> Pistola y aplicación. Filtración y bombas.</div><div class="w">Grupos de 4 a 5 · 30 min c/u</div>
+          <div class="t">01:20</div><div class="d"><span class="h">Pausa.</span></div><div class="w">10 min</div>
+          <div class="t">01:30</div><div class="d"><span class="h">Estación 3 y 4.</span> Mangueras de alta presión. Cabina y overspray.</div><div class="w">Grupos de 4 a 5 · 30 min c/u</div>
+          <div class="t">02:30</div><div class="d"><span class="h">Caza de las 10 Anomalías.</span></div><div class="w">Individual · 10 min + revisión</div>
+          <div class="t">02:50</div><div class="d"><span class="h">Fórmula 1 AM.</span> Dos vueltas por equipo.</div><div class="w">Equipos · 30 min</div>
+          <div class="t">03:20</div><div class="d"><span class="h">AM Game digital.</span></div><div class="w">Individual · 20 min</div>
+          <div class="t">03:40</div><div class="d"><span class="h">Cierre.</span> Resultados, podio, compromiso: qué estándar aplico mañana en mi puesto.</div><div class="w">Área central · 20 min</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="card top-laca">
+            <span class="tag">Formato</span>
+            <dl class="kv">
+              <dt>Duración</dt><dd>4 horas, media jornada</dd>
+              <dt>Grupo</dt><dd>16 a 20 personas por jornada</dd>
+              <dt>Facilitadores</dt><dd>2: uno de Producción y uno de Mantenimiento</dd>
+              <dt>Cierre</dt><dd>Certificado AM Pasos 1 a 3 con los tres juegos aprobados</dd>
+            </dl>
+          </div>
+          <div class="card">
+            <span class="tag">Después del Dojo</span>
+            <p>A los 30 días, el facilitador visita el puesto y verifica que el estándar comprometido esté vivo. Sin eso, el Dojo es un paseo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span class="nota">Agenda propuesta. Se ajusta a la duración de turno y a la cantidad de operarios por jornada.</span><span>Dojo AM · Pintura</span></div>
+  </section>
+
+  <!-- 12 · Betim -->
+  <section class="slide" data-title="Benchmark Betim">
+    <div class="rail"><span><b>06</b> · Antecedente</span><span class="num">12 / 15</span></div>
+    <div class="body">
+      <div class="cols cols-13" style="align-items:center;flex:1">
+        <div>
+          <span class="big">+1300</span>
+          <p class="lead" style="margin-top:10px">personas completaron el AM Game en <b>Betim Powertrain</b>, con el mismo modelo de Dojo y juegos que se propone aquí.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <h2 style="font-size:40px">No es una idea nueva: es un modelo que ya funcionó dentro de Stellantis</h2>
+          <div class="cols cols-2" style="gap:14px">
+            <div class="card top-green">
+              <span class="tag">Lo que se replica</span>
+              <ul>
+                <li>Dojo físico con maquetas de proceso real.</li>
+                <li>Pasos 1 a 3 del AM como núcleo.</li>
+                <li>Evaluación por juegos: quiz, pit stop y caza de anomalías.</li>
+                <li>Ranking visible y certificación.</li>
+              </ul>
+            </div>
+            <div class="card top-laca">
+              <span class="tag">Lo que se adapta a Pintura</span>
+              <ul>
+                <li>Las maquetas: pistola, filtro, bomba, manguera y cabina en lugar de mecanizado.</li>
+                <li>El banco de preguntas y las anomalías, con fotos de nuestra cabina.</li>
+                <li>La seguridad: presión residual, solventes, atmósfera de cabina.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span>Ventaja: material base, reglas de juego y lecciones aprendidas ya disponibles para arrancar.</span><span>Dojo AM · Pintura</span></div>
+  </section>
+
+  <!-- 13 · Plan -->
+  <section class="slide" data-title="Plan de implementación">
+    <div class="rail"><span><b>07</b> · Implementación</span><span class="num">13 / 15</span></div>
+    <div class="body">
+      <h2>Cuatro fases para tener el Dojo funcionando</h2>
+      <div class="fases">
+        <div class="fase">
+          <span class="when">Fase 1 · Semanas 1 a 3</span>
+          <h3>Diseño</h3>
+          <ul>
+            <li>Definir el área y el layout dentro de Pintura.</li>
+            <li>Relevar componentes disponibles para las maquetas.</li>
+            <li>Adaptar material de Betim: preguntas, reglas, hojas de estándar.</li>
+          </ul>
+          <div class="out"><b>Entrega:</b> layout aprobado y lista de materiales.</div>
+        </div>
+        <div class="fase">
+          <span class="when">Fase 2 · Semanas 4 a 8</span>
+          <h3>Construcción</h3>
+          <ul>
+            <li>Armado de las 4 estaciones con Mantenimiento.</li>
+            <li>Preparar la maqueta de la caza de anomalías.</li>
+            <li>Cargar el AM Game con fotos de nuestra cabina.</li>
+          </ul>
+          <div class="out"><b>Entrega:</b> Dojo listo para prueba.</div>
+        </div>
+        <div class="fase">
+          <span class="when">Fase 3 · Semanas 9 a 10</span>
+          <h3>Piloto</h3>
+          <ul>
+            <li>Dos jornadas con un grupo de cada turno.</li>
+            <li>Calibrar tiempos, penalizaciones y umbrales.</li>
+            <li>Formar a los facilitadores.</li>
+          </ul>
+          <div class="out"><b>Entrega:</b> agenda y reglas definitivas.</div>
+        </div>
+        <div class="fase">
+          <span class="when">Fase 4 · Desde semana 11</span>
+          <h3>Despliegue</h3>
+          <ul>
+            <li>Calendario por turno y por línea.</li>
+            <li>Seguimiento en el puesto a los 30 días.</li>
+            <li>Ranking y podio publicados en Pintura.</li>
+          </ul>
+          <div class="out"><b>Meta:</b> toda la dotación de Pintura certificada.</div>
+        </div>
+      </div>
+      <div class="cols cols-3" style="gap:14px">
+        <div class="card"><span class="tag">Necesitamos</span><p>Un área de Pintura asignada, componentes de baja o repuesto para las maquetas, y una tablet o pantalla para el AM Game.</p></div>
+        <div class="card"><span class="tag">Equipo</span><p>Un líder del pilar AM, dos facilitadores y el apoyo de Mantenimiento para el armado de las estaciones.</p></div>
+        <div class="card"><span class="tag">Decisión hoy</span><p>Aprobar el área y el arranque de la fase de diseño.</p></div>
+      </div>
+    </div>
+    <div class="foot"><span class="nota">Plazos estimados sobre una dedicación parcial del equipo. Se confirman en la fase de diseño.</span><span>Dojo AM · Pintura</span></div>
+  </section>
+
+  <!-- 14 · Indicadores -->
+  <section class="slide" data-title="Indicadores">
+    <div class="rail"><span><b>08</b> · Resultados esperados</span><span class="num">14 / 15</span></div>
+    <div class="body">
+      <h2>Cómo sabremos que funciona</h2>
+      <div class="cols cols-2">
+        <div class="card top-laca">
+          <span class="tag">Indicadores del Dojo</span>
+          <dl class="kv" style="grid-template-columns:150px 1fr">
+            <dt>Cobertura</dt><dd>Porcentaje de operarios de Pintura certificados en AM Pasos 1 a 3.</dd>
+            <dt>AM Game</dt><dd>Puntaje promedio y tasa de aprobación por turno.</dd>
+            <dt>Anomalías</dt><dd>Promedio de anomalías encontradas de 10, y aciertos en color de tarjeta.</dd>
+            <dt>Fórmula 1</dt><dd>Tiempo de pit stop sin penalizaciones, primera vuelta contra segunda.</dd>
+          </dl>
+        </div>
+        <div class="card top-green">
+          <span class="tag">Indicadores en la línea</span>
+          <dl class="kv" style="grid-template-columns:150px 1fr">
+            <dt>Tarjetas AM</dt><dd>Tarjetas abiertas por operario por mes, y proporción de azules cerradas por Producción.</dd>
+            <dt>Llamados</dt><dd>Intervenciones de Mantenimiento por causas básicas: pistola, filtro, fuga, manguera.</dd>
+            <dt>Estándares</dt><dd>Estándares de limpieza, lubricación y apriete vigentes y cumplidos por puesto.</dd>
+            <dt>Cabina</dt><dd>Tiempo de limpieza de cabina y defectos por suciedad en revisión final.</dd>
+          </dl>
+        </div>
+      </div>
+      <p class="lead" style="max-width:none">La línea de base se toma antes del piloto con los datos que ya existen: órdenes de trabajo de Mantenimiento, tarjetas AM abiertas y defectos de revisión final.</p>
+    </div>
+    <div class="foot"><span>Los defectos por suciedad en revisión final ya se registran en la app de trazabilidad de Pintura.</span><span>Dojo AM · Pintura</span></div>
+  </section>
+
+  <!-- 15 · Cierre -->
+  <section class="slide cover" data-title="Cierre">
+    <div class="mark" aria-hidden="true">AM</div>
+    <div class="kicker">Dojo de Mantenimiento Autónomo · Unidad Pintura</div>
+    <h1 style="font-size:64px;max-width:16ch">Que el operario deje de llamar y empiece a cuidar</h1>
+    <p class="lead">Tres pasos, cuatro estaciones, tres juegos y un modelo que ya certificó a más de 1300 personas en Betim. Pedimos el área y el arranque de la fase de diseño.</p>
+    <div class="foot">
+      <span>Propuesta para la Unidad Pintura · Stellantis</span>
+      <span>Pilar Mantenimiento Autónomo</span>
+    </div>
+  </section>
+
+</div>
+</div>
+
+<nav class="nav" aria-label="Navegación de diapositivas">
+  <button id="prev" type="button" aria-label="Anterior">◀</button>
+  <button id="next" type="button" aria-label="Siguiente">▶</button>
+  <span id="counter" style="font-variant-numeric:tabular-nums">1 / 15</span>
+  <div class="dots" id="dots"></div>
+  <span class="hint">← → o espacio · F pantalla completa · Ctrl+P para PDF</span>
+</nav>
+
+<script>
+(function () {
+  var stage = document.getElementById('stage');
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var dots = document.getElementById('dots');
+  var counter = document.getElementById('counter');
+  var progress = document.getElementById('progress');
+  var n = slides.length;
+  var i = 0;
+
+  slides.forEach(function (s, k) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.title = s.getAttribute('data-title') || ('Diapositiva ' + (k + 1));
+    b.setAttribute('aria-label', b.title);
+    b.addEventListener('click', function () { go(k); });
+    dots.appendChild(b);
+  });
+
+  function go(k) {
+    i = Math.max(0, Math.min(n - 1, k));
+    slides.forEach(function (s, j) { s.classList.toggle('is-active', j === i); });
+    Array.prototype.forEach.call(dots.children, function (d, j) { d.classList.toggle('on', j === i); });
+    counter.textContent = (i + 1) + ' / ' + n;
+    progress.style.width = ((i + 1) / n * 100) + '%';
+    try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
+  }
+
+  function fit() {
+    var s = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    stage.style.transform = 'scale(' + s + ')';
+  }
+
+  document.getElementById('prev').addEventListener('click', function () { go(i - 1); });
+  document.getElementById('next').addEventListener('click', function () { go(i + 1); });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(i + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(i - 1); }
+    else if (e.key === 'Home') { go(0); }
+    else if (e.key === 'End') { go(n - 1); }
+    else if (e.key === 'f' || e.key === 'F') {
+      var el = document.documentElement;
+      if (document.fullscreenElement) { document.exitFullscreen && document.exitFullscreen(); }
+      else if (el.requestFullscreen) { el.requestFullscreen(); }
+    }
+  });
+
+  var x0 = null;
+  document.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 50) go(dx < 0 ? i + 1 : i - 1);
+    x0 = null;
+  }, { passive: true });
+
+  window.addEventListener('resize', fit);
+  fit();
+  var h = parseInt((location.hash || '').replace('#', ''), 10);
+  go(isNaN(h) ? 0 : h - 1);
+})();
+</script>
+</body>
+</html>

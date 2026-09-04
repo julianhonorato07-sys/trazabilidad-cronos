@@ -58,7 +58,15 @@ src/screens/            Registrar (revisión final) · Box · Buscar · Panel
 scripts/migrar_excel.py migración Excel → seed.json / seed.sql
 supabase/schema.sql     esquema Postgres + vistas para Power BI
 supabase/seed.sql       histórico del Excel listo para insertar
+public/dojo/index.html  presentación del Dojo de Mantenimiento Autónomo (se sirve en /dojo/)
 ```
+
+## Dojo de Mantenimiento Autónomo
+
+En `public/dojo/index.html` vive la propuesta del Dojo AM de la Unidad Pintura como presentación
+autocontenida (15 diapositivas, sin dependencias). Se sirve en `/dojo/` junto a la app.
+Navegación con flechas, espacio o swipe; `F` para pantalla completa; `Ctrl+P` exporta a PDF
+con una diapositiva por página.
 
 ## Próximos pasos sugeridos
 
