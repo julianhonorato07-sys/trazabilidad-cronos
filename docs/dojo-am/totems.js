@@ -6,7 +6,7 @@ const ic = (k, c) => abs(`icons/${k}_${c}.png`);
 const CSS = `
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:900px;height:1600px;overflow:hidden;font-family:'Liberation Sans',Arial,sans-serif;color:#fff}
-body{background:#0b3d91;position:relative;font-kerning:none;text-rendering:optimizeSpeed}
+body{background:#0b3d91;position:relative;font-kerning:none;text-rendering:optimizeSpeed;word-spacing:1.5px}
 img.bg{position:absolute;inset:0;width:900px;height:1600px;z-index:0}
 .wrap{z-index:1}
 .wrap{position:relative;padding:44px 44px 36px;height:100%;display:flex;flex-direction:column;gap:26px}
