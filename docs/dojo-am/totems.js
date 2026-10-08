@@ -6,14 +6,9 @@ const ic = (k, c) => abs(`icons/${k}_${c}.png`);
 const CSS = `
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:900px;height:1600px;overflow:hidden;font-family:'Liberation Sans',Arial,sans-serif;color:#fff}
-body{background:radial-gradient(ellipse at 50% 0%,#2a6fd6 0%,#0b3d91 40%,#061f52 100%);position:relative}
-body:before{content:'';position:absolute;inset:0;background:
- radial-gradient(circle at 12% 18%,rgba(255,255,255,.18) 0 2px,transparent 3px),
- radial-gradient(circle at 80% 8%,rgba(255,255,255,.22) 0 2px,transparent 3px),
- radial-gradient(circle at 60% 30%,rgba(255,255,255,.14) 0 1.5px,transparent 3px),
- radial-gradient(circle at 25% 70%,rgba(255,255,255,.12) 0 1.5px,transparent 3px),
- radial-gradient(circle at 88% 55%,rgba(255,255,255,.16) 0 2px,transparent 3px),
- radial-gradient(circle at 40% 92%,rgba(255,255,255,.12) 0 1.5px,transparent 3px);pointer-events:none}
+body{background:#0b3d91;position:relative;font-kerning:none;text-rendering:optimizeSpeed}
+img.bg{position:absolute;inset:0;width:900px;height:1600px;z-index:0}
+.wrap{z-index:1}
 .wrap{position:relative;padding:44px 44px 36px;height:100%;display:flex;flex-direction:column;gap:26px}
 h1{font-size:60px;line-height:1.05;text-transform:uppercase;text-align:center;letter-spacing:.5px;text-shadow:0 3px 0 rgba(0,0,0,.35),0 6px 18px rgba(0,0,0,.35)}
 h1 .y{color:#FFD400}
@@ -161,7 +156,7 @@ ${foot}`;
   const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const page = await browser.newPage({ viewport: { width: 900, height: 1600 }, deviceScaleFactor: 2 });
   for (const [name, body] of Object.entries(T)) {
-    const html = `<!doctype html><html><head><meta charset="utf-8"><style>${CSS}</style></head><body><div class="wrap">${body}</div></body></html>`;
+    const html = `<!doctype html><html><head><meta charset="utf-8"><style>${CSS}</style></head><body><img class="bg" src="${abs('assets/bg_totem.png')}"><div class="wrap">${body}</div></body></html>`;
     fs.writeFileSync(`totems_pdf/${name}.html`, html);
     await page.goto(abs(`totems_pdf/${name}.html`)); await page.waitForTimeout(150);
     const natural = await page.evaluate(() => { const kids=[...document.querySelector('.wrap').children]; return kids.reduce((a,k)=>a+k.scrollHeight,0)+26*(kids.length-1)+80; });
