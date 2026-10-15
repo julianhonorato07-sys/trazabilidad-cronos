@@ -1,11 +1,12 @@
 TÓTEMS DOJO AM - UNIDAD PINTURA (STELLANTIS) - ARCHIVOS PARA IMPRENTA
-Versión: serie "Noche Stellantis" SIN PANEL GRIS (los personajes van directo sobre el fondo azul).
-Reemplaza a la entrega anterior con panel gris detrás de cada personaje.
+Versión: serie "Noche Stellantis" SIN PANEL GRIS, con logo Stellantis aplicado (encabezado, gorras y pechos).
+Reemplaza a todas las entregas anteriores.
 
 Archivos
 - Totems_Dojo_AM_Stellantis_imprenta.pdf: las 6 piezas en un solo PDF, una por página (orden t1 a t6).
 - t1_am_sangrado.pdf ... t6_paso4_sangrado.pdf: las mismas piezas por separado.
-- Son PDF vectoriales: textos y figuras en vector, ilustraciones de personajes en imagen. Color en RGB (sRGB).
+- Son PDF vectoriales: textos y figuras en vector, ilustraciones de personajes y logos en imagen
+  (3000 x 4000 px por pieza, unos 190 ppp al tamaño final). Color en RGB (sRGB).
 
 Medidas
 - Tamaño final (caja de corte): 1125 x 1500 pt = 396,9 x 529,2 mm (proporción 3:4).
@@ -16,23 +17,50 @@ Medidas
   y, si hacen falta marcas, agregarlas en la imposición.
 - Si el tótem se imprime más grande, escalar en proporción. El sangrado escala con la pieza.
 
-Atención
-- El fondo es azul oscuro (#0B1E4F) a sangre en los 4 lados. Los campos de color también llegan al borde.
-  El sangrado continúa el borde del diseño.
-- Personajes: en t3, t4, t5 y t6 el cuerpo sale por el borde de abajo (y en t4 también por la derecha);
-  en t2 el guante derecho sale por el borde derecho. Ahí el sangrado continúa la imagen.
-  En t1 y t2 (cuerpo entero) las suelas quedan unos 1,5 mm por encima de la línea de corte, a propósito:
-  con la tolerancia normal de refile no se cortan.
-- Los uniformes llevan una luz azul hielo pintada dentro de la silueta, en el lado de arriba a la izquierda
+Fondo y bordes
+- El fondo es azul oscuro plano (#0B1E4F) a sangre en los 4 lados. Los campos de color (campo de título,
+  franja de frase, escalones, campo rojo de t1) también llegan al borde. El sangrado continúa el borde del diseño.
+
+Personajes y bordes (medido en los renders finales)
+- t1 (operaria): cuerpo entero, no sale por ningún borde. La suela queda a unos 1,5 mm por encima de la
+  línea de corte.
+- t2 (operario que señala): cuerpo entero, no sale por ningún borde. La suela queda a unos 2 mm por encima
+  de la línea de corte.
+- En t1 y t2: pedir refile con tolerancia normal y no correr el corte hacia arriba.
+- t3 (operario con planilla): sale por el borde derecho (hombro, brazo y costado) y por el de abajo.
+- t4 (dúo): salen por el borde de abajo; la operaria sale además por el borde derecho.
+- t5 (operario con el cuaderno de estándares): sale por el borde derecho y por el de abajo.
+- t6 (operario con la tablet): sale por el borde derecho y por el de abajo.
+- Ningún personaje sale por el borde de arriba ni por el izquierdo.
+- Donde el personaje sale por un borde, el sangrado repite el borde de la imagen.
+
+Luz de contorno
+- Los uniformes llevan una luz azul hielo pintada dentro de la silueta, del lado de arriba a la izquierda
   (separa la ropa azul marino del fondo azul). Es parte de la ilustración: no es un contorno ni un halo,
   no hay que quitarla ni reforzarla.
+
+Logo Stellantis (ya aplicado, no agregar nada)
+- Encabezado de los 6 tótems: logo Stellantis en blanco, entre "Dojo AM / Unidad Pintura" y el indicador
+  de pasos.
+- Gorras de los 7 personajes: emblema (anillo de puntos con la "A") bordado en blanco.
+- Pecho de los 7 personajes: palabra STELLANTIS en azul de marca #243782, en el pecho izquierdo de quien
+  viste el uniforme, siguiendo la perspectiva de la prenda. Mismo tamaño relativo al cuerpo en los 7.
+- Todos los logos están enteros y dentro de la caja de corte. Los más cercanos al borde son los de los
+  pechos de t3 (a unos 9 mm del corte derecho) y t5 (a unos 14 mm).
+- Son los logos oficiales del cliente, sin deformar, sin sombra, brillo ni contorno. No reemplazarlos
+  ni retocarlos.
+
+Dos azules distintos (no es un error de tipeo)
+- #243882: "Azul Stellantis" de la serie, el campo de color plano (campo de t1 y t3, escalón 1, franjas).
+- #243782: azul de marca del logo Stellantis del pecho (tomado del archivo del logo del cliente).
+
+Terminación y pruebas
 - Pedir laminado mate.
-- Pedir prueba de color del escalón 1 (Azul Stellantis #243882) contra el fondo #0B1E4F
+- Pedir prueba de color del escalón 1 (campo Azul Stellantis de la serie, #243882) contra el fondo #0B1E4F
   (tótem 2: el escalón "1 Limpieza inicial" de la escalera de pasos, que apoya sobre ese fondo).
   Son dos azules oscuros cercanos (contraste 1,5:1) y en el impreso no se tienen que fundir.
-- Antes del tiraje, pedir una prueba impresa al 100 % (A3, en el mismo material y laminado) de dos recortes:
-  pierna y brazo del operario del tótem 2, y gorra del operario del tótem 5. Mirarla a 3 y a 5 m:
-  la silueta del uniforme se tiene que leer contra el fondo por el lado iluminado.
-
-Pendiente
-- El logo Stellantis de las gorras de los personajes todavía no está colocado: las gorras van lisas.
+- Pedir prueba de color de la ropa azul marino de los uniformes sobre el fondo #0B1E4F: prueba impresa
+  al 100 % (A3, en el mismo material y laminado) de dos recortes: pierna y brazo del operario del tótem 2,
+  y gorra del operario del tótem 5. Mirarla a 3 y a 5 m: la silueta del uniforme se tiene que leer contra
+  el fondo por el lado iluminado. En esa misma prueba revisar el logo del pecho (azul de marca #243782
+  sobre el gris del uniforme) y el emblema blanco de la gorra.
